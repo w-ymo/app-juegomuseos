@@ -6,8 +6,8 @@ package com.gf.app.juegomuseos.dao;
 
 /**
  *
- * @author priparno
+ * @author noelp
  */
-public class AutoresDAO {
+public class ArtworkDAO {
     
 }

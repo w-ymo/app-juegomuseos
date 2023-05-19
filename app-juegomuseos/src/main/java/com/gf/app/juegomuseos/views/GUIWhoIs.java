@@ -5,6 +5,7 @@
 package com.gf.app.juegomuseos.views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -26,6 +27,8 @@ public class GUIWhoIs extends javax.swing.JFrame {
     
     private JPanel panelImages;
     private JPanel panelOptions;
+    
+    private static final Color[] colores = {new Color(255,80,80), new Color(80,255,80), new Color(80, 80, 255), new Color(255,230,70)};
     
     
     private JLabel image;
@@ -64,7 +67,7 @@ public class GUIWhoIs extends javax.swing.JFrame {
     
     private void setOptionPanel(){
         panelOptions = new JPanel(new GridLayout(2, 2));
-        panelOptions.setPreferredSize(new Dimension(this.getSize().width, (int) (this.getSize().height *0.6)));
+        panelOptions.setPreferredSize(new Dimension(this.getSize().width, (int) (this.getSize().height *0.7)));
         this.getContentPane().add(panelOptions, BorderLayout.SOUTH);
         initOptions();
         for (JButton option : options) {
@@ -74,7 +77,9 @@ public class GUIWhoIs extends javax.swing.JFrame {
     
     private void initOptions(){
         for (int i = 0; i < 4; i++) {
-            options.add(new JButton("Boton "+i));
+            JButton but = new JButton("Boton "+i);
+            but.setBackground(colores[i]);
+            options.add(but);
         }
     }
 
