@@ -5,12 +5,16 @@
 package com.gf.app.juegomuseos.views;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -50,12 +54,17 @@ public class GUIWhoIs extends javax.swing.JFrame {
         this.getContentPane().add(panelImages,BorderLayout.CENTER);
         image = new JLabel("Imagen");
         imageText = new JLabel("Bottom text");
-        panelImages.add(image);
-        panelImages.add(imageText);
+        imageText.setPreferredSize(new Dimension(this.getSize().width, (int) (this.getSize().height *0.4)));
+        imageText.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
+        image.setHorizontalAlignment(SwingConstants.CENTER);
+        imageText.setHorizontalAlignment(SwingConstants.CENTER);
+        panelImages.add(image, BorderLayout.CENTER);
+        panelImages.add(imageText, BorderLayout.SOUTH);
     }
     
     private void setOptionPanel(){
         panelOptions = new JPanel(new GridLayout(2, 2));
+        panelOptions.setPreferredSize(new Dimension(this.getSize().width, (int) (this.getSize().height *0.6)));
         this.getContentPane().add(panelOptions, BorderLayout.SOUTH);
         initOptions();
         for (JButton option : options) {
@@ -68,6 +77,40 @@ public class GUIWhoIs extends javax.swing.JFrame {
             options.add(new JButton("Boton "+i));
         }
     }
+
+    public GUIPrincipal getGuip() {
+        return guip;
+    }
+
+    public void setGuip(GUIPrincipal guip) {
+        this.guip = guip;
+    }
+
+    public JLabel getImage() {
+        return image;
+    }
+
+    public void setImage(JLabel image) {
+        this.image = image;
+    }
+
+    public JLabel getImageText() {
+        return imageText;
+    }
+
+    public void setImageText(JLabel imageText) {
+        this.imageText = imageText;
+    }
+
+    public List<JButton> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<JButton> options) {
+        this.options = options;
+    }
+    
+    
     
     
     /**
