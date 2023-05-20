@@ -4,7 +4,6 @@
  */
 package com.gf.app.juegomuseos.dao;
 
-import com.gf.app.juegomuseos.models.Artwork;
 import com.gf.app.juegomuseos.models.Country;
 import com.gf.app.juegomuseos.utils.ConnectionDB;
 import java.sql.Connection;
