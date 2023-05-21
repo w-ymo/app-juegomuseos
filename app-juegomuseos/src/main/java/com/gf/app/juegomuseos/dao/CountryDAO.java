@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class CountryDAO {
 
     public List<Country> selectAll() throws SQLException {
         String sql = "SELECT * FROM paises";
-        List<Country> lista = new ArrayList<>();
+        List<Country> list = new ArrayList<>();
         try ( Connection con = ConnectionDB.getConnection()) {
             Statement s = con.prepareStatement(sql);
             try ( ResultSet rs = s.executeQuery(sql)) {
@@ -32,7 +33,7 @@ public class CountryDAO {
                 }
             }
         }
-        return lista;
+        return list;
     }
 
     public Country selectId(int id) throws SQLException {
@@ -48,6 +49,16 @@ public class CountryDAO {
             }
         }
         return c;
+    }
+    
+    public List<Country> selectNum(int num) throws SQLException {
+        List<Country> fullList = selectAll();
+        Collections.shuffle(fullList);
+        List<Country> partialList = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            partialList.add(fullList.get(i));
+        }
+        return partialList;
     }
 
 }

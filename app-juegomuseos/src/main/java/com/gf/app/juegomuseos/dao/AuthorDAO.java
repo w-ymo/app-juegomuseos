@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -50,6 +51,16 @@ public class AuthorDAO {
             }
         }
         return a;
+    }
+    
+    public List<Author> selectNum(int num) throws SQLException {
+        List<Author> fullList = selectAll();
+        Collections.shuffle(fullList);
+        List<Author> partialList = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            partialList.add(fullList.get(i));
+        }
+        return partialList;
     }
 
 }

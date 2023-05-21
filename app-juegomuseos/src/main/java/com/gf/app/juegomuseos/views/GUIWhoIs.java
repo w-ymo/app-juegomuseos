@@ -7,7 +7,6 @@ package com.gf.app.juegomuseos.views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -25,6 +24,9 @@ public class GUIWhoIs extends javax.swing.JFrame {
 
     private GUIPrincipal guip;
     
+    //aniadir crono
+    //aniadir boton info?
+    
     private JPanel panelImages;
     private JPanel panelOptions;
     
@@ -38,7 +40,7 @@ public class GUIWhoIs extends javax.swing.JFrame {
     //net.sourceforge.napkinlaf.NapkinLookAndFeel
     
     /**
-     * Creates new form GUIQuienEs
+     * Creates new form GUIWhoIs
      */
     public GUIWhoIs() {
         initComponents();

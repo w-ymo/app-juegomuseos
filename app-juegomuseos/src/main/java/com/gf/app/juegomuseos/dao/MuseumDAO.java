@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -50,5 +51,15 @@ public class MuseumDAO {
             }
         }
         return m;
+    }
+    
+    public List<Museum> selectNum(int num) throws SQLException {
+        List<Museum> fullList = selectAll();
+        Collections.shuffle(fullList);
+        List<Museum> partialList = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            partialList.add(fullList.get(i));
+        }
+        return partialList;
     }
 }

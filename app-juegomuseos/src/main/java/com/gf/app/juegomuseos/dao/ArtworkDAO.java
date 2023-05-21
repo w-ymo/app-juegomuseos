@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class ArtworkDAO {
 
     public List<Artwork> selectAll() throws SQLException {
         String sql = "SELECT * FROM obras";
-        List<Artwork> lista = new ArrayList<>();
+        List<Artwork> list = new ArrayList<>();
         try ( Connection con = ConnectionDB.getConnection()) {
             Statement s = con.prepareStatement(sql);
             try ( ResultSet rs = s.executeQuery(sql)) {
@@ -37,7 +38,7 @@ public class ArtworkDAO {
                 }
             }
         }
-        return lista;
+        return list;
     }
 
     public Artwork selectId(int id) throws SQLException {
@@ -57,5 +58,15 @@ public class ArtworkDAO {
             }
         }
         return a;
+    }
+
+    public List<Artwork> selectNum(int num) throws SQLException {
+        List<Artwork> fullList = selectAll();
+        Collections.shuffle(fullList);
+        List<Artwork> partialList = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            partialList.add(fullList.get(i));
+        }
+        return partialList;
     }
 }
