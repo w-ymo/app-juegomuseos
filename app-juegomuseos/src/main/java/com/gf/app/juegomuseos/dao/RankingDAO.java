@@ -4,7 +4,6 @@
  */
 package com.gf.app.juegomuseos.dao;
 
-import com.gf.app.juegomuseos.models.Museum;
 import com.gf.app.juegomuseos.models.Ranking;
 import com.gf.app.juegomuseos.utils.ConnectionDB;
 import java.sql.Connection;
@@ -12,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -53,5 +53,14 @@ public class RankingDAO {
         return r;
     }
     
+    public List<Ranking> selectNum(int num) throws SQLException {
+        List<Ranking> fullList = selectAll();
+        Collections.shuffle(fullList);
+        List<Ranking> partialList = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            partialList.add(fullList.get(i));
+        }
+        return partialList;
+    }
     
 }
