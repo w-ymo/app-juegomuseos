@@ -86,9 +86,9 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
 
     //metodo que coja y te ponga imagenes (nuevas) / va en el controlador
     private void setGame() {
-        while (correct < 5) {
+        //while (correct < 5) {
             setIcon();
-        }
+        //}
     }
 
     //va en el controlador

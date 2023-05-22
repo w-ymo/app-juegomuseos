@@ -78,9 +78,9 @@ public class GUIWhoIs extends javax.swing.JFrame {
     }
 
     private void setGame() {
-        while (correct < 5) {
+        //while (correct < 5) {
             setIcon();
-        }
+        //}
     }
 
     private void setIcon() {
