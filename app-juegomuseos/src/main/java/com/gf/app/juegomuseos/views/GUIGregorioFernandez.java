@@ -5,12 +5,21 @@
 package com.gf.app.juegomuseos.views;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,15 +31,15 @@ import javax.swing.JPanel;
 public class GUIGregorioFernandez extends javax.swing.JFrame {
 
     private GUIPrincipal guip;
-    
+
     //Aniadir crono
     //aniadir boton de info?
-    
     private JPanel panelTitle;
     private JPanel panelImages;
-    
+
     private List<JButton> images = new ArrayList<>();
-    
+
+    private int correct = 0;
     
     /**
      * Creates new form GUIGregorioFernandez
@@ -38,39 +47,89 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
     public GUIGregorioFernandez() {
         initComponents();
         setFrame();
+        setGame();
     }
-    
-    private void setFrame(){
+
+    private void setFrame() {
         this.setExtendedState(MAXIMIZED_BOTH);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.getContentPane().setSize(screenSize);
         this.getContentPane().setLayout(new BorderLayout());
         setTitlePanel();
         setImagePanel();
     }
 
-    private void setTitlePanel(){
+    private void setTitlePanel() {
         panelTitle = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 20));
         this.getContentPane().add(panelTitle, BorderLayout.NORTH);
         JLabel title = new JLabel("SELECCIONA LA IMAGEN QUE PERTENECE A GREGORIO FERNÁNDEZ");
         title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
         panelTitle.add(title);
     }
-    
-    
-    private void setImagePanel(){
+
+    private void setImagePanel() {
         panelImages = new JPanel(new GridLayout(0, 2));
         this.getContentPane().add(panelImages, BorderLayout.CENTER);
+        panelImages.setSize(this.getContentPane().getWidth(), (int) (this.getContentPane().getHeight() * 0.85));
         initButtonImage();
         for (JButton image : images) {
             panelImages.add(image);
         }
     }
-    
-    private void initButtonImage(){
+
+    private void initButtonImage() {
         for (int i = 0; i < 2; i++) {
-            JButton but = new JButton("Boton "+i);
+            JButton but = new JButton();
             images.add(but);
         }
     }
+
+    //metodo que coja y te ponga imagenes (nuevas) / va en el controlador
+    private void setGame() {
+        while (correct < 5) {
+            setIcon();
+        }
+    }
+
+    //va en el controlador
+    private void setIcon() {
+        for (JButton image : images) {
+            ImageIcon i = null;
+            try {
+                i = new ImageIcon(new URL("https://picsum.photos/700/900"));
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Image proportionalImage = i.getImage().getScaledInstance(panelImages.getWidth() / 2 - 200, panelImages.getHeight(), Image.SCALE_AREA_AVERAGING);
+            image.setIcon(new ImageIcon(proportionalImage));
+        }
+    }
+
+    public GUIPrincipal getGuip() {
+        return guip;
+    }
+
+    public void setGuip(GUIPrincipal guip) {
+        this.guip = guip;
+    }
+
+    public List<JButton> getImages() {
+        return images;
+    }
+
+    public void setImages(List<JButton> images) {
+        this.images = images;
+    }
+
+    public int getCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(int correct) {
+        this.correct = correct;
+    }
+
+    
     
     /**
      * This method is called from within the constructor to initialize the form.

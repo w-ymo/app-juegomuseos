@@ -9,8 +9,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,22 +30,21 @@ import javax.swing.SwingConstants;
 public class GUIWhoIs extends javax.swing.JFrame {
 
     private GUIPrincipal guip;
-    
+
     //aniadir crono
     //aniadir boton info?
-    
     private JPanel panelImages;
     private JPanel panelOptions;
-    
-    private static final Color[] colores = {new Color(255,80,80), new Color(80,255,80), new Color(80, 80, 255), new Color(255,230,70)};
-    
-    
+
+    private static final Color[] colores = {new Color(255, 80, 80), new Color(80, 255, 80), new Color(80, 80, 255), new Color(255, 230, 70)};
+
     private JLabel image;
     private JLabel imageText;
     private List<JButton> options = new ArrayList<>();
-    
+
+    int correct = 0;
+
     //net.sourceforge.napkinlaf.NapkinLookAndFeel
-    
     /**
      * Creates new form GUIWhoIs
      */
@@ -46,40 +52,62 @@ public class GUIWhoIs extends javax.swing.JFrame {
         initComponents();
         setFrame();
     }
-    
-    private void setFrame(){
+
+    private void setFrame() {
         this.setExtendedState(MAXIMIZED_BOTH);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.getContentPane().setSize(screenSize);
         this.getContentPane().setLayout(new BorderLayout());
         setImagePanel();
         setOptionPanel();
+        setGame();
     }
 
-    private void setImagePanel(){
+    private void setImagePanel() {
         panelImages = new JPanel(new BorderLayout());
-        this.getContentPane().add(panelImages,BorderLayout.CENTER);
-        image = new JLabel("Imagen");
+        panelImages.setSize(new Dimension(this.getContentPane().getSize().width, (int) (this.getContentPane().getSize().height * 0.6)));
+        this.getContentPane().add(panelImages, BorderLayout.CENTER);
+        image = new JLabel();
         imageText = new JLabel("Bottom text");
-        imageText.setPreferredSize(new Dimension(this.getSize().width, (int) (this.getSize().height *0.4)));
+        imageText.setPreferredSize(new Dimension(this.getSize().width, (int) (this.getSize().height * 0.4)));
         imageText.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
         image.setHorizontalAlignment(SwingConstants.CENTER);
         imageText.setHorizontalAlignment(SwingConstants.CENTER);
         panelImages.add(image, BorderLayout.CENTER);
         panelImages.add(imageText, BorderLayout.SOUTH);
     }
-    
-    private void setOptionPanel(){
+
+    private void setGame() {
+        while (correct < 5) {
+            setIcon();
+        }
+    }
+
+    private void setIcon() {
+        ImageIcon i = null;
+        try {
+            i = new ImageIcon(new URL("https://picsum.photos/900/400"));
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Image proportionalImage = i.getImage().getScaledInstance(panelImages.getWidth() - 400, panelImages.getHeight(), Image.SCALE_SMOOTH);
+        image.setIcon(new ImageIcon(proportionalImage));
+
+    }
+
+    private void setOptionPanel() {
         panelOptions = new JPanel(new GridLayout(2, 2));
-        panelOptions.setPreferredSize(new Dimension(this.getSize().width, (int) (this.getSize().height *0.7)));
+        panelOptions.setPreferredSize(new Dimension(this.getSize().width, (int) (this.getSize().height * 0.7)));
         this.getContentPane().add(panelOptions, BorderLayout.SOUTH);
         initOptions();
         for (JButton option : options) {
             panelOptions.add(option);
         }
     }
-    
-    private void initOptions(){
+
+    private void initOptions() {
         for (int i = 0; i < 4; i++) {
-            JButton but = new JButton("Boton "+i);
+            JButton but = new JButton("Boton " + i);
             but.setBackground(colores[i]);
             options.add(but);
         }
@@ -116,7 +144,15 @@ public class GUIWhoIs extends javax.swing.JFrame {
     public void setOptions(List<JButton> options) {
         this.options = options;
     }
-    
+
+    public int getCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(int correct) {
+        this.correct = correct;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
