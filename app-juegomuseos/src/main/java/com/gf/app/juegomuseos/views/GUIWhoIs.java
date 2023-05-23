@@ -4,6 +4,8 @@
  */
 package com.gf.app.juegomuseos.views;
 
+import com.gf.app.juegomuseos.models.Artwork;
+import com.gf.app.juegomuseos.models.Author;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -42,6 +44,8 @@ public class GUIWhoIs extends javax.swing.JFrame {
     private JLabel imageText;
     private List<JButton> options = new ArrayList<>();
 
+    private Artwork solution;
+    
     int correct = 0;
 
     //net.sourceforge.napkinlaf.NapkinLookAndFeel
@@ -77,13 +81,16 @@ public class GUIWhoIs extends javax.swing.JFrame {
         panelImages.add(imageText, BorderLayout.SOUTH);
     }
 
+    
+    //esto en el controlador
     private void setGame() {
         //while (correct < 5) {
             setIcon();
         //}
     }
 
-    private void setIcon() {
+    public void setIcon() {
+        //aniadir la imagen
         ImageIcon i = null;
         try {
             i = new ImageIcon(new URL("https://picsum.photos/900/400"));
@@ -151,6 +158,14 @@ public class GUIWhoIs extends javax.swing.JFrame {
 
     public void setCorrect(int correct) {
         this.correct = correct;
+    }
+
+    public Artwork getSolution() {
+        return solution;
+    }
+
+    public void setSolution(Artwork solution) {
+        this.solution = solution;
     }
 
     /**
