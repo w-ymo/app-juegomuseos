@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -70,7 +69,7 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
     private void setImagePanel() {
         panelImages = new JPanel(new GridLayout(0, 2));
         this.getContentPane().add(panelImages, BorderLayout.CENTER);
-        panelImages.setSize(this.getContentPane().getWidth(), (int) (this.getContentPane().getHeight() * 0.85));
+        panelImages.setSize(this.getContentPane().getWidth(), (int) (this.getContentPane().getHeight() * 0.70));
         initButtonImage();
         for (JButton image : images) {
             panelImages.add(image);
