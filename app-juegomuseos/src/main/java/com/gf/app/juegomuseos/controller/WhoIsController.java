@@ -24,6 +24,12 @@ public class WhoIsController {
 
     private ArtworkDAO awDAO = new ArtworkDAO();
     private AuthorDAO atDAO = new AuthorDAO();
+
+    public WhoIsController(GUIWhoIs view) {
+        this.view = view;
+        addListenerButtons();
+        launchGame();
+    }
     
     private ActionListener listenerButtons = (e) -> {
         JButton but = (JButton) e.getSource();

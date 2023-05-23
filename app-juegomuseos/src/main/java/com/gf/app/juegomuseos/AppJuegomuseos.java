@@ -5,6 +5,9 @@
 
 package com.gf.app.juegomuseos;
 
+import com.gf.app.juegomuseos.controller.WhoIsController;
+import com.gf.app.juegomuseos.views.GUIWhoIs;
+
 /**
  *
  * @author priparno
@@ -12,7 +15,7 @@ package com.gf.app.juegomuseos;
 public class AppJuegomuseos {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-        System.out.println("Choripan");
+        GUIWhoIs wi = new GUIWhoIs();
+        WhoIsController wi_contr = new WhoIsController(wi);
     }
 }
