@@ -30,7 +30,7 @@ public class WhoIsController {
         addListenerButtons();
         launchGame();
     }
-    
+
     private ActionListener listenerButtons = (e) -> {
         JButton but = (JButton) e.getSource();
         int aw_id = view.getSolution().getId_obra();
@@ -48,18 +48,24 @@ public class WhoIsController {
         }
     };
 
-    private void addListenerButtons(){
+    private void addListenerButtons() {
         for (JButton option : view.getOptions()) {
             option.addActionListener(listenerButtons);
         }
     }
-    
-    private void launchGame(){
+
+    private void launchGame() {
         view.setVisible(true);
         //while (contador < 5)
         view.setIcon();
     }
-    
-    //lanzar juego
-    
+
+    //se me ocurre hacer un bucle (hay que meter un contador y lo de los errores)
+    //que lo haga 5 veces
+    //y coja 4 obras al puto azar
+    //que una de ellas la ponga como imagen
+    //y pista (poner el texto en botones)
+    //o si hacemos de adivinar autor (me parece más qrious)
+    //sacar el autor, añadir otros 3 random y hacer shuffle de la lista de 
+    //botones (que ya tienen el nombre de los autores)
 }
