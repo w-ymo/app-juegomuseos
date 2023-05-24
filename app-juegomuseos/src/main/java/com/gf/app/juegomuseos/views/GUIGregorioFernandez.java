@@ -38,10 +38,6 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
     private JPanel panelImages;
 
     private List<JButton> images = new ArrayList<>();
-
-    private Artwork solution;
-    
-    private int correct = 0;
     
     /**
      * Creates new form GUIGregorioFernandez
@@ -100,22 +96,6 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
 
     public void setImages(List<JButton> images) {
         this.images = images;
-    }
-
-    public int getCorrect() {
-        return correct;
-    }
-
-    public void setCorrect(int correct) {
-        this.correct = correct;
-    }
-
-    public Artwork getSolution() {
-        return solution;
-    }
-
-    public void setSolution(Artwork solution) {
-        this.solution = solution;
     }
 
     public JPanel getPanelTitle() {

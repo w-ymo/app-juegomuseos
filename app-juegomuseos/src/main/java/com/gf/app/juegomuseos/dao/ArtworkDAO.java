@@ -30,6 +30,7 @@ public class ArtworkDAO {
                     Artwork a = new Artwork();
                     a.setId_obra(rs.getInt("id_obra"));
                     a.setNombre_obra(rs.getString("nombre_obra"));
+                    a.setClave_obra(rs.getString("clave_obra"));
                     a.setDescripcion_obra(rs.getString("desripcion_obra"));
                     a.setDisciplina(rs.getString("disciplina"));
                     a.setId_autor(rs.getInt("id_autor"));
@@ -49,6 +50,7 @@ public class ArtworkDAO {
                 if (rs.next()) {
                     a.setId_obra(rs.getInt("id_obra"));
                     a.setNombre_obra(rs.getString("nombre_obra"));
+                    a.setClave_obra(rs.getString("clave_obra"));
                     a.setDescripcion_obra(rs.getString("desripcion_obra"));
                     a.setDisciplina(rs.getString("disciplina"));
                     a.setId_autor(rs.getInt("id_autor"));
@@ -67,5 +69,48 @@ public class ArtworkDAO {
             partialList.add(fullList.get(i));
         }
         return partialList;
+    }
+
+    public List<Artwork> selectSimilar(String key) throws SQLException {
+        String sql = "SELECT * FROM obras WHERE clave_obra='"+key+"'";
+        List<Artwork> list = new ArrayList<>();
+        try ( Connection con = ConnectionDB.getConnection()) {
+            Statement s = con.prepareStatement(sql);
+            try ( ResultSet rs = s.executeQuery(sql)) {
+                while (rs.next()) {
+                    Artwork a = new Artwork();
+                    a.setId_obra(rs.getInt("id_obra"));
+                    a.setNombre_obra(rs.getString("nombre_obra"));
+                    a.setClave_obra(rs.getString("clave_obra"));
+                    a.setDescripcion_obra(rs.getString("desripcion_obra"));
+                    a.setDisciplina(rs.getString("disciplina"));
+                    a.setId_autor(rs.getInt("id_autor"));
+                    a.setId_museo(rs.getInt("id_museo"));
+                }
+            }
+        }
+        return list;
+    }
+
+    public List<Artwork> selectSimilar(String key, int id_author) throws SQLException {
+        String sql = "SELECT * FROM obras WHERE clave_obra='"+key+"' and id_autor<>"+id_author;
+        List<Artwork> list = new ArrayList<>();
+        try ( Connection con = ConnectionDB.getConnection()) {
+            Statement s = con.prepareStatement(sql);
+            try ( ResultSet rs = s.executeQuery(sql)) {
+                while (rs.next()) {
+                    Artwork a = new Artwork();
+                    a.setId_obra(rs.getInt("id_obra"));
+                    a.setNombre_obra(rs.getString("nombre_obra"));
+                    a.setClave_obra(rs.getString("clave_obra"));
+                    a.setDescripcion_obra(rs.getString("desripcion_obra"));
+                    a.setDisciplina(rs.getString("disciplina"));
+                    a.setId_autor(rs.getInt("id_autor"));
+                    a.setId_museo(rs.getInt("id_museo"));
+                }
+            }
+        }
+        return list;
+
     }
 }

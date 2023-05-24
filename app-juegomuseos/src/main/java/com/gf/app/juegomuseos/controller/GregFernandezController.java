@@ -14,6 +14,9 @@ import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -31,6 +34,8 @@ public class GregFernandezController {
     private ArtworkDAO awDAO = new ArtworkDAO();
     private AuthorDAO atDAO = new AuthorDAO();
 
+    private Artwork solution;
+    
     public GregFernandezController(GUIGregorioFernandez view) {
         this.view = view;
         addListenerButtons();
@@ -39,12 +44,12 @@ public class GregFernandezController {
 
     private ActionListener listenerButtons = (e) -> {
         JButton but = (JButton) e.getSource();
-        int aw_id = view.getSolution().getId_obra();
+        int aw_id = solution.getId_obra();
         try {
             Artwork aw = awDAO.selectId(aw_id);
             Author at = atDAO.selectId(aw.getId_autor());
             if ("Gregorio Fernandez".equals(at.getNombre_autor())) {
-                view.setCorrect(view.getCorrect() + 1);
+                //de puta madre continuas
             } else {
                 //la respuesta correcta es
                 JOptionPane.showMessageDialog(null, "La solucion era " + at.getNombre_autor());
@@ -64,6 +69,24 @@ public class GregFernandezController {
         view.setVisible(true);
         //while (contador < 5)
         setIcon();
+    }
+
+    private void initGame() {
+        try {
+            solution = awDAO.selectNum(1).get(0);
+            List<Artwork> artworksNames = new ArrayList<>();
+            artworksNames.add(solution);
+            List<Artwork> fakeArtwork = awDAO.selectSimilar("campo clave");
+            Collections.shuffle(fakeArtwork);
+            artworksNames.add(fakeArtwork.get(1));
+            Collections.shuffle(artworksNames);
+            for (int i = 0; i < view.getImages().size(); i++) {
+                view.getImages().get(i).setText(artworksNames.get(i).getNombre_obra()); //susttituir id_obra por URL
+            }
+            setIcon();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
+        }
     }
 
     public void setIcon() {
