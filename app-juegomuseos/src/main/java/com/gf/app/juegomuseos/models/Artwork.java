@@ -11,7 +11,8 @@ package com.gf.app.juegomuseos.models;
 public class Artwork {
     
     private int id_obra;
-    private String nombre_obra;
+    private String clave_obra;
+    private String nombre_obra; 
     private String descripcion_obra;
     private String disciplina;
     private int id_museo;
@@ -25,6 +26,14 @@ public class Artwork {
         this.id_obra = id_obra;
     }
 
+    public String getClave_obra() {
+        return clave_obra;
+    }
+
+    public void setClave_obra(String clave_obra) {
+        this.clave_obra = clave_obra;
+    }
+     
     public String getNombre_obra() {
         return nombre_obra;
     }
