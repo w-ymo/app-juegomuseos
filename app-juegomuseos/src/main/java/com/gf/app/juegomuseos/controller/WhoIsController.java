@@ -8,9 +8,19 @@ import com.gf.app.juegomuseos.dao.ArtworkDAO;
 import com.gf.app.juegomuseos.dao.AuthorDAO;
 import com.gf.app.juegomuseos.models.Artwork;
 import com.gf.app.juegomuseos.models.Author;
+import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
 import com.gf.app.juegomuseos.views.GUIWhoIs;
+import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -24,7 +34,12 @@ public class WhoIsController {
 
     private ArtworkDAO awDAO = new ArtworkDAO();
     private AuthorDAO atDAO = new AuthorDAO();
-    
+
+    private int counter;
+
+    private Artwork imageSelected;
+    private Author solution;
+
     public WhoIsController(GUIWhoIs view) {
         this.view = view;
         addListenerButtons();
@@ -43,6 +58,7 @@ public class WhoIsController {
                 //la respuesta correcta es
                 JOptionPane.showMessageDialog(null, "La solucion era " + at.getNombre_autor());
             }
+            counter++;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error garrafal");
         }
@@ -57,7 +73,39 @@ public class WhoIsController {
     private void launchGame() {
         view.setVisible(true);
         //while (contador < 5)
-        view.setIcon();
+        setIcon();
+    }
+
+    private void initGame() {
+        try {
+            imageSelected = awDAO.selectNum(1).get(0);
+            solution = atDAO.selectId(imageSelected.getId_autor());
+            List<Author> authorsNames = new ArrayList<>();
+            authorsNames.add(solution);
+            authorsNames.addAll(atDAO.selectNum(3));
+            Collections.shuffle(authorsNames);
+            for (int i = 0; i < view.getOptions().size(); i++) {
+                view.getOptions().get(i).setText(authorsNames.get(i).getNombre_autor());
+            }
+            setIcon();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
+        }
+    }
+
+    public void setIcon() {
+        //aniadir la imagen
+        ImageIcon i = null;
+        try {
+            //poner url de imageSelected
+            i = new ImageIcon(new URL("https://picsum.photos/900/400"));
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Image proportionalImage = i.getImage().getScaledInstance(view.getPanelImages().getWidth() - 400,
+                view.getPanelImages().getHeight(), Image.SCALE_SMOOTH);
+        view.getImage().setIcon(new ImageIcon(proportionalImage));
+
     }
 
     //se me ocurre hacer un bucle (hay que meter un contador y lo de los errores)

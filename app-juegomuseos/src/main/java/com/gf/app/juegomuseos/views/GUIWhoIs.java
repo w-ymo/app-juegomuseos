@@ -69,11 +69,11 @@ public class GUIWhoIs extends javax.swing.JFrame {
 
     private void setImagePanel() {
         panelImages = new JPanel(new BorderLayout());
-        panelImages.setSize(new Dimension(this.getContentPane().getSize().width, (int) (this.getContentPane().getSize().height * 0.6)));
+        panelImages.setSize(new Dimension(this.getContentPane().getSize().width, (int) (this.getContentPane().getSize().height * 0.8)));
         this.getContentPane().add(panelImages, BorderLayout.CENTER);
         image = new JLabel();
         imageText = new JLabel("Bottom text");
-        imageText.setPreferredSize(new Dimension(this.getSize().width, (int) (this.getSize().height * 0.4)));
+        imageText.setPreferredSize(new Dimension(this.getSize().width, (int) (this.getSize().height * 0.2)));
         imageText.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
         image.setHorizontalAlignment(SwingConstants.CENTER);
         imageText.setHorizontalAlignment(SwingConstants.CENTER);
@@ -81,30 +81,9 @@ public class GUIWhoIs extends javax.swing.JFrame {
         panelImages.add(imageText, BorderLayout.SOUTH);
     }
 
-    
-    //esto en el controlador
-    private void setGame() {
-        //while (correct < 5) {
-            setIcon();
-        //}
-    }
-
-    public void setIcon() {
-        //aniadir la imagen
-        ImageIcon i = null;
-        try {
-            i = new ImageIcon(new URL("https://picsum.photos/900/400"));
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Image proportionalImage = i.getImage().getScaledInstance(panelImages.getWidth() - 400, panelImages.getHeight(), Image.SCALE_SMOOTH);
-        image.setIcon(new ImageIcon(proportionalImage));
-
-    }
-
     private void setOptionPanel() {
         panelOptions = new JPanel(new GridLayout(2, 2));
-        panelOptions.setPreferredSize(new Dimension(this.getSize().width, (int) (this.getSize().height * 0.7)));
+        panelOptions.setPreferredSize(new Dimension(this.getSize().width, (int) (this.getSize().height * 0.5)));
         this.getContentPane().add(panelOptions, BorderLayout.SOUTH);
         initOptions();
         for (JButton option : options) {
@@ -168,6 +147,22 @@ public class GUIWhoIs extends javax.swing.JFrame {
         this.solution = solution;
     }
 
+    public JPanel getPanelImages() {
+        return panelImages;
+    }
+
+    public void setPanelImages(JPanel panelImages) {
+        this.panelImages = panelImages;
+    }
+
+    public JPanel getPanelOptions() {
+        return panelOptions;
+    }
+
+    public void setPanelOptions(JPanel panelOptions) {
+        this.panelOptions = panelOptions;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -9,8 +9,14 @@ import com.gf.app.juegomuseos.dao.AuthorDAO;
 import com.gf.app.juegomuseos.models.Artwork;
 import com.gf.app.juegomuseos.models.Author;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
+import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -30,7 +36,7 @@ public class GregFernandezController {
         addListenerButtons();
         launchGame();
     }
-    
+
     private ActionListener listenerButtons = (e) -> {
         JButton but = (JButton) e.getSource();
         int aw_id = view.getSolution().getId_obra();
@@ -48,19 +54,32 @@ public class GregFernandezController {
         }
     };
 
-    private void addListenerButtons(){
+    private void addListenerButtons() {
         for (JButton option : view.getImages()) {
             option.addActionListener(listenerButtons);
         }
     }
-    
-    private void launchGame(){
+
+    private void launchGame() {
         view.setVisible(true);
         //while (contador < 5)
-        view.setIcon();
+        setIcon();
     }
-    
-    
+
+    public void setIcon() {
+        for (JButton image : view.getImages()) {
+            ImageIcon i = null;
+            try {
+                i = new ImageIcon(new URL("https://picsum.photos/700/900"));
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Image proportionalImage = i.getImage().getScaledInstance(view.getPanelImages().getWidth() / 2 - 200,
+                    view.getPanelImages().getHeight(), Image.SCALE_AREA_AVERAGING);
+            image.setIcon(new ImageIcon(proportionalImage));
+        }
+    }
+
     //setIcons (busco una imagen y luego cojo otra random (una de gregorio y otra no))
     //se me ocurre coger todas las imagenes de gregorio fernandez
     //caparlo a 5 porque asi salen a veces distintas
@@ -70,5 +89,4 @@ public class GregFernandezController {
     //piedad para que sea similar
     //o
     //random tambien, pero que pille las obras que sean escultura y que no sean de gregorio fernandez
-
 }

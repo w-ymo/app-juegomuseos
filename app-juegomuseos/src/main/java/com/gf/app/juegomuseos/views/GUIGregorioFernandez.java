@@ -86,27 +86,6 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
         }
     }
 
-    //metodo que coja y te ponga imagenes (nuevas) / va en el controlador
-    private void setGame() {
-        //while (correct < 5) {
-            setIcon();
-        //}
-    }
-
-    //va en el controlador
-    public void setIcon() {
-        for (JButton image : images) {
-            ImageIcon i = null;
-            try {
-                i = new ImageIcon(new URL("https://picsum.photos/700/900"));
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            Image proportionalImage = i.getImage().getScaledInstance(panelImages.getWidth() / 2 - 200, panelImages.getHeight(), Image.SCALE_AREA_AVERAGING);
-            image.setIcon(new ImageIcon(proportionalImage));
-        }
-    }
-
     public GUIPrincipal getGuip() {
         return guip;
     }
@@ -137,6 +116,22 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
 
     public void setSolution(Artwork solution) {
         this.solution = solution;
+    }
+
+    public JPanel getPanelTitle() {
+        return panelTitle;
+    }
+
+    public void setPanelTitle(JPanel panelTitle) {
+        this.panelTitle = panelTitle;
+    }
+
+    public JPanel getPanelImages() {
+        return panelImages;
+    }
+
+    public void setPanelImages(JPanel panelImages) {
+        this.panelImages = panelImages;
     }
     
     /**

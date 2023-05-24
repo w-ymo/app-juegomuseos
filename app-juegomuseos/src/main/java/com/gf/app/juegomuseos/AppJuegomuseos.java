@@ -16,10 +16,10 @@ import com.gf.app.juegomuseos.views.GUIWhoIs;
 public class AppJuegomuseos {
 
     public static void main(String[] args) {
-//        GUIWhoIs wi = new GUIWhoIs();
-//        WhoIsController wi_contr = new WhoIsController(wi);
+        GUIWhoIs wi = new GUIWhoIs();
+        WhoIsController wi_contr = new WhoIsController(wi);
 
-        GUIGregorioFernandez gf = new GUIGregorioFernandez();
-        GregFernandezController gf_contr = new GregFernandezController(gf);
+//        GUIGregorioFernandez gf = new GUIGregorioFernandez();
+//        GregFernandezController gf_contr = new GregFernandezController(gf);
     }
 }
