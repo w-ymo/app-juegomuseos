@@ -24,7 +24,7 @@ public class WhoIsController {
 
     private ArtworkDAO awDAO = new ArtworkDAO();
     private AuthorDAO atDAO = new AuthorDAO();
-
+    
     public WhoIsController(GUIWhoIs view) {
         this.view = view;
         addListenerButtons();
@@ -33,9 +33,9 @@ public class WhoIsController {
 
     private ActionListener listenerButtons = (e) -> {
         JButton but = (JButton) e.getSource();
-        int aw_id = view.getSolution().getId_obra();
+        int awId = view.getSolution().getId_obra();
         try {
-            Artwork aw = awDAO.selectId(aw_id);
+            Artwork aw = awDAO.selectId(awId);
             Author at = atDAO.selectId(aw.getId_autor());
             if (but.getText().equals(at.getNombre_autor())) {
                 view.setCorrect(view.getCorrect() + 1);

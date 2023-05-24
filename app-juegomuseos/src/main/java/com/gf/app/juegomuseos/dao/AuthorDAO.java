@@ -43,7 +43,7 @@ public class AuthorDAO {
         try ( Connection con = ConnectionDB.getConnection()) {
             Statement s = con.prepareStatement(sql);
             try ( ResultSet rs = s.executeQuery(sql)) {
-                if(rs.next()) {
+                if (rs.next()) {
                     a.setId_autor(rs.getInt("id_autor"));
                     a.setNombre_autor(rs.getString("nombre_autor"));
                     a.setId_pais(rs.getInt("id_pais"));
@@ -52,7 +52,7 @@ public class AuthorDAO {
         }
         return a;
     }
-    
+
     public List<Author> selectNum(int num) throws SQLException {
         List<Author> fullList = selectAll();
         Collections.shuffle(fullList);
@@ -61,6 +61,20 @@ public class AuthorDAO {
             partialList.add(fullList.get(i));
         }
         return partialList;
+    }
+
+    public int getIdGregorioFernandez() throws SQLException {
+        String sql = "SELECT id_autor FROM autores WHERE nombre_autor='Gregorio Fernández'";
+        int id = 0;
+        try ( Connection con = ConnectionDB.getConnection()) {
+            Statement s = con.prepareStatement(sql);
+            try ( ResultSet rs = s.executeQuery(sql)) {
+                if (rs.next()) {
+                    id = rs.getInt("id_autor");
+                }
+            }
+        }
+        return id;
     }
 
 }
