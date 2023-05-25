@@ -5,14 +5,19 @@
 package com.gf.app.juegomuseos.views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -23,11 +28,11 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class GUIMuseumsTF extends javax.swing.JFrame {
 
     private GUIPrincipal guip;
+    private JPanel museumPanel;
+    private JPanel buttonsPanel;
     private JLabel museumLabel;
-    private JLabel trueLabel;
-    private JLabel falseLabel;
-    private JRadioButton trueRadioButton;
-    private JRadioButton falseRadioButton;
+    private JButton trueButton;
+    private JButton falseButton;
 
     /**
      * Creates new form GUIVFMuseos
@@ -38,7 +43,9 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
         try {
             initComponents();
             setFrame();
-            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");            
+            setMuseumPanel();
+            setButtonsPanel();
+            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");   
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -53,15 +60,27 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
     private void setFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.getContentPane().setLayout(new BorderLayout());
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        this.getContentPane().add(panel, BorderLayout.CENTER);
-        museumLabel = new JLabel("Museo Coconut");
-        museumLabel.setFont(new Font(Font.SERIF, Font.BOLD, 25));
-        panel.add(museumLabel);
+        this.getContentPane().setLayout(new BorderLayout());       
     }
     
+    private void setMuseumPanel() {
+        museumPanel = new JPanel(new BorderLayout());
+        this.getContentPane().add(museumPanel, BorderLayout.CENTER);
+        museumLabel = new JLabel("Museo Coconut");
+        museumLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        museumPanel.add(museumLabel, BorderLayout.CENTER);
+    }
     
+    private void setButtonsPanel() {
+        buttonsPanel = new JPanel(new GridLayout(1, 2));
+        this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
+        trueButton = new JButton("Existe");
+        trueButton.setPreferredSize(new Dimension(100, 50));
+        falseButton = new JButton("No existe");
+        falseButton.setPreferredSize(new Dimension(100, 50));
+        buttonsPanel.add(trueButton, BorderLayout.WEST);
+        buttonsPanel.add(falseButton, BorderLayout.EAST);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
