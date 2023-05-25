@@ -35,9 +35,9 @@ public class GregFernandezController {
     private AuthorDAO atDAO = new AuthorDAO();
 
     private int counter;
-    
+
     private Artwork solution;
-    
+
     public GregFernandezController(GUIGregorioFernandez view) {
         this.view = view;
         addListenerButtons();
@@ -51,11 +51,12 @@ public class GregFernandezController {
             Artwork aw = awDAO.selectId(aw_id);
             Author at = atDAO.selectId(aw.getId_autor());
             if ("Gregorio Fernandez".equals(at.getNombre_autor())) {
-                //de puta madre continuas
+                //de puta madre avanzas
             } else {
                 //la respuesta correcta es
                 JOptionPane.showMessageDialog(null, "La solucion era " + at.getNombre_autor());
             }
+            counter++;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error garrafal");
         }
@@ -78,31 +79,29 @@ public class GregFernandezController {
             solution = awDAO.selectNum(1).get(0);
             List<Artwork> artworksNames = new ArrayList<>();
             artworksNames.add(solution);
-            List<Artwork> fakeArtwork = awDAO.selectSimilar("campo clave");
+            //el campo clave sera el de la solucion
+            List<Artwork> fakeArtwork = awDAO.selectSimilar(solution.getClave_obra(), atDAO.getIdGregorioFernandez());
             Collections.shuffle(fakeArtwork);
-            artworksNames.add(fakeArtwork.get(1));
+            artworksNames.add(fakeArtwork.get(0));
             Collections.shuffle(artworksNames);
             for (int i = 0; i < view.getImages().size(); i++) {
-                view.getImages().get(i).setText(artworksNames.get(i).getNombre_obra()); //susttituir id_obra por URL
+                setIcon("url", view.getImages().get(i));
             }
-            setIcon();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
         }
     }
 
-    public void setIcon() {
-        for (JButton image : view.getImages()) {
-            ImageIcon i = null;
-            try {
-                i = new ImageIcon(new URL("https://picsum.photos/700/900"));
-            } catch (MalformedURLException ex) {
-                Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            Image proportionalImage = i.getImage().getScaledInstance(view.getPanelImages().getWidth() / 2 - 200,
-                    view.getPanelImages().getHeight(), Image.SCALE_AREA_AVERAGING);
-            image.setIcon(new ImageIcon(proportionalImage));
+    public void setIcon(String url, JButton image) {
+        ImageIcon i = null;
+        try {
+            i = new ImageIcon(new URL(url));
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Image proportionalImage = i.getImage().getScaledInstance(view.getPanelImages().getWidth() / 2 - 200,
+                view.getPanelImages().getHeight(), Image.SCALE_AREA_AVERAGING);
+        image.setIcon(new ImageIcon(proportionalImage));
     }
 
     //setIcons (busco una imagen y luego cojo otra random (una de gregorio y otra no))

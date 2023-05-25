@@ -55,7 +55,6 @@ public class WhoIsController {
             if (but.getText().equals(at.getNombre_autor())) {
                 view.setCorrect(view.getCorrect() + 1);
             } else {
-                //la respuesta correcta es
                 JOptionPane.showMessageDialog(null, "La solucion era " + at.getNombre_autor());
             }
             counter++;
@@ -83,6 +82,7 @@ public class WhoIsController {
             List<Author> authorsNames = new ArrayList<>();
             authorsNames.add(solution);
             authorsNames.addAll(atDAO.selectNum(3));
+            //comprobar que no se repite
             Collections.shuffle(authorsNames);
             for (int i = 0; i < view.getOptions().size(); i++) {
                 view.getOptions().get(i).setText(authorsNames.get(i).getNombre_autor());
@@ -105,7 +105,6 @@ public class WhoIsController {
         Image proportionalImage = i.getImage().getScaledInstance(view.getPanelImages().getWidth() - 400,
                 view.getPanelImages().getHeight(), Image.SCALE_SMOOTH);
         view.getImage().setIcon(new ImageIcon(proportionalImage));
-
     }
 
     //se me ocurre hacer un bucle (hay que meter un contador y lo de los errores)
