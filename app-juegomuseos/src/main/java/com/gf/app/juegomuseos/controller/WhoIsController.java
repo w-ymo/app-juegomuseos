@@ -73,7 +73,7 @@ public class WhoIsController {
     private void launchGame() {
         view.setVisible(true);
         //while (contador < 5)
-        setIcon();
+        initGame();
     }
 
     private void initGame() {

@@ -34,6 +34,8 @@ public class GregFernandezController {
     private ArtworkDAO awDAO = new ArtworkDAO();
     private AuthorDAO atDAO = new AuthorDAO();
 
+    private int counter;
+    
     private Artwork solution;
     
     public GregFernandezController(GUIGregorioFernandez view) {
@@ -68,7 +70,7 @@ public class GregFernandezController {
     private void launchGame() {
         view.setVisible(true);
         //while (contador < 5)
-        setIcon();
+        initGame();
     }
 
     private void initGame() {
