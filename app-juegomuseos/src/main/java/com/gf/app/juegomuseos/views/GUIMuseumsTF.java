@@ -5,10 +5,7 @@
 package com.gf.app.juegomuseos.views;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,8 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -27,6 +24,8 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class GUIMuseumsTF extends javax.swing.JFrame {
 
+    private static final String DARK_MODE = "com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme"; 
+    private static final String LIGHT_MODE = "com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme"; 
     private GUIPrincipal guip;
     private JPanel museumPanel;
     private JPanel buttonsPanel;
@@ -38,31 +37,42 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
      * Creates new form GUIVFMuseos
      */
     public GUIMuseumsTF() {
-        //com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme -> Claro
-        //com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme -> Oscuro
-        try {
+            changeMode("light");
             initComponents();
             setFrame();
             setMuseumPanel();
-            setButtonsPanel();
-            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");   
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
+            setButtonsPanel();  
+    }
+    
+    private void changeMode(String laf) {
+        if (laf.equals("light")) {
+            try {
+            UIManager.setLookAndFeel(LIGHT_MODE);
+            dispose();
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+        if (laf.equals("dark")) {
+           try {
+            UIManager.setLookAndFeel(DARK_MODE);
+            dispose();
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        }
+        SwingUtilities.updateComponentTreeUI(this);
     }
-
+    
+    
     private void setFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.getContentPane().setLayout(new BorderLayout());       
+        this.getContentPane().setLayout(new BorderLayout());
     }
-    
+
     private void setMuseumPanel() {
         museumPanel = new JPanel(new BorderLayout());
         this.getContentPane().add(museumPanel, BorderLayout.CENTER);
@@ -70,7 +80,7 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
         museumLabel.setHorizontalAlignment(SwingConstants.CENTER);
         museumPanel.add(museumLabel, BorderLayout.CENTER);
     }
-    
+
     private void setButtonsPanel() {
         buttonsPanel = new JPanel(new GridLayout(1, 2));
         this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
@@ -91,21 +101,56 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        light = new javax.swing.JButton();
+        dark = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        light.setText("jButton1");
+        light.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lightActionPerformed(evt);
+            }
+        });
+
+        dark.setText("jButton1");
+        dark.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                darkActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(99, 99, 99)
+                .addComponent(light)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(dark)
+                .addContainerGap(139, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(light)
+                    .addComponent(dark))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lightActionPerformed
+        changeMode("light");
+    }//GEN-LAST:event_lightActionPerformed
+
+    private void darkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darkActionPerformed
+        changeMode("dark");
+    }//GEN-LAST:event_darkActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,5 +198,7 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton dark;
+    private javax.swing.JButton light;
     // End of variables declaration//GEN-END:variables
 }
