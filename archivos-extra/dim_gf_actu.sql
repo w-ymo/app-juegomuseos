@@ -34,6 +34,42 @@ CREATE TABLE `autores` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
+/*
+Vincent van Gogh -> Los Girasoles
+Diego Velázquez -> Las Meninas
+Katsushika Hokusai -> La Gran Ola de Kanagawa
+Leonardo da Vinci -> La Gioconda
+Leonardo da Vinci -> La Última Cena
+Francisco de Goya -> Saturno
+Francisco de Goya -> La Maja Vestida
+El Bosco -> El Jardín de las Delicias
+Miguel Ángel -> El David
+Miguel Ángel -> La Piedad
+Rafael Sanzio -> La Escuela de Atenas
+Sandro Boticcelli -> El Nacimiento de Venus
+Frida Kahlo -> Frieda y Diego Rivera
+Eugène Delacroix -> La Libertad Guiando al Pueblo
+Auguste Rodin -> El Pensador
+Antoni Gaudí -> Sagrada Familia
+Alexandre Gustave -> Torre Eiffel
+Cecilia Giménez Zueco -> Ecce Homo de Borja
+Kotagawa Utamaro -> Tres Bellezas de Nuestros Días
+Otani Oniji III -> Toshusai Sharaku
+Cildo Mireies -> Babel 2001
+Pablo Picasso -> Guernica
+Louise Bourgeois -> Maman
+
+INSERT INTO `autores` (`nombre_autor`, `id_pais`) 
+VALUES ('Vincent van Gogh', 10), ('Diego Velázquez', 2), 
+('Katsushika Hokusai', 8), ('Leonardo da Vinci', 7), 
+('Francisco de Goya', 2), ('El Bosco', 10), ('Sandro Boticcelli', 7),
+('Miguel Ángel', 7), ('Rafael Sanzio', 7), ('Frida Kahlo', 11),
+('Eugène Delacroix', 4), ('Auguste Rodin', 4), ('Antoni Gaudí', 2),
+('Alexandre Gustave', 4), ('Cecilia Giménez Zueco', 2), ('Kotagawa Utamuro', 8),
+('Otani Oniji III', 8), ('Cildo Mireies', 12), ('Pablo Picasso', 2),
+('Louise Bourgeois', 4);
+*/
+-- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `museos`
@@ -45,6 +81,25 @@ CREATE TABLE `museos` (
   `id_pais` int(11) NOT NULL COMMENT 'FK -> paises'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+/*
+Museo de los inodoros -> India			          
+Museo del alcantarillado -> Francia		        
+Museo de los excrementos -> Italia		        
+Museo del agua de grifo -> China		          
+Museo del cabello -> Turquía			            
+Museo del calcetín -> Japón			              
+Museo de los orinales -> España			          
+Museo de la comida quemada -> Estados Unidos	
+Museo de la tortura -> España			            
+Museo del collar de perro -> Inglaterra		    
+
+INSERT INTO `museos` (`nombre_museo`, `id_pais`) 
+VALUES ('Inodoro', 5), ('Alcantarillado', 4), 
+('Excremento', 5), ('Agua de Grifo', 1), ('Cabello', 9), 
+('Calcetín', 8), ('Orinal', 2), ('Comida Quemada', 3), 
+('Tortura', 2), ('Collar de Perro', 6);
+*/
 -- --------------------------------------------------------
 
 --
@@ -73,6 +128,13 @@ CREATE TABLE `paises` (
   `nombre_pais` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+/*
+INSERT INTO `paises` (`nombre_pais`) VALUES ('China'), 
+('España'), ('Estados Unidos'), ('Francia'), ('India'), 
+('Inglaterra'), ('Italia'), ('Japón'), ('Turquía'), 
+('Países Bajos'), ('México') ('Brasil');
+*/
 -- --------------------------------------------------------
 
 --
@@ -180,6 +242,22 @@ ALTER TABLE `obras`
   ADD CONSTRAINT `obras_ibfk_1` FOREIGN KEY (`id_museo`) REFERENCES `museos` (`id_museo`),
   ADD CONSTRAINT `obras_ibfk_2` FOREIGN KEY (`id_autor`) REFERENCES `autores` (`id_autor`);
 COMMIT;
+
+INSERT INTO `paises` (`nombre_pais`) VALUES ('China'), ('España'), ('Estados Unidos'), 
+('Francia'), ('India'), ('Inglaterra'), ('Italia'), ('Japón'), ('Turquía'), 
+('Países Bajos'), ('México'), ('Brasil');
+
+INSERT INTO `museos` (`nombre_museo`, `id_pais`) VALUES ('Inodoro', 5), 
+('Alcantarillado', 4), ('Excremento', 5), ('Agua de Grifo', 1), ('Cabello', 9), 
+('Calcetín', 8), ('Orinal', 2), ('Comida Quemada', 3), ('Tortura', 2), ('Collar de Perro', 6);
+
+INSERT INTO `autores` (`nombre_autor`, `id_pais`) VALUES ('Vincent van Gogh', 10), 
+('Diego Velázquez', 2), ('Katsushika Hokusai', 8), ('Leonardo da Vinci', 7), 
+('Francisco de Goya', 2), ('El Bosco', 10), ('Sandro Boticcelli', 7),('Miguel Ángel', 7), 
+('Rafael Sanzio', 7), ('Frida Kahlo', 11), ('Eugène Delacroix', 4), ('Auguste Rodin', 4), 
+('Antoni Gaudí', 2), ('Alexandre Gustave', 4), ('Cecilia Giménez Zueco', 2), 
+('Kotagawa Utamuro', 8), ('Otani Oniji III', 8), ('Cildo Mireies', 12), ('Pablo Picasso', 2),
+('Louise Bourgeois', 4);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
