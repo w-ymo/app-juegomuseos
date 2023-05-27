@@ -35,6 +35,7 @@ public class ArtworkDAO {
                     a.setDisciplina(rs.getString("disciplina"));
                     a.setId_autor(rs.getInt("id_autor"));
                     a.setId_museo(rs.getInt("id_museo"));
+                    list.add(a);
                 }
             }
         }
