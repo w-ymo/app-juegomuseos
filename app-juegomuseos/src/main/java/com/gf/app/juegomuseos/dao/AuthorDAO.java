@@ -22,7 +22,7 @@ public class AuthorDAO {
 
     public List<Author> selectAll() throws SQLException {
         String sql = "SELECT * FROM autores";
-        List<Author> lista = new ArrayList<>();
+        List<Author> list = new ArrayList<>();
         try ( Connection con = ConnectionDB.getConnection()) {
             Statement s = con.prepareStatement(sql);
             try ( ResultSet rs = s.executeQuery(sql)) {
@@ -31,10 +31,11 @@ public class AuthorDAO {
                     a.setId_autor(rs.getInt("id_autor"));
                     a.setNombre_autor(rs.getString("nombre_autor"));
                     a.setId_pais(rs.getInt("id_pais"));
+                    list.add(a);
                 }
             }
         }
-        return lista;
+        return list;
     }
 
     public Author selectId(int id) throws SQLException {
@@ -75,6 +76,34 @@ public class AuthorDAO {
             }
         }
         return id;
+    }
+
+    public List<Author> selectNotEquals(int id_author) throws SQLException {
+        List<Author> fullList = new ArrayList<>();
+        String sql = "SELECT * FROM autores WHERE id_autor<>" + id_author;
+        try ( Connection con = ConnectionDB.getConnection()) {
+            Statement s = con.prepareStatement(sql);
+            try ( ResultSet rs = s.executeQuery(sql)) {
+                while (rs.next()) {
+                    Author a = new Author();
+                    a.setId_autor(rs.getInt("id_autor"));
+                    a.setNombre_autor(rs.getString("nombre_autor"));
+                    a.setId_pais(rs.getInt("id_pais"));
+                    fullList.add(a);
+                }
+            }
+        }
+       return fullList;
+    }
+    
+    public List<Author> selectNotEquals(int id_author, int num) throws SQLException {
+        List<Author> fullList = selectNotEquals(id_author);
+        Collections.shuffle(fullList);
+        List<Author> partialList = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            partialList.add(fullList.get(i));
+        }
+        return partialList;
     }
 
 }
