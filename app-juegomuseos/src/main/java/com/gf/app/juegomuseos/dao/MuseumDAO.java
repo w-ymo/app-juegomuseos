@@ -22,7 +22,7 @@ public class MuseumDAO {
 
     public List<Museum> selectAll() throws SQLException {
         String sql = "SELECT * FROM museos";
-        List<Museum> lista = new ArrayList<>();
+        List<Museum> list = new ArrayList<>();
         try ( Connection con = ConnectionDB.getConnection()) {
             Statement s = con.prepareStatement(sql);
             try ( ResultSet rs = s.executeQuery(sql)) {
@@ -31,10 +31,11 @@ public class MuseumDAO {
                     m.setId_museo(rs.getInt("id_museo"));
                     m.setNombre_museo(rs.getString("nombre_museo"));
                     m.setId_pais(rs.getInt("id_pais"));
+                    list.add(m);
                 }
             }
         }
-        return lista;
+        return list;
     }
 
     public Museum selectId(int id) throws SQLException {

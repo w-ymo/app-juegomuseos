@@ -22,7 +22,7 @@ public class RankingDAO {
     
     public List<Ranking> selectAll() throws SQLException {
         String sql = "SELECT * FROM ranking";
-        List<Ranking> lista = new ArrayList<>();
+        List<Ranking> list = new ArrayList<>();
         try ( Connection con = ConnectionDB.getConnection()) {
             Statement s = con.prepareStatement(sql);
             try ( ResultSet rs = s.executeQuery(sql)) {
@@ -31,10 +31,11 @@ public class RankingDAO {
                     r.setId_ranking(rs.getInt("id_ranking"));
                     r.setNombre_usuario(rs.getString("nombre_usuario"));
                     r.setPuntuacion(rs.getString("puntuacion"));
+                    list.add(r);
                 }
             }
         }
-        return lista;
+        return list;
     }
 
     public Ranking selectId(int id) throws SQLException {
