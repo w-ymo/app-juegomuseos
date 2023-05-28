@@ -30,6 +30,7 @@ public class CountryDAO {
                     Country c = new Country();
                     c.setId_pais(rs.getInt("id_pais"));
                     c.setNombre_pais(rs.getString("nombre_pais"));
+                    list.add(c);
                 }
             }
         }
@@ -50,7 +51,7 @@ public class CountryDAO {
         }
         return c;
     }
-    
+
     public List<Country> selectNum(int num) throws SQLException {
         List<Country> fullList = selectAll();
         Collections.shuffle(fullList);
