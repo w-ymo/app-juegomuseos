@@ -81,7 +81,7 @@ public class WhoIsController {
             solution = atDAO.selectId(imageSelected.getId_autor());
             List<Author> authorsNames = new ArrayList<>();
             authorsNames.add(solution);
-            authorsNames.addAll(atDAO.selectNum(3));
+            authorsNames.addAll(atDAO.selectNotEquals(imageSelected.getId_autor(), 3));
             //comprobar que no se repite
             Collections.shuffle(authorsNames);
             for (int i = 0; i < view.getOptions().size(); i++) {
@@ -98,7 +98,7 @@ public class WhoIsController {
         ImageIcon i = null;
         try {
             //poner url de imageSelected
-            i = new ImageIcon(new URL("https://picsum.photos/900/400"));
+            i = new ImageIcon(new URL(select));
         } catch (MalformedURLException ex) {
             Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
         }

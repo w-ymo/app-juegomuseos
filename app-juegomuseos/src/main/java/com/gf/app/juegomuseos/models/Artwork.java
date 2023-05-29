@@ -9,12 +9,13 @@ package com.gf.app.juegomuseos.models;
  * @author noelp
  */
 public class Artwork {
-    
+
     private int id_obra;
-    private String clave_obra;
-    private String nombre_obra; 
+    private String nombre_obra;
     private String descripcion_obra;
+    private String clave_obra;
     private String disciplina;
+    private String imagen_obra;
     private int id_museo;
     private int id_autor;
 
@@ -33,7 +34,7 @@ public class Artwork {
     public void setClave_obra(String clave_obra) {
         this.clave_obra = clave_obra;
     }
-     
+
     public String getNombre_obra() {
         return nombre_obra;
     }
@@ -58,6 +59,14 @@ public class Artwork {
         this.disciplina = disciplina;
     }
 
+    public String getImagen_obra() {
+        return imagen_obra;
+    }
+
+    public void setImagen_obra(String imagen_obra) {
+        this.imagen_obra = imagen_obra;
+    }
+
     public int getId_museo() {
         return id_museo;
     }
@@ -78,5 +87,5 @@ public class Artwork {
     public String toString() {
         return "Artwork{" + "id_obra=" + id_obra + ", nombre_obra=" + nombre_obra + ", descripcion_obra=" + descripcion_obra + ", disciplina=" + disciplina + ", id_museo=" + id_museo + ", id_autor=" + id_autor + '}';
     }
-    
+
 }
