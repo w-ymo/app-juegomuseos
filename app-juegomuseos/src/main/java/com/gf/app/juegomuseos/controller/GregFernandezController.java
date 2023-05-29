@@ -28,52 +28,53 @@ import javax.swing.JOptionPane;
  * @author priparno
  */
 public class GregFernandezController {
-
+    
     private GUIGregorioFernandez view;
-
+    
     private ArtworkDAO awDAO = new ArtworkDAO();
     private AuthorDAO atDAO = new AuthorDAO();
-
+    
     private int counter;
-
+    private int fails;
+    
     private Artwork solution;
-
+    
     public GregFernandezController(GUIGregorioFernandez view) {
         this.view = view;
+        this.counter = 0;
+        this.fails = 0;
         addListenerButtons();
         launchGame();
     }
-
+    
     private ActionListener listenerButtons = (e) -> {
         JButton but = (JButton) e.getSource();
-        int aw_id = solution.getId_obra();
         try {
-            Artwork aw = awDAO.selectId(aw_id);
-            Author at = atDAO.selectId(aw.getId_autor());
-            if ("Gregorio Fernandez".equals(at.getNombre_autor())) {
-                //de puta madre avanzas
+            if (but.getName().equals(atDAO.getIdGregorioFernandez())) {
+                JOptionPane.showMessageDialog(null, "Todo gucci");
             } else {
-                //la respuesta correcta es
-                JOptionPane.showMessageDialog(null, "La solucion era " + at.getNombre_autor());
+                JOptionPane.showMessageDialog(null, "La solucion era la otra");
+                fails++;
             }
             counter++;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error garrafal");
         }
     };
-
+    
     private void addListenerButtons() {
         for (JButton option : view.getImages()) {
             option.addActionListener(listenerButtons);
         }
     }
-
+    
     private void launchGame() {
         view.setVisible(true);
-        //while (contador < 5)
-        initGame();
+        while (counter < 5) {
+            initGame();
+        }
     }
-
+    
     private void initGame() {
         try {
             solution = awDAO.selectNum(1).get(0);
@@ -85,13 +86,13 @@ public class GregFernandezController {
             artworksNames.add(fakeArtwork.get(0));
             Collections.shuffle(artworksNames);
             for (int i = 0; i < view.getImages().size(); i++) {
-                setIcon("url", view.getImages().get(i));
+                setIcon(artworksNames.get(0).getImagen_obra(), view.getImages().get(i));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
         }
     }
-
+    
     public void setIcon(String url, JButton image) {
         ImageIcon i = null;
         try {

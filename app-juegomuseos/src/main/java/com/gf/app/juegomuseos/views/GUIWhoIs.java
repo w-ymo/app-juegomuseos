@@ -44,10 +44,6 @@ public class GUIWhoIs extends javax.swing.JFrame {
     private JLabel imageText;
     private List<JButton> options = new ArrayList<>();
 
-    private Artwork solution;
-    
-    int correct = 0;
-
     //net.sourceforge.napkinlaf.NapkinLookAndFeel
     /**
      * Creates new form GUIWhoIs
@@ -131,22 +127,6 @@ public class GUIWhoIs extends javax.swing.JFrame {
         this.options = options;
     }
 
-    public int getCorrect() {
-        return correct;
-    }
-
-    public void setCorrect(int correct) {
-        this.correct = correct;
-    }
-
-    public Artwork getSolution() {
-        return solution;
-    }
-
-    public void setSolution(Artwork solution) {
-        this.solution = solution;
-    }
-
     public JPanel getPanelImages() {
         return panelImages;
     }
@@ -162,7 +142,7 @@ public class GUIWhoIs extends javax.swing.JFrame {
     public void setPanelOptions(JPanel panelOptions) {
         this.panelOptions = panelOptions;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

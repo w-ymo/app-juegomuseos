@@ -30,32 +30,36 @@ import javax.swing.JOptionPane;
  */
 public class WhoIsController {
 
+    //habria que meter en el controlador la pagina principal
     private GUIWhoIs view;
 
     private ArtworkDAO awDAO = new ArtworkDAO();
     private AuthorDAO atDAO = new AuthorDAO();
 
     private int counter;
+    private int fails;
 
     private Artwork imageSelected;
     private Author solution;
 
     public WhoIsController(GUIWhoIs view) {
         this.view = view;
+        this.counter = 0;
+        this.fails = 0;
         addListenerButtons();
         launchGame();
     }
 
     private ActionListener listenerButtons = (e) -> {
         JButton but = (JButton) e.getSource();
-        int awId = view.getSolution().getId_obra();
+        int atId = solution.getId_autor();
         try {
-            Artwork aw = awDAO.selectId(awId);
-            Author at = atDAO.selectId(aw.getId_autor());
+            Author at = atDAO.selectId(atId);
             if (but.getText().equals(at.getNombre_autor())) {
-                view.setCorrect(view.getCorrect() + 1);
+                JOptionPane.showMessageDialog(null, "La solución es correcta");
             } else {
                 JOptionPane.showMessageDialog(null, "La solucion era " + at.getNombre_autor());
+                fails++;
             }
             counter++;
         } catch (SQLException ex) {
@@ -71,8 +75,10 @@ public class WhoIsController {
 
     private void launchGame() {
         view.setVisible(true);
-        //while (contador < 5)
-        initGame();
+        while (counter < 5) {
+            initGame();
+        }
+        JOptionPane.showMessageDialog(null, "Siguiente jogo");
     }
 
     private void initGame() {
@@ -81,8 +87,9 @@ public class WhoIsController {
             solution = atDAO.selectId(imageSelected.getId_autor());
             List<Author> authorsNames = new ArrayList<>();
             authorsNames.add(solution);
-            authorsNames.addAll(atDAO.selectNotEquals(imageSelected.getId_autor(), 3));
-            //comprobar que no se repite
+            //distinto de la solucion coge 3 mas
+            authorsNames.addAll(atDAO.selectNotEquals(solution.getId_autor(), 3));
+            //lo desordena
             Collections.shuffle(authorsNames);
             for (int i = 0; i < view.getOptions().size(); i++) {
                 view.getOptions().get(i).setText(authorsNames.get(i).getNombre_autor());
