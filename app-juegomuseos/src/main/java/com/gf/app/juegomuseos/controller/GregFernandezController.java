@@ -7,7 +7,6 @@ package com.gf.app.juegomuseos.controller;
 import com.gf.app.juegomuseos.dao.ArtworkDAO;
 import com.gf.app.juegomuseos.dao.AuthorDAO;
 import com.gf.app.juegomuseos.models.Artwork;
-import com.gf.app.juegomuseos.models.Author;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
 import java.awt.Image;
 import java.awt.event.ActionListener;
@@ -17,8 +16,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -77,7 +74,7 @@ public class GregFernandezController {
     
     private void initGame() {
         try {
-            solution = awDAO.selectNum(1).get(0);
+            solution = awDAO.selectIdAuthor(atDAO.getIdGregorioFernandez()).get(0);
             List<Artwork> artworksNames = new ArrayList<>();
             artworksNames.add(solution);
             //el campo clave sera el de la solucion
@@ -98,7 +95,7 @@ public class GregFernandezController {
         try {
             i = new ImageIcon(new URL(url));
         } catch (MalformedURLException ex) {
-            Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("URL malisima loco");
         }
         Image proportionalImage = i.getImage().getScaledInstance(view.getPanelImages().getWidth() / 2 - 200,
                 view.getPanelImages().getHeight(), Image.SCALE_AREA_AVERAGING);
