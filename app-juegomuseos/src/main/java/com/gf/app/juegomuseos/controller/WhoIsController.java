@@ -98,7 +98,7 @@ public class WhoIsController {
         ImageIcon i = null;
         try {
             //poner url de imageSelected
-            i = new ImageIcon(new URL(select));
+            i = new ImageIcon(new URL(imageSelected.getImagen_obra()));
         } catch (MalformedURLException ex) {
             Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
         }
