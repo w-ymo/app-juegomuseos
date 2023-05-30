@@ -35,7 +35,6 @@ CREATE TABLE `autores` (
 
 -- --------------------------------------------------------
 /*
-
 INSERT INTO `autores` (`nombre_autor`, `id_pais`) 
 VALUES ('Vincent van Gogh', 10), ('Diego Velázquez', 2), 
 ('Katsushika Hokusai', 8), ('Leonardo da Vinci', 7), 
@@ -44,7 +43,9 @@ VALUES ('Vincent van Gogh', 10), ('Diego Velázquez', 2),
 ('Eugène Delacroix', 4), ('Auguste Rodin', 4), ('Antoni Gaudí', 2),
 ('Alexandre Gustave', 4), ('Cecilia Giménez Zueco', 2), ('Kotagawa Utamuro', 8),
 ('Otani Oniji III', 8), ('Cildo Mireies', 12), ('Pablo Picasso', 2),
-('Louise Bourgeois', 4), ('Gregorio Fernández', 2), ('Kuai Xiang', 1);
+('Louise Bourgeois', 4), ('Gregorio Fernández', 2), ('Kuai Xiang', 1),
+('Gian Lorenzo Bernini', 7), ('José Luján Pérez', 2), ('Pedro Millán', 2),
+('Juan de Mesa', 2), ('Giuseppe Sanmartino', 7);
 */
 -- --------------------------------------------------------
 
@@ -60,15 +61,16 @@ CREATE TABLE `museos` (
 
 -- --------------------------------------------------------
 /*
-INSERT INTO `museos` (`nombre_museo`, `id_pais`) VALUES ('Neue Pinakothek', 13), ('Museo del Prado', 2),
+INSERT INTO `museos` (`nombre_museo`, `id_pais`) VALUES ('Nueva Pinacoteca de Múnich', 13), ('Museo del Prado', 2),
 ('Museo Metropolitano de Arte de Nueva York', 3), ('Museo del Louvre', 4), ('Santa Maria del las Gracias', 7), 
 ('Galería de la Academia', 7), ('Galería Uffizi', 7), ('Museos Vaticanos', 14), ('Museo de Arte Moderno de San Francisco', 3), 
 ('Museo Rodin', 4), ('Santuario de Misericordia de Borja', 2), ('Museo Koishikawa Ukiyo-e', 8), ('Museo Tate Modern', 5), 
 ('Museo Nacional Centro de Arte Reina Sofía', 2), ('Museo Guggenheim', 2), ('Museo Nacional de Escultura', 2), 
 ('Museo del Palacio', 1), ('Catedral de Astorga', 2), ('Iglesia Penitencial de la Santa Vera Cruz', 2), 
-('Museo de los inodoros', 5), ('Museo del alcantarillado', 4), ('Museo de los excrementos', 7), ('Museo del agua de grifo', 1), 
-('Museo del cabello', 9), ('Museo del calcetín', 8), ('Museo de los orinales', 2), ('Museo de la comida quemada', 3), 
-('Museo de la tortura', 2), ('Museo del collar de perro ', 5);
+('Iglesia de Santa María de la Victoria', 7), ('Catedral de Canarias', 2), ('Museo de Bellas Artes de Sevilla' , 2),
+('Museo Nacional de San Martino', 7), ('Museo de los Inodoros', 5), ('Museo del Alcantarillado', 4), 
+('Museo de los Excrementos', 7), ('Museo del Agua de Grifo', 1), ('Museo del Cabello', 9), ('Museo del Calcetín', 8), 
+('Museo de los Orinales', 2), ('Museo de la Comida Quemada', 3), ('Museo de la Tortura', 2), ('Museo del Collar de Perro ', 5);
 */
 -- --------------------------------------------------------
 
@@ -89,8 +91,6 @@ CREATE TABLE `obras` (
 
 -- --------------------------------------------------------
 /*
-NOMBRE    DESCRIPCION   CLAVE   DISCIPLINA    MUSEO   AUTOR  
-
 INSERT INTO `obras` (`nombre_obra`, `descripcion_obra`, `clave_obra`, `disciplina`, `id_museo`, `id_autor`)
 VALUES ('Los Girasoles', 'Óleo sobre lienzo de 93 x 72 cm realizado en 1888', 'girasoles', 'Pintura', 1, 1),
 ('Las Meninas', 'Óleo sobre lienzo de 320,5 x 281,5 cm realizado en 1656', 'meninas', 'Pintura', 2, 2),
@@ -108,8 +108,8 @@ VALUES ('Los Girasoles', 'Óleo sobre lienzo de 93 x 72 cm realizado en 1888', '
 ('La Libertad Guiando al Pueblo', 'Óleo sobre lienzo de 260 x 325 cm realizado en 1830', 'libertad', 'Pintura', 4, 11),
 ('El Pensador', 'Escultura de bronce de 186 cm de alto realizada en 1904', 'pensador', 'Escultura', 12, 10),
 ('Sagrada Familia', 'Basílica de 90 x 60 x 170 m comenzada en 1882', 'familia', 'Arquitectura', NULL, 13),
-('Torre Eiffel', 'Torre de observación de hierro de 125 x 125 x 300 m realizada entre 1887 y 1889', 'torre', 'Arquitectura', NULL, 14),
-('Ciudad Prohibida', 'Complejo palaciego de madera de 72 ha realizado entre 1406 y 1420', 'ciudad', 'Arquitectura', 17, 22),
+('Torre Eiffel', 'Torre de observación de hierro de 125 x 125 x 300 m realizada entre 1887 y 1889', 'torre', 'Arquitectura', NULL, 14), LUIS
+('Ciudad Prohibida', 'Complejo palaciego de madera de 72 ha realizado entre 1406 y 1420', 'ciudad', 'Arquitectura', 17, 22),            NOEL
 ('Ecce Homo de Borja', 'Óleo sobre lienzo de 66 x 40 cm realizado en 1930', 'borja', 'Pintura', 11, 15),
 ('Tres Bellezas de Nuestros Días', 'Impresión xilográficade de 37,9 x 24,9 cm realizada en 1793', 'bellezas', 'Ukiyo-e', 12, 16),
 ('Otani Oniji III', 'Impresión xilográficade de 38 x 25 cm realizada en 1794', 'otani', 'Ukiyo-e', 3, 17),
@@ -117,11 +117,16 @@ VALUES ('Los Girasoles', 'Óleo sobre lienzo de 93 x 72 cm realizado en 1888', '
 ('Guernica', 'Óleo sobre lienzo de 776,6 x 349,3 cm realizado en 1937', 'guernica', 'Pintura', 14, 19),
 ('Mamá', 'Escultura de bronce de 10,2 x 8,9 m y 3658 kg realizada en 1999', 'mama', 'Escultura', 15, 20),
 ('La Piedad', 'Escultura de madera policromada realizada en 1616', 'piedad', 'Escultura', 16, 21),
-('Cristo Yacente', 'Escultura de madera policromada realizada en 1627', 'yacente', 'Escultura', 16, 21),
+('Cristo Yacente', 'Escultura de madera policromada realizada en 1627', 'tumbado', 'Escultura', 16, 21),
 ('Inmaculada Concepción', 'Escultura de madera policromada realizada en 1626', 'inmaculada', 'Escultura', 18, 21),
 ('Santa Teresa de Jesús', 'Escultura de madera policromada realizada en 1625', 'teresa', 'Escultura', 16, 21),
-('Cristo atado a la Columna', 'Escultura de madera policromada realizada en 1619', 'columna', 'Escultura', 19, 21),
-('La Dolorosa de la Vera Cruz', 'Escultura de madera policromada realizada en 1623', 'dolorosa', 'Escultura', 19, 21)
+('Cristo Atado a la Columna', 'Escultura de madera policromada realizada en 1619', 'columna', 'Escultura', 19, 21),
+('La Dolorosa de la Vera Cruz', 'Escultura de madera policromada realizada en 1623', 'dolorosa', 'Escultura', 19, 21),
+('Éxtasis de Santa Teresa', 'Escultura de mármol blanco realizada entre 1645 y 1652', 'teresa', 'Escultura', 20, 23),
+('Dolorosa de Luján Pérez', 'Escultura de madera policromada realizada en 1803', 'dolorosa', 'Escultura', 21, 24),
+('Cristo Atado a la Columna', 'Escultura de barro cocido realizada en 1490', 'columna', 'Escultura', 22, 25),
+('Inmaculada Concepción', 'Escultura de madera policromada realizada entre 1615 y 1627', 'inmaculada', 'Escultura', 16, 26),
+('Cristo velado', 'Escultura de mármol blanco realizada en 1753', 'tumbado', 'Escultura', 23, 27);
 */
 -- --------------------------------------------------------
 
@@ -255,15 +260,16 @@ INSERT INTO `paises` (`nombre_pais`) VALUES ('China'), ('España'), ('Estados Un
 ('Francia'), ('India'), ('Inglaterra'), ('Italia'), ('Japón'), ('Turquía'), 
 ('Países Bajos'), ('México'), ('Brasil'), ('Alemania'), ('Ciudad del Vaticano');
 
-INSERT INTO `museos` (`nombre_museo`, `id_pais`) VALUES ('Neue Pinakothek', 13), ('Museo del Prado', 2),
+INSERT INTO `museos` (`nombre_museo`, `id_pais`) VALUES ('Nueva Pinacoteca de Múnich', 13), ('Museo del Prado', 2),
 ('Museo Metropolitano de Arte de Nueva York', 3), ('Museo del Louvre', 4), ('Santa Maria del las Gracias', 7), 
 ('Galería de la Academia', 7), ('Galería Uffizi', 7), ('Museos Vaticanos', 14), ('Museo de Arte Moderno de San Francisco', 3), 
 ('Museo Rodin', 4), ('Santuario de Misericordia de Borja', 2), ('Museo Koishikawa Ukiyo-e', 8), ('Museo Tate Modern', 5), 
 ('Museo Nacional Centro de Arte Reina Sofía', 2), ('Museo Guggenheim', 2), ('Museo Nacional de Escultura', 2), 
 ('Museo del Palacio', 1), ('Catedral de Astorga', 2), ('Iglesia Penitencial de la Santa Vera Cruz', 2), 
-('Museo de los inodoros', 5), ('Museo del alcantarillado', 4), ('Museo de los excrementos', 7), ('Museo del agua de grifo', 1), 
-('Museo del cabello', 9), ('Museo del calcetín', 8), ('Museo de los orinales', 2), ('Museo de la comida quemada', 3), 
-('Museo de la tortura', 2), ('Museo del collar de perro ', 5);
+('Iglesia de Santa María de la Victoria', 7), ('Catedral de Canarias', 2), ('Museo de Bellas Artes de Sevilla' , 2),
+('Museo Nacional de San Martino', 7), ('Museo de los Inodoros', 5), ('Museo del Alcantarillado', 4), 
+('Museo de los Excrementos', 7), ('Museo del Agua de Grifo', 1), ('Museo del Cabello', 9), ('Museo del Calcetín', 8), 
+('Museo de los Orinales', 2), ('Museo de la Comida Quemada', 3), ('Museo de la Tortura', 2), ('Museo del Collar de Perro ', 5);
 
 INSERT INTO `autores` (`nombre_autor`, `id_pais`) 
 VALUES ('Vincent van Gogh', 10), ('Diego Velázquez', 2), 
@@ -273,7 +279,9 @@ VALUES ('Vincent van Gogh', 10), ('Diego Velázquez', 2),
 ('Eugène Delacroix', 4), ('Auguste Rodin', 4), ('Antoni Gaudí', 2),
 ('Alexandre Gustave', 4), ('Cecilia Giménez Zueco', 2), ('Kotagawa Utamuro', 8),
 ('Otani Oniji III', 8), ('Cildo Mireies', 12), ('Pablo Picasso', 2),
-('Louise Bourgeois', 4), ('Gregorio Fernández', 2), ('Kuai Xiang', 1);
+('Louise Bourgeois', 4), ('Gregorio Fernández', 2), ('Kuai Xiang', 1),
+('Gian Lorenzo Bernini', 7), ('José Luján Pérez', 2), ('Pedro Millán', 2),
+('Juan de Mesa', 2), ('Giuseppe Sanmartino', 7);
 
 INSERT INTO `obras` (`nombre_obra`, `descripcion_obra`, `clave_obra`, `disciplina`, `id_museo`, `id_autor`)
 VALUES ('Los Girasoles', 'Óleo sobre lienzo de 93 x 72 cm realizado en 1888', 'girasoles', 'Pintura', 1, 1),
@@ -301,11 +309,16 @@ VALUES ('Los Girasoles', 'Óleo sobre lienzo de 93 x 72 cm realizado en 1888', '
 ('Guernica', 'Óleo sobre lienzo de 776,6 x 349,3 cm realizado en 1937', 'guernica', 'Pintura', 14, 19),
 ('Mamá', 'Escultura de bronce de 10,2 x 8,9 m y 3658 kg realizada en 1999', 'mama', 'Escultura', 15, 20),
 ('La Piedad', 'Escultura de madera policromada realizada en 1616', 'piedad', 'Escultura', 16, 21),
-('Cristo Yacente', 'Escultura de madera policromada realizada en 1627', 'yacente', 'Escultura', 16, 21),
+('Cristo Yacente', 'Escultura de madera policromada realizada en 1627', 'tumbado', 'Escultura', 16, 21),
 ('Inmaculada Concepción', 'Escultura de madera policromada realizada en 1626', 'inmaculada', 'Escultura', 18, 21),
 ('Santa Teresa de Jesús', 'Escultura de madera policromada realizada en 1625', 'teresa', 'Escultura', 16, 21),
-('Cristo atado a la Columna', 'Escultura de madera policromada realizada en 1619', 'columna', 'Escultura', 19, 21),
-('La Dolorosa de la Vera Cruz', 'Escultura de madera policromada realizada en 1623', 'dolorosa', 'Escultura', 19, 21);
+('Cristo Atado a la Columna', 'Escultura de madera policromada realizada en 1619', 'columna', 'Escultura', 19, 21),
+('La Dolorosa de la Vera Cruz', 'Escultura de madera policromada realizada en 1623', 'dolorosa', 'Escultura', 19, 21),
+('Éxtasis de Santa Teresa', 'Escultura de mármol blanco realizada entre 1645 y 1652', 'teresa', 'Escultura', 20, 23),
+('Dolorosa de Luján Pérez', 'Escultura de madera policromada realizada en 1803', 'dolorosa', 'Escultura', 21, 24),
+('Cristo Atado a la Columna', 'Escultura de barro cocido realizada en 1490', 'columna', 'Escultura', 22, 25),
+('Inmaculada Concepción', 'Escultura de madera policromada realizada entre 1615 y 1627', 'inmaculada', 'Escultura', 16, 26),
+('Cristo velado', 'Escultura de mármol blanco realizada en 1753', 'tumbado', 'Escultura', 23, 27);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
