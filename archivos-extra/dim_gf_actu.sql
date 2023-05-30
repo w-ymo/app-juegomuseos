@@ -84,7 +84,7 @@ CREATE TABLE `obras` (
   `descripcion_obra` varchar(100) NOT NULL,
   `clave_obra` varchar(50) NOT NULL,
   `disciplina` varchar(100) NOT NULL,
-  `imagen_obra` varchar(200) NOT NULL,
+  `imagen_obra` varchar(500) NOT NULL,
   `id_museo` int(11) COMMENT 'FK -> museos',
   `id_autor` int(11) NOT NULL COMMENT 'FK -> autores'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
