@@ -33,7 +33,7 @@ public class ArtworkDAO {
                     a.setClave_obra(rs.getString("clave_obra"));
                     a.setDescripcion_obra(rs.getString("descripcion_obra"));
                     a.setDisciplina(rs.getString("disciplina"));
-                    a.setImagen_obra(rs.getString("id_obra"));
+                    a.setImagen_obra(rs.getString("imagen_obra"));
                     a.setId_autor(rs.getInt("id_autor"));
                     a.setId_museo(rs.getInt("id_museo"));
                     list.add(a);
@@ -55,7 +55,7 @@ public class ArtworkDAO {
                     a.setClave_obra(rs.getString("clave_obra"));
                     a.setDescripcion_obra(rs.getString("descripcion_obra"));
                     a.setDisciplina(rs.getString("disciplina"));
-                    a.setImagen_obra(rs.getString("id_obra"));
+                    a.setImagen_obra(rs.getString("imagen_obra"));
                     a.setId_autor(rs.getInt("id_autor"));
                     a.setId_museo(rs.getInt("id_museo"));
                 }
@@ -87,7 +87,7 @@ public class ArtworkDAO {
                     a.setClave_obra(rs.getString("clave_obra"));
                     a.setDescripcion_obra(rs.getString("descripcion_obra"));
                     a.setDisciplina(rs.getString("disciplina"));
-                    a.setImagen_obra(rs.getString("id_obra"));
+                    a.setImagen_obra(rs.getString("imagen_obra"));
                     a.setId_autor(rs.getInt("id_autor"));
                     a.setId_museo(rs.getInt("id_museo"));
                     list.add(a);
@@ -110,7 +110,7 @@ public class ArtworkDAO {
                     a.setClave_obra(rs.getString("clave_obra"));
                     a.setDescripcion_obra(rs.getString("descripcion_obra"));
                     a.setDisciplina(rs.getString("disciplina"));
-                    a.setImagen_obra(rs.getString("id_obra"));
+                    a.setImagen_obra(rs.getString("imagen_obra"));
                     a.setId_autor(rs.getInt("id_autor"));
                     a.setId_museo(rs.getInt("id_museo"));
                     list.add(a);
@@ -133,7 +133,7 @@ public class ArtworkDAO {
                     a.setClave_obra(rs.getString("clave_obra"));
                     a.setDescripcion_obra(rs.getString("descripcion_obra"));
                     a.setDisciplina(rs.getString("disciplina"));
-                    a.setImagen_obra(rs.getString("id_obra"));
+                    a.setImagen_obra(rs.getString("imagen_obra"));
                     a.setId_autor(rs.getInt("id_autor"));
                     a.setId_museo(rs.getInt("id_museo"));
                     list.add(a);

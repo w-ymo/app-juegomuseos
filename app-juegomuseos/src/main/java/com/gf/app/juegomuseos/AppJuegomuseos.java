@@ -6,8 +6,13 @@ package com.gf.app.juegomuseos;
 
 import com.gf.app.juegomuseos.controller.GregFernandezController;
 import com.gf.app.juegomuseos.controller.WhoIsController;
+import com.gf.app.juegomuseos.dao.ArtworkDAO;
+import com.gf.app.juegomuseos.dao.AuthorDAO;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
 import com.gf.app.juegomuseos.views.GUIWhoIs;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,10 +21,19 @@ import com.gf.app.juegomuseos.views.GUIWhoIs;
 public class AppJuegomuseos {
 
     public static void main(String[] args) {
-        GUIWhoIs wi = new GUIWhoIs();
-        WhoIsController wi_contr = new WhoIsController(wi);
+//        GUIWhoIs wi = new GUIWhoIs();
+//        WhoIsController wi_contr = new WhoIsController(wi);
 //
-//        GUIGregorioFernandez gf = new GUIGregorioFernandez();
-//        GregFernandezController gf_contr = new GregFernandezController(gf);
+        GUIGregorioFernandez gf = new GUIGregorioFernandez();
+        GregFernandezController gf_contr = new GregFernandezController(gf);
+
+
+//        AuthorDAO at = new AuthorDAO();
+//        ArtworkDAO aw = new ArtworkDAO();
+//        try {
+//            System.out.println(aw.selectSimilar("piedad", at.getIdGregorioFernandez()));
+//        } catch (SQLException ex) {
+//            Logger.getLogger(AppJuegomuseos.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 }

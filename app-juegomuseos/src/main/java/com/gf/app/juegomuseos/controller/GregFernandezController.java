@@ -25,17 +25,19 @@ import javax.swing.JOptionPane;
  * @author priparno
  */
 public class GregFernandezController {
-    
+
     private GUIGregorioFernandez view;
-    
+
     private ArtworkDAO awDAO = new ArtworkDAO();
     private AuthorDAO atDAO = new AuthorDAO();
-    
+
     private int counter;
     private int fails;
-    
+
+    private boolean pass = true;
+
     private Artwork solution;
-    
+
     public GregFernandezController(GUIGregorioFernandez view) {
         this.view = view;
         this.counter = 0;
@@ -43,38 +45,45 @@ public class GregFernandezController {
         addListenerButtons();
         launchGame();
     }
-    
+
     private ActionListener listenerButtons = (e) -> {
         JButton but = (JButton) e.getSource();
         try {
-            if (but.getName().equals(atDAO.getIdGregorioFernandez())) {
+            if (but.getName().equals(String.valueOf(atDAO.getIdGregorioFernandez()))) {
                 JOptionPane.showMessageDialog(null, "Todo gucci");
             } else {
                 JOptionPane.showMessageDialog(null, "La solucion era la otra");
                 fails++;
             }
             counter++;
+            pass = true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error garrafal");
         }
     };
-    
+
     private void addListenerButtons() {
         for (JButton option : view.getImages()) {
             option.addActionListener(listenerButtons);
         }
     }
-    
+
     private void launchGame() {
         view.setVisible(true);
         while (counter < 5) {
-            initGame();
+            if (pass) {
+                initGame();
+            }
         }
+        JOptionPane.showMessageDialog(null, "Siguiente jueguito a adivinar");
     }
-    
+
     private void initGame() {
         try {
-            solution = awDAO.selectIdAuthor(atDAO.getIdGregorioFernandez()).get(0);
+            pass = false;
+            List<Artwork> gregorioArtwork = awDAO.selectIdAuthor(atDAO.getIdGregorioFernandez());
+            Collections.shuffle(gregorioArtwork);
+            solution = gregorioArtwork.get(0);
             List<Artwork> artworksNames = new ArrayList<>();
             artworksNames.add(solution);
             //el campo clave sera el de la solucion
@@ -83,13 +92,15 @@ public class GregFernandezController {
             artworksNames.add(fakeArtwork.get(0));
             Collections.shuffle(artworksNames);
             for (int i = 0; i < view.getImages().size(); i++) {
-                setIcon(artworksNames.get(0).getImagen_obra(), view.getImages().get(i));
+                setIcon(artworksNames.get(i).getImagen_obra(), view.getImages().get(i));
+                view.getImages().get(i).setName(String.valueOf(artworksNames.get(i).getId_autor()));
+                System.out.println(view.getImages().get(i).getName());
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
         }
     }
-    
+
     public void setIcon(String url, JButton image) {
         ImageIcon i = null;
         try {

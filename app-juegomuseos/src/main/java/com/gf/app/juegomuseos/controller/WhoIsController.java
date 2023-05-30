@@ -39,6 +39,8 @@ public class WhoIsController {
     private int counter;
     private int fails;
 
+    private boolean pass = true;
+
     private Artwork imageSelected;
     private Author solution;
 
@@ -62,6 +64,7 @@ public class WhoIsController {
                 fails++;
             }
             counter++;
+            pass = true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error garrafal");
         }
@@ -75,15 +78,19 @@ public class WhoIsController {
 
     private void launchGame() {
         view.setVisible(true);
-        while (counter < 5) {
-            initGame();
+        while (counter < 10) {
+            if (pass) {
+                initGame();
+            }
         }
         JOptionPane.showMessageDialog(null, "Siguiente jogo");
     }
 
     private void initGame() {
         try {
+            pass = false;
             imageSelected = awDAO.selectNum(1).get(0);
+            view.getImageText().setText(imageSelected.getNombre_obra());
             solution = atDAO.selectId(imageSelected.getId_autor());
             List<Author> authorsNames = new ArrayList<>();
             authorsNames.add(solution);
@@ -91,7 +98,6 @@ public class WhoIsController {
             authorsNames.addAll(atDAO.selectNotEquals(solution.getId_autor(), 3));
             //lo desordena
             Collections.shuffle(authorsNames);
-            System.out.println(authorsNames);
             for (int i = 0; i < view.getOptions().size(); i++) {
                 view.getOptions().get(i).setText(authorsNames.get(i).getNombre_autor());
             }
