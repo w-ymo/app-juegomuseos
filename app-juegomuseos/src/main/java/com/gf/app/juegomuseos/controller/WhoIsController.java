@@ -91,6 +91,7 @@ public class WhoIsController {
             authorsNames.addAll(atDAO.selectNotEquals(solution.getId_autor(), 3));
             //lo desordena
             Collections.shuffle(authorsNames);
+            System.out.println(authorsNames);
             for (int i = 0; i < view.getOptions().size(); i++) {
                 view.getOptions().get(i).setText(authorsNames.get(i).getNombre_autor());
             }

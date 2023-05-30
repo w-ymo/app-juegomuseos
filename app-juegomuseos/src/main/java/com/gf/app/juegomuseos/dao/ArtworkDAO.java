@@ -31,7 +31,7 @@ public class ArtworkDAO {
                     a.setId_obra(rs.getInt("id_obra"));
                     a.setNombre_obra(rs.getString("nombre_obra"));
                     a.setClave_obra(rs.getString("clave_obra"));
-                    a.setDescripcion_obra(rs.getString("desripcion_obra"));
+                    a.setDescripcion_obra(rs.getString("descripcion_obra"));
                     a.setDisciplina(rs.getString("disciplina"));
                     a.setImagen_obra(rs.getString("id_obra"));
                     a.setId_autor(rs.getInt("id_autor"));
@@ -53,7 +53,7 @@ public class ArtworkDAO {
                     a.setId_obra(rs.getInt("id_obra"));
                     a.setNombre_obra(rs.getString("nombre_obra"));
                     a.setClave_obra(rs.getString("clave_obra"));
-                    a.setDescripcion_obra(rs.getString("desripcion_obra"));
+                    a.setDescripcion_obra(rs.getString("descripcion_obra"));
                     a.setDisciplina(rs.getString("disciplina"));
                     a.setImagen_obra(rs.getString("id_obra"));
                     a.setId_autor(rs.getInt("id_autor"));
@@ -85,7 +85,7 @@ public class ArtworkDAO {
                     a.setId_obra(rs.getInt("id_obra"));
                     a.setNombre_obra(rs.getString("nombre_obra"));
                     a.setClave_obra(rs.getString("clave_obra"));
-                    a.setDescripcion_obra(rs.getString("desripcion_obra"));
+                    a.setDescripcion_obra(rs.getString("descripcion_obra"));
                     a.setDisciplina(rs.getString("disciplina"));
                     a.setImagen_obra(rs.getString("id_obra"));
                     a.setId_autor(rs.getInt("id_autor"));
@@ -108,7 +108,7 @@ public class ArtworkDAO {
                     a.setId_obra(rs.getInt("id_obra"));
                     a.setNombre_obra(rs.getString("nombre_obra"));
                     a.setClave_obra(rs.getString("clave_obra"));
-                    a.setDescripcion_obra(rs.getString("desripcion_obra"));
+                    a.setDescripcion_obra(rs.getString("descripcion_obra"));
                     a.setDisciplina(rs.getString("disciplina"));
                     a.setImagen_obra(rs.getString("id_obra"));
                     a.setId_autor(rs.getInt("id_autor"));
@@ -131,7 +131,7 @@ public class ArtworkDAO {
                     a.setId_obra(rs.getInt("id_obra"));
                     a.setNombre_obra(rs.getString("nombre_obra"));
                     a.setClave_obra(rs.getString("clave_obra"));
-                    a.setDescripcion_obra(rs.getString("desripcion_obra"));
+                    a.setDescripcion_obra(rs.getString("descripcion_obra"));
                     a.setDisciplina(rs.getString("disciplina"));
                     a.setImagen_obra(rs.getString("id_obra"));
                     a.setId_autor(rs.getInt("id_autor"));
