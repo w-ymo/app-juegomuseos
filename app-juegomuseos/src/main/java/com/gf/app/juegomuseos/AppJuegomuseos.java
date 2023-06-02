@@ -21,19 +21,10 @@ import java.util.logging.Logger;
 public class AppJuegomuseos {
 
     public static void main(String[] args) {
-//        GUIWhoIs wi = new GUIWhoIs();
-//        WhoIsController wi_contr = new WhoIsController(wi);
-//
-        GUIGregorioFernandez gf = new GUIGregorioFernandez();
-        GregFernandezController gf_contr = new GregFernandezController(gf);
+        GUIWhoIs wi = new GUIWhoIs();
+        WhoIsController wi_contr = new WhoIsController(wi);
 
-
-//        AuthorDAO at = new AuthorDAO();
-//        ArtworkDAO aw = new ArtworkDAO();
-//        try {
-//            System.out.println(aw.selectSimilar("piedad", at.getIdGregorioFernandez()));
-//        } catch (SQLException ex) {
-//            Logger.getLogger(AppJuegomuseos.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+//        GUIGregorioFernandez gf = new GUIGregorioFernandez();
+//        GregFernandezController gf_contr = new GregFernandezController(gf);
     }
 }

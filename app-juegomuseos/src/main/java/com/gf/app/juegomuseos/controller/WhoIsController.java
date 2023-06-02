@@ -39,7 +39,7 @@ public class WhoIsController {
     private int counter;
     private int fails;
 
-    private boolean pass = true;
+    private boolean proceed = true;
 
     private Artwork imageSelected;
     private Author solution;
@@ -64,7 +64,7 @@ public class WhoIsController {
                 fails++;
             }
             counter++;
-            pass = true;
+            proceed = true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error garrafal");
         }
@@ -79,7 +79,7 @@ public class WhoIsController {
     private void launchGame() {
         view.setVisible(true);
         while (counter < 10) {
-            if (pass) {
+            if (proceed) {
                 initGame();
             }
         }
@@ -88,7 +88,7 @@ public class WhoIsController {
 
     private void initGame() {
         try {
-            pass = false;
+            proceed = false;
             imageSelected = awDAO.selectNum(1).get(0);
             view.getImageText().setText(imageSelected.getNombre_obra());
             solution = atDAO.selectId(imageSelected.getId_autor());

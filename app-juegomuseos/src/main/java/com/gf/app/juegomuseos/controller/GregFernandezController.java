@@ -34,7 +34,7 @@ public class GregFernandezController {
     private int counter;
     private int fails;
 
-    private boolean pass = true;
+    private boolean proceed = true;
 
     private Artwork solution;
 
@@ -56,7 +56,7 @@ public class GregFernandezController {
                 fails++;
             }
             counter++;
-            pass = true;
+            proceed = true;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error garrafal");
         }
@@ -71,7 +71,7 @@ public class GregFernandezController {
     private void launchGame() {
         view.setVisible(true);
         while (counter < 5) {
-            if (pass) {
+            if (proceed) {
                 initGame();
             }
         }
@@ -80,7 +80,7 @@ public class GregFernandezController {
 
     private void initGame() {
         try {
-            pass = false;
+            proceed = false;
             List<Artwork> gregorioArtwork = awDAO.selectIdAuthor(atDAO.getIdGregorioFernandez());
             Collections.shuffle(gregorioArtwork);
             solution = gregorioArtwork.get(0);
