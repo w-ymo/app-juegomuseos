@@ -7,7 +7,6 @@ package com.gf.app.juegomuseos.views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.logging.Level;
@@ -16,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -33,6 +31,7 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
     private JLabel museumLabel;
     private JButton trueButton;
     private JButton falseButton;
+    private static final Color NARANJA = new Color(245, 131, 20);
 
     /**
      * Creates new form GUIVFMuseos
@@ -41,11 +40,12 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
         //com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme -> Claro
         //com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme -> Oscuro
         try {
-            initComponents();
+            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
+            initComponents();     
             setFrame();
             setMuseumPanel();
             setButtonsPanel();
-            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");   
+               
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -60,28 +60,64 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
     private void setFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.getContentPane().setLayout(new BorderLayout());       
+        this.getContentPane().setLayout(new BorderLayout());
+        this.setTitle("Existe el Museo");
     }
     
-    private void setMuseumPanel() {
+    private void setMuseumPanel() {     
         museumPanel = new JPanel(new BorderLayout());
         this.getContentPane().add(museumPanel, BorderLayout.CENTER);
-        museumLabel = new JLabel("Museo Coconut");
+        //Label
+        museumLabel = new JLabel("Museo");
+        Font font = new Font(museumLabel.getFont().getName(), Font.PLAIN, 75);
         museumLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        museumLabel.setFont(font); 
         museumPanel.add(museumLabel, BorderLayout.CENTER);
     }
     
     private void setButtonsPanel() {
         buttonsPanel = new JPanel(new GridLayout(1, 2));
         this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
+        //True button
         trueButton = new JButton("Existe");
-        trueButton.setPreferredSize(new Dimension(100, 50));
+        Font font = new Font(trueButton.getFont().getName(), Font.PLAIN, 50);
+        trueButton.setPreferredSize(new Dimension(100, 100));
+        trueButton.setFont(font);
+        trueButton.setForeground(NARANJA);
+        //False button
         falseButton = new JButton("No existe");
-        falseButton.setPreferredSize(new Dimension(100, 50));
+        falseButton.setForeground(NARANJA);
+        falseButton.setPreferredSize(new Dimension(100, 100));
+        falseButton.setFont(font);
         buttonsPanel.add(trueButton, BorderLayout.WEST);
         buttonsPanel.add(falseButton, BorderLayout.EAST);
     }
 
+    public JLabel getMuseumLabel() {
+        return museumLabel;
+    }
+
+    public void setMuseumLabel(JLabel museumLabel) {
+        this.museumLabel = museumLabel;
+    }
+    
+    public JButton getTrueButton() {
+        return trueButton;
+    }
+
+    public void setTrueButton(JButton trueButton) {
+        this.trueButton = trueButton;
+    }
+
+    public JButton getFalseButton() {
+        return falseButton;
+    }
+
+    public void setFalseButton(JButton falseButton) {
+        this.falseButton = falseButton;
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
