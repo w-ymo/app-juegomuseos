@@ -46,20 +46,20 @@ public class GUIWhoIs extends javax.swing.JFrame {
      * Creates new form GUIWhoIs
      */
     public GUIWhoIs() {
-        try {
-            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
-            this.setUndecorated(true);
+//        try {
+//            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
+//            this.setUndecorated(true);
             initComponents();
             setFrame();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (UnsupportedLookAndFeelException ex) {
+//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     private void setFrame() {

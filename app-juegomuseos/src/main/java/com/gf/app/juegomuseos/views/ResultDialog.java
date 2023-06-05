@@ -52,13 +52,13 @@ public class ResultDialog extends javax.swing.JDialog {
 
     private void setFrame() {
         this.setResizable(false);
-        this.setLocationRelativeTo(null);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         windowSize = new Dimension((int) (screenSize.width * 0.3), (int) (screenSize.height * 0.3));
         this.setSize(windowSize);
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(msgText, BorderLayout.CENTER);
         msgText.setHorizontalAlignment(SwingConstants.CENTER);
+        this.setLocationRelativeTo(null);
     }
 
     private void setCorrect() {
@@ -68,7 +68,7 @@ public class ResultDialog extends javax.swing.JDialog {
 
     private void setIncorrect() {
         msgText.setText("Incorrecto");
-        this.getContentPane().setBackground(Colors.RED );
+        this.getContentPane().setBackground(Colors.RED);
     }
 
     private void setLabelStyle() {

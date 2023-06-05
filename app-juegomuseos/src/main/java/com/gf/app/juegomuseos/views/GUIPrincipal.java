@@ -12,9 +12,13 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -28,18 +32,23 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private JLabel labelLogo;
     private List<JButton> options = new ArrayList<>();
 
-    private String[] optionsTexts = {"MODO YINCANA", "MODO LIBRE", "INFORMACION", "AJUSTES"};
+    public final String[] optionsTexts = {"MODO YINCANA", "MODO LIBRE", "INFORMACION", "AJUSTES"};
 
     /**
      * Creates new form GUIPrincipal
      */
     public GUIPrincipal() {
-        initComponents();
-        setFrame();
+        try {
+            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
+            //this.setUndecorated(true);
+            initComponents();
+            setFrame();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void setFrame() {
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setExtendedState(MAXIMIZED_BOTH);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.getContentPane().setSize(screenSize);
@@ -48,23 +57,41 @@ public class GUIPrincipal extends javax.swing.JFrame {
         setButtons();
     }
 
-    private void setLogo(){
+    private void setLogo() {
         panelLogo = new JPanel(new FlowLayout(FlowLayout.CENTER));
         labelLogo = new JLabel("HEY");
         panelLogo.add(labelLogo);
-        this.getContentPane().add(labelLogo, BorderLayout.NORTH);
+        this.getContentPane().add(panelLogo, BorderLayout.NORTH);
     }
-    
+
     private void setButtons() {
-        panelOptions = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        panelOptions = new JPanel(new FlowLayout());
+        panelOptions.setSize((int) (this.getContentPane().getWidth() * 0.7), (int) (this.getContentPane().getHeight() * 0.3));
         JPanel gridPanel = new JPanel(new GridLayout(4, 0));
         for (int i = 0; i < 4; i++) {
             JButton but = new JButton(optionsTexts[i]);
+            // but.setPreferredSize(new Dimension(panelOptions.getWidth(), panelOptions.getHeight() / 4));
             options.add(but);
             gridPanel.add(but);
         }
         panelOptions.add(gridPanel);
         this.getContentPane().add(panelOptions, BorderLayout.CENTER);
+    }
+
+    public JLabel getLabelLogo() {
+        return labelLogo;
+    }
+
+    public void setLabelLogo(JLabel labelLogo) {
+        this.labelLogo = labelLogo;
+    }
+
+    public List<JButton> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<JButton> options) {
+        this.options = options;
     }
 
     /**
@@ -82,40 +109,40 @@ public class GUIPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUIPrincipal().setVisible(true);
-            }
-        });
-    }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(GUIPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new GUIPrincipal().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

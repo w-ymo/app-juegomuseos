@@ -10,6 +10,7 @@ import com.gf.app.juegomuseos.models.Artwork;
 import com.gf.app.juegomuseos.models.Author;
 import com.gf.app.juegomuseos.utils.ImagesSize;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
+import com.gf.app.juegomuseos.views.GUIPrincipal;
 import com.gf.app.juegomuseos.views.GUIWhoIs;
 import com.gf.app.juegomuseos.views.ResultDialog;
 import java.awt.Image;
@@ -32,7 +33,7 @@ import javax.swing.JOptionPane;
  */
 public class WhoIsController {
 
-    //habria que meter en el controlador la pagina principal
+//    private GUIPrincipal parentView;
     private GUIWhoIs view;
 
     private ArtworkDAO awDAO = new ArtworkDAO();
@@ -50,12 +51,25 @@ public class WhoIsController {
 
     public WhoIsController(GUIWhoIs view) {
         this.view = view;
+        //this.parentView = null;
         this.counter = 0;
         this.fails = 0;
+        System.out.println("añade botones");
         addListenerButtons();
+        System.out.println("pone juego");
         launchGame();
     }
 
+//    public WhoIsController(GUIWhoIs view, GUIPrincipal parentView) {
+//        this.view = view;
+//        this.parentView = parentView;
+//        this.counter = 0;
+//        this.fails = 0;
+//        System.out.println("añade botones");
+//        addListenerButtons();
+//        System.out.println("pone juego");
+//        launchGame();
+//    }
     private ActionListener listenerButtons = (e) -> {
         JButton but = (JButton) e.getSource();
         int atId = solution.getId_autor();
@@ -85,10 +99,12 @@ public class WhoIsController {
     }
 
     private void launchGame() {
+        proceed = true;
         view.setVisible(true);
         while (counter < 10) {
             if (proceed) {
                 initGame();
+                //view.getImageText().setText("ACHANTA");
             }
         }
         view.dispose();
@@ -98,14 +114,18 @@ public class WhoIsController {
     private void initGame() {
         try {
             proceed = false;
-            int index = 0;
-            do {
+            int index;
+            if (!this.repeatedDB.isEmpty()) {
+                do {
+                    imageSelected = awDAO.selectNum(1).get(0);
+                    index = imageSelected.getId_obra();
+                    if (Collections.binarySearch(repeatedDB, index) < 0) {
+                        repeatedDB.add(index);
+                    }
+                } while (Collections.binarySearch(repeatedDB, index) >= 0);
+            } else {
                 imageSelected = awDAO.selectNum(1).get(0);
-                index = imageSelected.getId_obra();
-                if (Collections.binarySearch(repeatedDB, index) < 0) {
-                    repeatedDB.add(index);
-                }
-            } while (Collections.binarySearch(repeatedDB, index) >= 0);
+            }
             view.getImageText().setText(imageSelected.getNombre_obra());
             solution = atDAO.selectId(imageSelected.getId_autor());
             List<Author> authorsNames = new ArrayList<>();
