@@ -63,12 +63,12 @@ public class ResultDialog extends javax.swing.JDialog {
 
     private void setCorrect() {
         msgText.setText("Correcto");
-        this.getContentPane().setBackground(Colors.GREEN_BCKGRND);
+        this.getContentPane().setBackground(Colors.GREEN);
     }
 
     private void setIncorrect() {
         msgText.setText("Incorrecto");
-        this.getContentPane().setBackground(Colors.RED_BCKGRND);
+        this.getContentPane().setBackground(Colors.RED );
     }
 
     private void setLabelStyle() {

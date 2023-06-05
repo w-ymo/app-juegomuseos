@@ -48,6 +48,7 @@ public class GUIWhoIs extends javax.swing.JFrame {
     public GUIWhoIs() {
         try {
             UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
+            this.setUndecorated(true);
             initComponents();
             setFrame();
         } catch (ClassNotFoundException ex) {
@@ -99,6 +100,8 @@ public class GUIWhoIs extends javax.swing.JFrame {
         for (int i = 0; i < 4; i++) {
             System.out.println(colores[i]);
             JButton but = new JButton("Boton " + i);
+            but.setForeground(Colors.ONYX);
+            but.setFont(this.getFont().deriveFont(Font.BOLD, 18f));
             but.setBackground(colores[i]);
             options.add(but);
         }
