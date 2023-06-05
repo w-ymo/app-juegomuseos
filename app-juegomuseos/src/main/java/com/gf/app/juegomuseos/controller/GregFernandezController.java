@@ -7,7 +7,9 @@ package com.gf.app.juegomuseos.controller;
 import com.gf.app.juegomuseos.dao.ArtworkDAO;
 import com.gf.app.juegomuseos.dao.AuthorDAO;
 import com.gf.app.juegomuseos.models.Artwork;
+import com.gf.app.juegomuseos.utils.ImagesSize;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
@@ -94,7 +96,6 @@ public class GregFernandezController {
             for (int i = 0; i < view.getImages().size(); i++) {
                 setIcon(artworksNames.get(i).getImagen_obra(), view.getImages().get(i));
                 view.getImages().get(i).setName(String.valueOf(artworksNames.get(i).getId_autor()));
-                System.out.println(view.getImages().get(i).getName());
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
@@ -106,10 +107,10 @@ public class GregFernandezController {
         try {
             i = new ImageIcon(new URL(url));
         } catch (MalformedURLException ex) {
-            System.out.println("URL malisima loco");
+            JOptionPane.showMessageDialog(null, "URL MALISIMA");
         }
-        Image proportionalImage = i.getImage().getScaledInstance(view.getPanelImages().getWidth() / 2 - 200,
-                view.getPanelImages().getHeight(), Image.SCALE_AREA_AVERAGING);
+        Image proportionalImage = ImagesSize.getProportionalDimensionImage(i,
+                new Dimension(view.getPanelImages().getSize().width / 2, view.getPanelImages().getSize().height));
         image.setIcon(new ImageIcon(proportionalImage));
     }
 
