@@ -4,15 +4,23 @@
  */
 package com.gf.app.juegomuseos.views;
 
+import com.gf.app.juegomuseos.utils.Colors;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.Panel;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 /**
  *
@@ -27,8 +35,9 @@ public class ResultDialog extends javax.swing.JDialog {
     /**
      * Creates new form ResultDialog
      */
-    public ResultDialog(JFrame parent, boolean modal, boolean correct) {
-        super(parent, modal);
+    public ResultDialog(JFrame parent, boolean correct) {
+        this.setUndecorated(true);
+        this.setModal(true);
         this.parent = parent;
         initComponents();
         msgText = new JLabel();
@@ -54,17 +63,30 @@ public class ResultDialog extends javax.swing.JDialog {
 
     private void setCorrect() {
         msgText.setText("Correcto");
-        this.getContentPane().setBackground(Color.green);
+        this.getContentPane().setBackground(Colors.GREEN_BCKGRND);
     }
 
     private void setIncorrect() {
         msgText.setText("Incorrecto");
-        this.getContentPane().setBackground(Color.red);
+        this.getContentPane().setBackground(Colors.RED_BCKGRND);
     }
 
     private void setLabelStyle() {
         Font parentFont = parent.getFont();
         msgText.setFont(parentFont.deriveFont(Font.BOLD, 50f));
+    }
+
+    public void initTimer() {
+        JDialog pane = this;
+        Thread t = new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            pane.dispose();
+        });
+        t.start();
     }
 
     /**
@@ -122,7 +144,7 @@ public class ResultDialog extends javax.swing.JDialog {
 //        /* Create and display the dialog */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                ResultDialog dialog = new ResultDialog(new javax.swing.JFrame(), true, false);
+//                ResultDialog dialog = new ResultDialog(new javax.swing.JFrame(), false);
 //                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 //                    @Override
 //                    public void windowClosing(java.awt.event.WindowEvent e) {
