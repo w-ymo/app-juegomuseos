@@ -8,6 +8,7 @@ import com.gf.app.juegomuseos.dao.MuseumDAO;
 import com.gf.app.juegomuseos.models.Museum;
 import com.gf.app.juegomuseos.utils.Colors;
 import com.gf.app.juegomuseos.views.GUIMuseumsTF;
+import com.gf.app.juegomuseos.views.ResultDialog;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -113,6 +114,8 @@ public class MuseumsTFController implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
+        ResultDialog rd = new ResultDialog(view, true, true);
+        rd.setVisible(true);
         JButton b = (JButton) e.getSource();
         boolean gtOne = mSolution.getId_museo() >= 1;
         if (b.equals(view.getTrueButton())) {

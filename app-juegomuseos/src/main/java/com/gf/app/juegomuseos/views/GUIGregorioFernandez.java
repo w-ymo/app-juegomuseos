@@ -17,9 +17,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -50,7 +47,7 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
 
     private void setFrame() {
         this.setExtendedState(MAXIMIZED_BOTH);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); 
         this.getContentPane().setSize(screenSize);
         this.getContentPane().setLayout(new BorderLayout());
         setTitlePanel();
@@ -68,7 +65,7 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
     private void setImagePanel() {
         panelImages = new JPanel(new GridLayout(0, 2));
         this.getContentPane().add(panelImages, BorderLayout.CENTER);
-        panelImages.setSize(this.getContentPane().getWidth(), (int) (this.getContentPane().getHeight() * 0.70));
+        panelImages.setSize(this.getContentPane().getWidth(), (int) (this.getContentPane().getHeight() * 0.60));
         initButtonImage();
         for (JButton image : images) {
             panelImages.add(image);
