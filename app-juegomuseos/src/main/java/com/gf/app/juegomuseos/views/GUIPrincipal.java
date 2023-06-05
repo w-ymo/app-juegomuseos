@@ -6,7 +6,9 @@ package com.gf.app.juegomuseos.views;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +23,13 @@ import javax.swing.JPanel;
 public class GUIPrincipal extends javax.swing.JFrame {
 
     private JPanel panelLogo;
-    private JPanel panelOpciones;
-    
+    private JPanel panelOptions;
+
     private JLabel labelLogo;
     private List<JButton> options = new ArrayList<>();
-    
- 
+
+    private String[] optionsTexts = {"MODO YINCANA", "MODO LIBRE", "INFORMACION", "AJUSTES"};
+
     /**
      * Creates new form GUIPrincipal
      */
@@ -34,15 +37,36 @@ public class GUIPrincipal extends javax.swing.JFrame {
         initComponents();
         setFrame();
     }
-    
-    private void setFrame(){
+
+    private void setFrame() {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setExtendedState(MAXIMIZED_BOTH);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.getContentPane().setSize(screenSize);
         this.getContentPane().setLayout(new BorderLayout());
+        setLogo();
+        setButtons();
+    }
+
+    private void setLogo(){
+        panelLogo = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        labelLogo = new JLabel("HEY");
+        panelLogo.add(labelLogo);
+        this.getContentPane().add(labelLogo, BorderLayout.NORTH);
     }
     
+    private void setButtons() {
+        panelOptions = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel gridPanel = new JPanel(new GridLayout(4, 0));
+        for (int i = 0; i < 4; i++) {
+            JButton but = new JButton(optionsTexts[i]);
+            options.add(but);
+            gridPanel.add(but);
+        }
+        panelOptions.add(gridPanel);
+        this.getContentPane().add(panelOptions, BorderLayout.CENTER);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
