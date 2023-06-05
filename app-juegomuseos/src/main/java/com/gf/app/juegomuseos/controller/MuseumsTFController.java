@@ -108,6 +108,7 @@ public class MuseumsTFController implements ActionListener {
     private void guessedRight(JButton button) {
         ResultDialog rd = new ResultDialog(view, true);
         rd.initTimer();
+        //que mierda netbeans???
         rd.setVisible(true);
     }
     
