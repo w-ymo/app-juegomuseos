@@ -4,6 +4,7 @@
  */
 package com.gf.app.juegomuseos.views;
 
+import com.gf.app.juegomuseos.utils.Colors;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -25,20 +26,22 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class GUIMuseumsTF extends javax.swing.JFrame {
 
+    //com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme -> Claro
+    //com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme -> Oscuro
+    
     private GUIPrincipal guip;
     private JPanel museumPanel;
     private JPanel buttonsPanel;
+    
     private JLabel museumLabel;
+    
     private JButton trueButton;
     private JButton falseButton;
-    private static final Color NARANJA = new Color(245, 131, 20);
 
     /**
      * Creates new form GUIVFMuseos
      */
     public GUIMuseumsTF() {
-        //com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme -> Claro
-        //com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme -> Oscuro
         try {
             UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
             initComponents();     
@@ -46,15 +49,10 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
             setMuseumPanel();
             setButtonsPanel();
                
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.setUndecorated(true);
     }
 
     private void setFrame() {
@@ -83,10 +81,10 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
         Font font = new Font(trueButton.getFont().getName(), Font.PLAIN, 50);
         trueButton.setPreferredSize(new Dimension(100, 100));
         trueButton.setFont(font);
-        trueButton.setForeground(NARANJA);
+        trueButton.setForeground(Colors.THEME_ORANGE);
         //False button
         falseButton = new JButton("No existe");
-        falseButton.setForeground(NARANJA);
+        falseButton.setForeground(Colors.THEME_ORANGE);
         falseButton.setPreferredSize(new Dimension(100, 100));
         falseButton.setFont(font);
         buttonsPanel.add(trueButton, BorderLayout.WEST);
@@ -146,47 +144,47 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIMuseumsTF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIMuseumsTF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIMuseumsTF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUIMuseumsTF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                GUIMuseumsTF frame = new GUIMuseumsTF();
-                frame.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                frame.setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(GUIMuseumsTF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(GUIMuseumsTF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(GUIMuseumsTF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(GUIMuseumsTF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                GUIMuseumsTF frame = new GUIMuseumsTF();
+//                frame.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                frame.setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

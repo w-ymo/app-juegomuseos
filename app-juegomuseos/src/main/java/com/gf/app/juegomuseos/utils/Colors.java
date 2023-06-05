@@ -19,7 +19,7 @@ public class Colors {
     public static final Color DODGER  = (new Color(25, 140, 255));
     public static final Color LAVENDER  = (new Color(166,77,255));
     public static final Color ONYX  = (new Color(9,0,51));
-    
+    public static final Color THEME_ORANGE = new Color(245, 131, 20);
     
     public static final Color[] BUTTONS_COLORS = {Colors.CARROT , Colors.MALACHITE , Colors.DODGER , Colors.LAVENDER };
 }
