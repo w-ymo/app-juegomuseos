@@ -43,6 +43,7 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
      */
     public GUIMuseumsTF() {
         try {
+            this.setUndecorated(true);
             UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
             initComponents();     
             setFrame();
@@ -52,11 +53,10 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.setUndecorated(true);
     }
 
     private void setFrame() {
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.getContentPane().setLayout(new BorderLayout());
     }
