@@ -8,6 +8,7 @@ import com.gf.app.juegomuseos.dao.ArtworkDAO;
 import com.gf.app.juegomuseos.dao.AuthorDAO;
 import com.gf.app.juegomuseos.models.Artwork;
 import com.gf.app.juegomuseos.models.Author;
+import com.gf.app.juegomuseos.utils.ImagesSize;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
 import com.gf.app.juegomuseos.views.GUIWhoIs;
 import java.awt.Image;
@@ -43,6 +44,8 @@ public class WhoIsController {
 
     private Artwork imageSelected;
     private Author solution;
+
+    private List<Integer> repeatedDB = new ArrayList<>();
 
     public WhoIsController(GUIWhoIs view) {
         this.view = view;
@@ -89,7 +92,14 @@ public class WhoIsController {
     private void initGame() {
         try {
             proceed = false;
-            imageSelected = awDAO.selectNum(1).get(0);
+            int index = 0;
+            do {
+                imageSelected = awDAO.selectNum(1).get(0);
+                index = imageSelected.getId_obra();
+                if (Collections.binarySearch(repeatedDB, index) < 0) {
+                    repeatedDB.add(index);
+                }
+            } while (Collections.binarySearch(repeatedDB, index) >= 0);
             view.getImageText().setText(imageSelected.getNombre_obra());
             solution = atDAO.selectId(imageSelected.getId_autor());
             List<Author> authorsNames = new ArrayList<>();
@@ -116,8 +126,8 @@ public class WhoIsController {
         } catch (MalformedURLException ex) {
             Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Image proportionalImage = i.getImage().getScaledInstance(view.getPanelImages().getWidth() - 400,
-                view.getPanelImages().getHeight(), Image.SCALE_SMOOTH);
+        System.out.println(view.getPanelImages().getSize());
+        Image proportionalImage = ImagesSize.getProportionalDimensionImage(i, view.getPanelImages().getSize());
         view.getImage().setIcon(new ImageIcon(proportionalImage));
     }
 

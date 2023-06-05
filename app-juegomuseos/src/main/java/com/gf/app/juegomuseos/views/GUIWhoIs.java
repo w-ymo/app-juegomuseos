@@ -4,22 +4,14 @@
  */
 package com.gf.app.juegomuseos.views;
 
-import com.gf.app.juegomuseos.models.Artwork;
-import com.gf.app.juegomuseos.models.Author;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Toolkit;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -65,7 +57,7 @@ public class GUIWhoIs extends javax.swing.JFrame {
 
     private void setImagePanel() {
         panelImages = new JPanel(new BorderLayout());
-        panelImages.setSize(new Dimension(this.getContentPane().getSize().width, (int) (this.getContentPane().getSize().height * 0.8)));
+        panelImages.setSize(new Dimension(this.getContentPane().getWidth(), (int) (this.getContentPane().getHeight() * 0.8)));
         this.getContentPane().add(panelImages, BorderLayout.CENTER);
         image = new JLabel();
         imageText = new JLabel("Bottom text");
