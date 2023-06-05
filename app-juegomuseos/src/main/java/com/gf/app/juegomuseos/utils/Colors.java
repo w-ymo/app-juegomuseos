@@ -11,6 +11,6 @@ import java.awt.Color;
  * @author fercaslu
  */
 public class Colors {   
-    public static final Color GREEN_BCKGRND = (new Color(0, 255, 0));
-    public static final Color RED_BCKGRND = (new Color(255, 0, 0));
+    public static final Color GREEN_BCKGRND = (new Color(0, 128, 0));
+    public static final Color RED_BCKGRND = (new Color(204, 0, 0));
 }
