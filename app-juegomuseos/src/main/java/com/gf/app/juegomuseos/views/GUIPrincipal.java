@@ -4,19 +4,45 @@
  */
 package com.gf.app.juegomuseos.views;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 /**
  *
  * @author priparno
  */
 public class GUIPrincipal extends javax.swing.JFrame {
 
+    private JPanel panelLogo;
+    private JPanel panelOpciones;
+    
+    private JLabel labelLogo;
+    private List<JButton> options = new ArrayList<>();
+    
+ 
     /**
      * Creates new form GUIPrincipal
      */
     public GUIPrincipal() {
         initComponents();
+        setFrame();
     }
-
+    
+    private void setFrame(){
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setExtendedState(MAXIMIZED_BOTH);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.getContentPane().setSize(screenSize);
+        this.getContentPane().setLayout(new BorderLayout());
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,17 +53,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

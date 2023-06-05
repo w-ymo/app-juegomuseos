@@ -9,6 +9,7 @@ import com.gf.app.juegomuseos.dao.AuthorDAO;
 import com.gf.app.juegomuseos.models.Artwork;
 import com.gf.app.juegomuseos.utils.ImagesSize;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
+import com.gf.app.juegomuseos.views.ResultDialog;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionListener;
@@ -52,9 +53,13 @@ public class GregFernandezController {
         JButton but = (JButton) e.getSource();
         try {
             if (but.getName().equals(String.valueOf(atDAO.getIdGregorioFernandez()))) {
-                JOptionPane.showMessageDialog(null, "Todo gucci");
+                ResultDialog rd = new ResultDialog(view, true);
+                rd.initTimer();
+                rd.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "La solucion era la otra");
+                    ResultDialog rd = new ResultDialog(view, false);
+                rd.initTimer();
+                rd.setVisible(true);
                 fails++;
             }
             counter++;
@@ -77,7 +82,8 @@ public class GregFernandezController {
                 initGame();
             }
         }
-        JOptionPane.showMessageDialog(null, "Siguiente jueguito a adivinar");
+        view.dispose();
+        JOptionPane.showMessageDialog(null, "Siguiente jogo");
     }
 
     private void initGame() {

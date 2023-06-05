@@ -11,6 +11,7 @@ import com.gf.app.juegomuseos.models.Author;
 import com.gf.app.juegomuseos.utils.ImagesSize;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
 import com.gf.app.juegomuseos.views.GUIWhoIs;
+import com.gf.app.juegomuseos.views.ResultDialog;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
@@ -61,9 +62,13 @@ public class WhoIsController {
         try {
             Author at = atDAO.selectId(atId);
             if (but.getText().equals(at.getNombre_autor())) {
-                JOptionPane.showMessageDialog(null, "La solución es correcta");
+                ResultDialog rd = new ResultDialog(view, true);
+                rd.initTimer();
+                rd.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "La solucion era " + at.getNombre_autor());
+                ResultDialog rd = new ResultDialog(view, false);
+                rd.initTimer();
+                rd.setVisible(true);
                 fails++;
             }
             counter++;
@@ -86,6 +91,7 @@ public class WhoIsController {
                 initGame();
             }
         }
+        view.dispose();
         JOptionPane.showMessageDialog(null, "Siguiente jogo");
     }
 
@@ -126,7 +132,6 @@ public class WhoIsController {
         } catch (MalformedURLException ex) {
             Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(view.getPanelImages().getSize());
         Image proportionalImage = ImagesSize.getProportionalDimensionImage(i, view.getPanelImages().getSize());
         view.getImage().setIcon(new ImageIcon(proportionalImage));
     }
