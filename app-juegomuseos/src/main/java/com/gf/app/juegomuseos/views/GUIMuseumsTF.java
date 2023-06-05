@@ -56,10 +56,9 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
     }
 
     private void setFrame() {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.getContentPane().setLayout(new BorderLayout());
-        this.setTitle("Existe el Museo");
     }
     
     private void setMuseumPanel() {     
