@@ -62,7 +62,7 @@ CREATE TABLE `museos` (
 -- --------------------------------------------------------
 /*
 INSERT INTO `museos` (`nombre_museo`, `id_pais`) VALUES ('Nueva Pinacoteca de Múnich', 13), ('Museo del Prado', 2),
-('Museo Metropolitano de Arte de Nueva York', 3), ('Museo del Louvre', 4), ('Santa Maria del las Gracias', 7), 
+('Museo Metropolitano de Arte de NY', 3), ('Museo del Louvre', 4), ('Santa Maria del las Gracias', 7), 
 ('Galería de la Academia', 7), ('Galería Uffizi', 7), ('Museos Vaticanos', 14), ('Museo de Arte Moderno de San Francisco', 3), 
 ('Museo Rodin', 4), ('Santuario de Misericordia de Borja', 2), ('Museo Koishikawa Ukiyo-e', 8), ('Museo Tate Modern', 5), 
 ('Museo Nacional Centro de Arte Reina Sofía', 2), ('Museo Guggenheim', 2), ('Museo Nacional de Escultura', 2), 
@@ -261,7 +261,7 @@ INSERT INTO `paises` (`nombre_pais`) VALUES ('China'), ('España'), ('Estados Un
 ('Países Bajos'), ('México'), ('Brasil'), ('Alemania'), ('Ciudad del Vaticano');
 
 INSERT INTO `museos` (`nombre_museo`, `id_pais`) VALUES ('Nueva Pinacoteca de Múnich', 13), ('Museo del Prado', 2),
-('Museo Metropolitano de Arte de Nueva York', 3), ('Museo del Louvre', 4), ('Santa Maria del las Gracias', 7), 
+('Museo Metropolitano de Arte de NY', 3), ('Museo del Louvre', 4), ('Santa Maria del las Gracias', 7), 
 ('Galería de la Academia', 7), ('Galería Uffizi', 7), ('Museos Vaticanos', 14), ('Museo de Arte Moderno de San Francisco', 3), 
 ('Museo Rodin', 4), ('Santuario de Misericordia de Borja', 2), ('Museo Koishikawa Ukiyo-e', 8), ('Museo Tate Modern', 5), 
 ('Museo Nacional Centro de Arte Reina Sofía', 2), ('Museo Guggenheim', 2), ('Museo Nacional de Escultura', 2), 
