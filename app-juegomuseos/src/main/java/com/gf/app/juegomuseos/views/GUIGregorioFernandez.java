@@ -17,9 +17,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -35,19 +39,29 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
     private JPanel panelImages;
 
     private List<JButton> images = new ArrayList<>();
-    
+
     /**
      * Creates new form GUIGregorioFernandez
      */
     public GUIGregorioFernandez() {
-        initComponents();
-        setFrame();
-        //setGame();
+        try {
+            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
+            initComponents();
+            setFrame();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void setFrame() {
         this.setExtendedState(MAXIMIZED_BOTH);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); 
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.getContentPane().setSize(screenSize);
         this.getContentPane().setLayout(new BorderLayout());
         setTitlePanel();
@@ -110,7 +124,7 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
     public void setPanelImages(JPanel panelImages) {
         this.panelImages = panelImages;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

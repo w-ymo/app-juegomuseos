@@ -4,6 +4,7 @@
  */
 package com.gf.app.juegomuseos.views;
 
+import com.gf.app.juegomuseos.utils.Colors;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,10 +13,14 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -30,7 +35,7 @@ public class GUIWhoIs extends javax.swing.JFrame {
     private JPanel panelImages;
     private JPanel panelOptions;
 
-    private static final Color[] colores = {new Color(255, 80, 80), new Color(80, 255, 80), new Color(80, 80, 255), new Color(255, 230, 70)};
+    private static final Color[] colores = Colors.BUTTONS_COLORS;
 
     private JLabel image;
     private JLabel imageText;
@@ -41,8 +46,19 @@ public class GUIWhoIs extends javax.swing.JFrame {
      * Creates new form GUIWhoIs
      */
     public GUIWhoIs() {
-        initComponents();
-        setFrame();
+        try {
+            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
+            initComponents();
+            setFrame();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void setFrame() {
@@ -81,6 +97,7 @@ public class GUIWhoIs extends javax.swing.JFrame {
 
     private void initOptions() {
         for (int i = 0; i < 4; i++) {
+            System.out.println(colores[i]);
             JButton but = new JButton("Boton " + i);
             but.setBackground(colores[i]);
             options.add(but);
