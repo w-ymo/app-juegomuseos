@@ -4,6 +4,7 @@
  */
 package com.gf.app.juegomuseos.views;
 
+import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -44,7 +45,6 @@ public class GUIMap extends javax.swing.JFrame {
      */
     public GUIMap() {
         try {
-            this.setUndecorated(true);
             UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
             initComponents();     
             setFrame();
@@ -78,14 +78,14 @@ public class GUIMap extends javax.swing.JFrame {
 //        infoPanel.add(artworkLabel);
 //        infoPanel.add(authorLabel);
     }
-
+    
     private void setMapKit() {
         info = new OSMTileFactoryInfo();
         tileFactory = new DefaultTileFactory(info);
         mapKit.setTileFactory(tileFactory);
-        mapKit.setZoom(17);
+        mapKit.setZoom(15);
         mapKit.getMainMap().setOverlayPainter(null);
-        mapKit.setBounds(0, 0, 800, 600);
+        mapKit.setBounds(0, 0, GameConstants.SCREEN_SIZE.width, GameConstants.SCREEN_SIZE.width);
     }
     
     /**
