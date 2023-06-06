@@ -12,7 +12,7 @@ import javax.swing.JButton;
  *
  * @author priparno
  */
-public class SettingsController {
+public class SettingsController implements GameControllers {
 
     private GUISettings view;
     

@@ -19,11 +19,12 @@ import javax.swing.Timer;
  *
  * @author priparno
  */
-public class MainController {
+public class MainController implements GameControllers {
 
     private GUIPrincipal view;
 
     private Timer timer;
+    private int fails;
 
     private ActionListener al = (e) -> {
         List<JButton> list = view.getOptions();
@@ -32,12 +33,12 @@ public class MainController {
             case "MODO YINCANA" -> {
                 view.dispose();
                 GUIWhoIs guiwh = new GUIWhoIs();
-                WhoIsController controllerWH = new WhoIsController(guiwh, view, GameConstants.COMP_MODE);
+                WhoIsController controllerWH = new WhoIsController(guiwh, this, GameConstants.COMP_MODE);
             }
             case "MODO LIBRE" -> {
                 view.dispose();
                 GUISelectGame guisg = new GUISelectGame();
-                SelectGameController controllerSelectGame = new SelectGameController(guisg, view);
+                SelectGameController controllerSelectGame = new SelectGameController(guisg, this);
             }
             case "INFORMACION" -> {
                 InfoController controllerInfo = new InfoController(new GUIInfo(view, true));
@@ -67,6 +68,30 @@ public class MainController {
 
     private void launchView() {
         view.setVisible(true);
+    }
+
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public void setTimer(Timer timer) {
+        this.timer = timer;
+    }
+
+    public int getFails() {
+        return fails;
+    }
+
+    public void setFails(int fails) {
+        this.fails = fails;
+    }
+
+    public GUIPrincipal getView() {
+        return view;
+    }
+
+    public void setView(GUIPrincipal view) {
+        this.view = view;
     }
 
 }
