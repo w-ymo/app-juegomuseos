@@ -40,7 +40,7 @@ public class GregFernandezController implements GameControllers {
     private AuthorDAO atDAO = new AuthorDAO();
 
     private boolean mode;
-    
+
     private int counter;
     private int fails;
     private Timer timer;
@@ -74,18 +74,26 @@ public class GregFernandezController implements GameControllers {
             if (counter < 5) {
                 initGame();
             } else {
-                view.dispose();
                 JOptionPane.showMessageDialog(null, "Siguiente jogo");
                 setGameData();
                 if (mode == GameConstants.COMP_MODE) {
                     //map controller
                     System.out.println("map");
+                } else {
+                    openMenu();
                 }
+                view.dispose();
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error garrafal");
         }
     };
+
+    private void openMenu() {
+        if (parent instanceof SelectGameController parentC) {
+            parentC.getMainController().getView().setVisible(true);
+        }
+    }
 
     private void getGameData() {
         if (parent instanceof MainController parentC) {

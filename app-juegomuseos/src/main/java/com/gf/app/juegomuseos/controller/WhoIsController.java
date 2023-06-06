@@ -72,12 +72,13 @@ public class WhoIsController implements GameControllers {
             if (counter < 10) {
                 initGame();
             } else {
-                view.dispose();
-                JOptionPane.showMessageDialog(null, "Siguiente jogo");
                 setGameData();
                 if (mode == GameConstants.COMP_MODE) {
                     MuseumsTFController nextGame = new MuseumsTFController(new GUIMuseumsTF(), parent, mode);
+                }else{
+                    openMenu();
                 }
+                view.dispose();
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error garrafal");
@@ -94,6 +95,12 @@ public class WhoIsController implements GameControllers {
         launchGame();
     }
 
+    private void openMenu(){
+        if (parent instanceof SelectGameController parentC) {
+            parentC.getMainController().getView().setVisible(true);
+        }
+    }
+    
     private void getGameData() {
         if (parent instanceof MainController parentC) {
             this.fails = parentC.getFails();

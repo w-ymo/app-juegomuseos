@@ -62,6 +62,12 @@ public class MuseumsTFController implements ActionListener, GameControllers {
         launchGame();
     }
 
+    private void openMenu() {
+        if (parent instanceof SelectGameController parentC) {
+            parentC.getMainController().getView().setVisible(true);
+        }
+    }
+
     private void getGameData() {
         if (parent instanceof MainController parentC) {
             this.fails = parentC.getFails();
@@ -169,15 +175,13 @@ public class MuseumsTFController implements ActionListener, GameControllers {
         if (counter < 10) {
             initGame();
         } else {
-            view.dispose();
             if (mode == GameConstants.COMP_MODE) {
-                JOptionPane.showMessageDialog(null, "Siguiente jogo");
                 setGameData();
                 GregFernandezController nextGame = new GregFernandezController(new GUIGregorioFernandez(), parent, mode);
             } else {
-                JOptionPane.showMessageDialog(null, "Acabose");
-                ((SelectGameController) parent).getMainController().getView().setVisible(true);
+                openMenu();
             }
+            view.dispose();
         }
     }
 

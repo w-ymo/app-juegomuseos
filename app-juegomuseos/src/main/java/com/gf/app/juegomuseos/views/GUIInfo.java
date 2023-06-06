@@ -4,6 +4,7 @@
  */
 package com.gf.app.juegomuseos.views;
 
+import com.gf.app.juegomuseos.utils.GetData;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -30,7 +31,7 @@ public class GUIInfo extends javax.swing.JDialog {
     private void setFrame() {
         textArea = new JEditorPane();
         textArea.setContentType("text/html");
-        textArea.setText("La informacion");
+        textArea.setText(GetData.getInfoHtml());
         textArea.setEditable(false);
         this.setResizable(false);
         this.getContentPane().setLayout(new BorderLayout());
