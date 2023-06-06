@@ -36,7 +36,7 @@ public class MuseumsTFController implements ActionListener, GameControllers {
     private MuseumDAO mDAO = new MuseumDAO();
 
     private boolean mode;
-    
+
     private int counter;
     private int fails;
     private Timer timer;
@@ -170,10 +170,13 @@ public class MuseumsTFController implements ActionListener, GameControllers {
             initGame();
         } else {
             view.dispose();
-            JOptionPane.showMessageDialog(null, "Siguiente jogo");
-            setGameData();
             if (mode == GameConstants.COMP_MODE) {
+                JOptionPane.showMessageDialog(null, "Siguiente jogo");
+                setGameData();
                 GregFernandezController nextGame = new GregFernandezController(new GUIGregorioFernandez(), parent, mode);
+            } else {
+                JOptionPane.showMessageDialog(null, "Acabose");
+                ((SelectGameController) parent).getMainController().getView().setVisible(true);
             }
         }
     }
