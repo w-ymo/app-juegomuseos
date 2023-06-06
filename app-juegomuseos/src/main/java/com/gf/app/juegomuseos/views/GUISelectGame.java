@@ -4,6 +4,7 @@
  */
 package com.gf.app.juegomuseos.views;
 
+import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -34,9 +35,6 @@ public class GUISelectGame extends javax.swing.JFrame {
     private JPanel panelContainer;
 
     private List<JButton> options = new ArrayList<>();
-
-    private String[] gameModes = {"¿De quién es?", "¿Cuál existe?", "¿Cuál es de Gregorio?", "Coloca en país"};
-    private String[] gameCodes = {"WH", "TF", "GF", "MP"};
 
     /**
      * Creates new form GUISelectGame
@@ -80,9 +78,9 @@ public class GUISelectGame extends javax.swing.JFrame {
     private void setButtons() {
         panelOptions = new JPanel(new GridLayout(0, 4));
         for (int i = 0; i < 4; i++) {
-            JButton but = new JButton(gameModes[i]);
+            JButton but = new JButton(GameConstants.GAMES_NAMES[i]);
             but.setFont(this.getFont().deriveFont(20f));
-            but.setName(gameCodes[i]);
+            but.setName(GameConstants.GAMES_CODES[i]);
             options.add(but);
             panelOptions.add(but);
         }

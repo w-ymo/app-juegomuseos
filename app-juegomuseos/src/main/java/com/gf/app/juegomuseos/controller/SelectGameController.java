@@ -4,6 +4,7 @@
  */
 package com.gf.app.juegomuseos.controller;
 
+import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
 import com.gf.app.juegomuseos.views.GUIMuseumsTF;
 import com.gf.app.juegomuseos.views.GUIPrincipal;
@@ -23,33 +24,28 @@ public class SelectGameController {
 
     private ActionListener al = (e) -> {
         JButton selected = (JButton) e.getSource();
+        parentView.dispose();
         view.dispose();
         //parentView.setVisible(false);
         switch (selected.getName()) {
-            case "WH" -> {
-                System.out.println("TU madre");
-                WhoIsController controllerWH = new WhoIsController(new GUIWhoIs());
+            case GameConstants.WHOIS_CODE -> {
+                WhoIsController controllerWH = new WhoIsController(new GUIWhoIs(), parentView, GameConstants.FREE_MODE);
             }
-            case "TF" -> {
+            case GameConstants.TRUEFALSE_CODE -> {
 //                GUIMuseumsTF guim = new GUIMuseumsTF();
 //                MuseumsTFController controllerMuseum = new MuseumsTFController(guim);
-                System.out.println("Tu madre 2");
             }
-            case "GF" -> {
-//                GUIGregorioFernandez guigf = new GUIGregorioFernandez();
-//                GregFernandezController controllerGF = new GregFernandezController(guigf);
-                System.out.println("Ru madre 3");
+            case GameConstants.GREGORIO_CODE -> {
+                GUIGregorioFernandez guigf = new GUIGregorioFernandez();
+                GregFernandezController controllerGF = new GregFernandezController(guigf, parentView, GameConstants.FREE_MODE);
             }
-            case "MP" -> {
-                System.out.println("tu madre 4");
+            case GameConstants.MAPGAME_CODE -> {
+                System.out.println("map");
             }
             default -> {
-                System.out.println("no funfa");
+                System.out.println("error");
             }
         }
-//        GUIWhoIs guiwh = new GUIWhoIs();
-//        WhoIsController controllerWH = new WhoIsController(guiwh);
-
     };
 
     public SelectGameController(GUISelectGame view) {
@@ -57,7 +53,7 @@ public class SelectGameController {
         addActionListener();
         launchView();
     }
-    
+
     public SelectGameController(GUISelectGame view, GUIPrincipal parentView) {
         this.view = view;
         this.parentView = parentView;

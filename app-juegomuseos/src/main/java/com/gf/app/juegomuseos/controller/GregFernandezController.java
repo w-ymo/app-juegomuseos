@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,19 +31,19 @@ import javax.swing.JOptionPane;
 public class GregFernandezController {
 
     private GUIGregorioFernandez view;
-
+    private JFrame parent;
+    
     private ArtworkDAO awDAO = new ArtworkDAO();
     private AuthorDAO atDAO = new AuthorDAO();
 
     private int counter;
     private int fails;
 
-    private boolean proceed = true;
-
     private Artwork solution;
 
-    public GregFernandezController(GUIGregorioFernandez view) {
+    public GregFernandezController(GUIGregorioFernandez view, JFrame parent, boolean mode) {
         this.view = view;
+        this.parent = parent;
         this.counter = 0;
         this.fails = 0;
         addListenerButtons();
@@ -57,13 +58,18 @@ public class GregFernandezController {
                 rd.initTimer();
                 rd.setVisible(true);
             } else {
-                    ResultDialog rd = new ResultDialog(view, false);
+                ResultDialog rd = new ResultDialog(view, false);
                 rd.initTimer();
                 rd.setVisible(true);
                 fails++;
             }
             counter++;
-            proceed = true;
+            if (counter < 5) {
+                initGame();
+            } else {
+                view.dispose();
+                JOptionPane.showMessageDialog(null, "Siguiente jogo");
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error garrafal");
         }
@@ -77,18 +83,11 @@ public class GregFernandezController {
 
     private void launchGame() {
         view.setVisible(true);
-        while (counter < 5) {
-            if (proceed) {
-                initGame();
-            }
-        }
-        view.dispose();
-        JOptionPane.showMessageDialog(null, "Siguiente jogo");
+        initGame();
     }
 
     private void initGame() {
         try {
-            proceed = false;
             List<Artwork> gregorioArtwork = awDAO.selectIdAuthor(atDAO.getIdGregorioFernandez());
             Collections.shuffle(gregorioArtwork);
             solution = gregorioArtwork.get(0);

@@ -98,7 +98,7 @@ public class GUIWhoIs extends javax.swing.JFrame {
 
     private void initOptions() {
         for (int i = 0; i < 4; i++) {
-            JButton but = new JButton();
+            JButton but = new JButton("button");
             but.setForeground(Colors.ONYX);
             but.setFont(this.getFont().deriveFont(Font.BOLD, 18f));
             but.setBackground(colores[i]);

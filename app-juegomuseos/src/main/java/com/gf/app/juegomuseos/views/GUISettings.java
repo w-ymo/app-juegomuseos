@@ -4,91 +4,48 @@
  */
 package com.gf.app.juegomuseos.views;
 
-import com.gf.app.juegomuseos.utils.Colors;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Panel;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.Timer;
 
 /**
  *
  * @author priparno
  */
-public class ResultDialog extends javax.swing.JDialog {
+public class GUISettings extends javax.swing.JDialog {
 
-    private JLabel msgText;
-    private JFrame parent;
-    private Dimension windowSize;
-
+    private JPanel panelOptions;
+    
+    private JButton styleButton;
+    
     /**
-     * Creates new form ResultDialog
+     * Creates new form GUISettings
      */
-    public ResultDialog(JFrame parent, boolean correct) {
-        this.setUndecorated(true);
-        this.setModal(true);
-        this.parent = parent;
+    public GUISettings(GUIPrincipal parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-        msgText = new JLabel();
         setFrame();
-        setLabelStyle();
-        if (correct) {
-            setCorrect();
-        } else {
-            setIncorrect();
-        }
     }
 
     private void setFrame() {
         this.setResizable(false);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        windowSize = new Dimension((int) (screenSize.width * 0.5), (int) (screenSize.height * 0.3));
-        this.setSize(windowSize);
         this.getContentPane().setLayout(new BorderLayout());
-        this.getContentPane().add(msgText, BorderLayout.CENTER);
-        msgText.setHorizontalAlignment(SwingConstants.CENTER);
+        panelOptions = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        styleButton = new JButton("Modo oscuro");
+        panelOptions.add(styleButton);
+        styleButton.setVerticalAlignment(SwingConstants.CENTER);
+        this.getContentPane().add(panelOptions);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setPreferredSize(new Dimension((int) (screenSize.width * 0.6), (int) (screenSize.height * 0.7)));
+        this.pack();
         this.setLocationRelativeTo(null);
     }
-
-    private void setCorrect() {
-        msgText.setText("Correcto");
-        this.getContentPane().setBackground(Colors.GREEN);
-    }
-
-    private void setIncorrect() {
-        msgText.setText("Incorrecto");
-        this.getContentPane().setBackground(Colors.RED);
-    }
-
-    private void setLabelStyle() {
-        Font parentFont = parent.getFont();
-        msgText.setFont(parentFont.deriveFont(Font.BOLD, 50f));
-    }
-
-    public void initTimer() {
-        JDialog pane = this;
-        Thread t = new Thread(() -> {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            pane.dispose();
-        });
-        t.start();
-    }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,20 +88,20 @@ public class ResultDialog extends javax.swing.JDialog {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(ResultDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(GUISettings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(ResultDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(GUISettings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(ResultDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(GUISettings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(ResultDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(GUISettings.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
 //        /* Create and display the dialog */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                ResultDialog dialog = new ResultDialog(new javax.swing.JFrame(), false);
+//                GUISettings dialog = new GUISettings(new javax.swing.JFrame(), true);
 //                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 //                    @Override
 //                    public void windowClosing(java.awt.event.WindowEvent e) {
@@ -155,6 +112,14 @@ public class ResultDialog extends javax.swing.JDialog {
 //            }
 //        });
 //    }
+
+    public JButton getStyleButton() {
+        return styleButton;
+    }
+
+    public void setStyleButton(JButton styleButton) {
+        this.styleButton = styleButton;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

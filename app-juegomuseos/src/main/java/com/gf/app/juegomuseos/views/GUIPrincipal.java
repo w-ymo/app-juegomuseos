@@ -4,6 +4,7 @@
  */
 package com.gf.app.juegomuseos.views;
 
+import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -32,15 +33,13 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private JLabel labelLogo;
     private List<JButton> options = new ArrayList<>();
 
-    public final String[] optionsTexts = {"MODO YINCANA", "MODO LIBRE", "INFORMACION", "AJUSTES"};
-
     /**
      * Creates new form GUIPrincipal
      */
     public GUIPrincipal() {
         try {
             UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
-            //this.setUndecorated(true);
+            this.setUndecorated(true);
             initComponents();
             setFrame();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
@@ -67,9 +66,9 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private void setButtons() {
         panelOptions = new JPanel(new FlowLayout());
         panelOptions.setSize((int) (this.getContentPane().getWidth() * 0.7), (int) (this.getContentPane().getHeight() * 0.3));
-        JPanel gridPanel = new JPanel(new GridLayout(4, 0));
-        for (int i = 0; i < 4; i++) {
-            JButton but = new JButton(optionsTexts[i]);
+        JPanel gridPanel = new JPanel(new GridLayout(5, 0));
+        for (int i = 0; i < 5; i++) {
+            JButton but = new JButton(GameConstants.MAIN_MENU_OPTIONS[i]);
             // but.setPreferredSize(new Dimension(panelOptions.getWidth(), panelOptions.getHeight() / 4));
             options.add(but);
             gridPanel.add(but);

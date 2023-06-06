@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,8 +34,9 @@ import javax.swing.JOptionPane;
  */
 public class WhoIsController {
 
-//    private GUIPrincipal parentView;
     private GUIWhoIs view;
+    private JFrame parent;
+    
 
     private ArtworkDAO awDAO = new ArtworkDAO();
     private AuthorDAO atDAO = new AuthorDAO();
@@ -42,34 +44,11 @@ public class WhoIsController {
     private int counter;
     private int fails;
 
-    private boolean proceed = true;
-
     private Artwork imageSelected;
     private Author solution;
 
     private List<Integer> repeatedDB = new ArrayList<>();
 
-    public WhoIsController(GUIWhoIs view) {
-        this.view = view;
-        //this.parentView = null;
-        this.counter = 0;
-        this.fails = 0;
-        System.out.println("añade botones");
-        addListenerButtons();
-        System.out.println("pone juego");
-        launchGame();
-    }
-
-//    public WhoIsController(GUIWhoIs view, GUIPrincipal parentView) {
-//        this.view = view;
-//        this.parentView = parentView;
-//        this.counter = 0;
-//        this.fails = 0;
-//        System.out.println("añade botones");
-//        addListenerButtons();
-//        System.out.println("pone juego");
-//        launchGame();
-//    }
     private ActionListener listenerButtons = (e) -> {
         JButton but = (JButton) e.getSource();
         int atId = solution.getId_autor();
@@ -86,11 +65,25 @@ public class WhoIsController {
                 fails++;
             }
             counter++;
-            proceed = true;
+            if (counter < 10) {
+                initGame();
+            } else {
+                view.dispose();
+                JOptionPane.showMessageDialog(null, "Siguiente jogo");
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error garrafal");
         }
     };
+
+    public WhoIsController(GUIWhoIs view, JFrame parent, boolean mode) {
+        this.view = view;
+        this.parent = parent;
+        this.counter = 0;
+        this.fails = 0;
+        addListenerButtons();
+        launchGame();
+    }
 
     private void addListenerButtons() {
         for (JButton option : view.getOptions()) {
@@ -99,21 +92,12 @@ public class WhoIsController {
     }
 
     private void launchGame() {
-        proceed = true;
         view.setVisible(true);
-        while (counter < 10) {
-            if (proceed) {
-                initGame();
-                //view.getImageText().setText("ACHANTA");
-            }
-        }
-        view.dispose();
-        JOptionPane.showMessageDialog(null, "Siguiente jogo");
+        initGame();
     }
 
     private void initGame() {
         try {
-            proceed = false;
             int index;
             if (!this.repeatedDB.isEmpty()) {
                 do {
@@ -140,7 +124,9 @@ public class WhoIsController {
             setIcon();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
+            counter = 15;
         }
+        view.repaint();
     }
 
     public void setIcon() {
