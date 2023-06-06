@@ -36,14 +36,14 @@ public class WhoIsController {
 
     private GUIWhoIs view;
     private JFrame parent;
-    
 
     private ArtworkDAO awDAO = new ArtworkDAO();
     private AuthorDAO atDAO = new AuthorDAO();
 
     private int counter;
     private int fails;
-
+    private boolean mode;
+    
     private Artwork imageSelected;
     private Author solution;
 
@@ -79,12 +79,20 @@ public class WhoIsController {
     public WhoIsController(GUIWhoIs view, JFrame parent, boolean mode) {
         this.view = view;
         this.parent = parent;
+        this.mode = mode;
         this.counter = 0;
-        this.fails = 0;
+        updateGameData();
         addListenerButtons();
         launchGame();
     }
 
+    private void updateGameData(){
+        if (parent instanceof GUIPrincipal) {
+            parent = (GUIPrincipal) parent;
+            
+        }
+    }
+    
     private void addListenerButtons() {
         for (JButton option : view.getOptions()) {
             option.addActionListener(listenerButtons);

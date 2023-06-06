@@ -4,6 +4,9 @@
  */
 package com.gf.app.juegomuseos.utils;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  *
  * @author priparno
@@ -27,4 +30,7 @@ public interface GameConstants {
     public static final String[] GAMES_NAMES = {"¿De quién es?", "¿Cuál existe?", "¿Cuál es de Gregorio?", "Coloca en país"};
     
     public static final String[] GAMES_CODES = {WHOIS_CODE, TRUEFALSE_CODE, GREGORIO_CODE, MAPGAME_CODE};
+
+    public static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
+
 }

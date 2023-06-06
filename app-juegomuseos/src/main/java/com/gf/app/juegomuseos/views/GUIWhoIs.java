@@ -5,6 +5,7 @@
 package com.gf.app.juegomuseos.views;
 
 import com.gf.app.juegomuseos.utils.Colors;
+import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -64,8 +65,7 @@ public class GUIWhoIs extends javax.swing.JFrame {
 
     private void setFrame() {
         this.setExtendedState(MAXIMIZED_BOTH);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.getContentPane().setSize(screenSize);
+        this.getContentPane().setSize(GameConstants.SCREEN_SIZE);
         this.getContentPane().setLayout(new BorderLayout());
         setImagePanel();
         setOptionPanel();
