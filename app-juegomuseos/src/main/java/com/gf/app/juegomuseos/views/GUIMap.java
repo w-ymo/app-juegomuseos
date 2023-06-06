@@ -7,6 +7,8 @@ package com.gf.app.juegomuseos.views;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -16,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.jxmapviewer.JXMapKit;
-import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.OSMTileFactoryInfo;
 import org.jxmapviewer.viewer.DefaultTileFactory;
 import org.jxmapviewer.viewer.TileFactory;
@@ -56,8 +57,8 @@ public class GUIMap extends javax.swing.JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.getContentPane().setLayout(new BorderLayout());
-        this.getContentPane().add(mapKit, BorderLayout.CENTER);
- 
+        setLayeredPane();
+        this.getContentPane().add(layeredPane, BorderLayout.CENTER);
     }
     
     private void setLayeredPane() {
@@ -65,7 +66,7 @@ public class GUIMap extends javax.swing.JFrame {
         setMapKit();
         setInfoPanel();
         layeredPane.add(mapKit, 0);
-        layeredPane.add(infoPanel, 1);
+        layeredPane.add(artworkImage, 1);
     }
     
     private void setInfoPanel() {
@@ -73,9 +74,9 @@ public class GUIMap extends javax.swing.JFrame {
         artworkImage = new JLabel("Imagen obra");
         artworkLabel = new JLabel("Nombre obra");
         authorLabel = new JLabel("Nombre autor");
-        infoPanel.add(artworkImage);
-        infoPanel.add(artworkLabel);
-        infoPanel.add(authorLabel);
+//        infoPanel.add(artworkImage);
+//        infoPanel.add(artworkLabel);
+//        infoPanel.add(authorLabel);
     }
 
     private void setMapKit() {
@@ -84,6 +85,7 @@ public class GUIMap extends javax.swing.JFrame {
         mapKit.setTileFactory(tileFactory);
         mapKit.setZoom(17);
         mapKit.getMainMap().setOverlayPainter(null);
+        mapKit.setBounds(0, 0, 800, 600);
     }
     
     /**
