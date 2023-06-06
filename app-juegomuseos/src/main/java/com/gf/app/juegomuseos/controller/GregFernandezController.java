@@ -9,6 +9,7 @@ import com.gf.app.juegomuseos.dao.AuthorDAO;
 import com.gf.app.juegomuseos.models.Artwork;
 import com.gf.app.juegomuseos.utils.ImagesSize;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
+import com.gf.app.juegomuseos.views.ResultDialog;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionListener;
@@ -20,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,19 +31,19 @@ import javax.swing.JOptionPane;
 public class GregFernandezController {
 
     private GUIGregorioFernandez view;
-
+    private JFrame parent;
+    
     private ArtworkDAO awDAO = new ArtworkDAO();
     private AuthorDAO atDAO = new AuthorDAO();
 
     private int counter;
     private int fails;
 
-    private boolean proceed = true;
-
     private Artwork solution;
 
-    public GregFernandezController(GUIGregorioFernandez view) {
+    public GregFernandezController(GUIGregorioFernandez view, JFrame parent, boolean mode) {
         this.view = view;
+        this.parent = parent;
         this.counter = 0;
         this.fails = 0;
         addListenerButtons();
@@ -52,13 +54,22 @@ public class GregFernandezController {
         JButton but = (JButton) e.getSource();
         try {
             if (but.getName().equals(String.valueOf(atDAO.getIdGregorioFernandez()))) {
-                JOptionPane.showMessageDialog(null, "Todo gucci");
+                ResultDialog rd = new ResultDialog(view, true);
+                rd.initTimer();
+                rd.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "La solucion era la otra");
+                ResultDialog rd = new ResultDialog(view, false);
+                rd.initTimer();
+                rd.setVisible(true);
                 fails++;
             }
             counter++;
-            proceed = true;
+            if (counter < 5) {
+                initGame();
+            } else {
+                view.dispose();
+                JOptionPane.showMessageDialog(null, "Siguiente jogo");
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error garrafal");
         }
@@ -72,17 +83,11 @@ public class GregFernandezController {
 
     private void launchGame() {
         view.setVisible(true);
-        while (counter < 5) {
-            if (proceed) {
-                initGame();
-            }
-        }
-        JOptionPane.showMessageDialog(null, "Siguiente jueguito a adivinar");
+        initGame();
     }
 
     private void initGame() {
         try {
-            proceed = false;
             List<Artwork> gregorioArtwork = awDAO.selectIdAuthor(atDAO.getIdGregorioFernandez());
             Collections.shuffle(gregorioArtwork);
             solution = gregorioArtwork.get(0);

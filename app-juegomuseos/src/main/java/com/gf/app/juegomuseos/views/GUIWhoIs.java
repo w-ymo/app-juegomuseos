@@ -5,6 +5,7 @@
 package com.gf.app.juegomuseos.views;
 
 import com.gf.app.juegomuseos.utils.Colors;
+import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -46,26 +47,25 @@ public class GUIWhoIs extends javax.swing.JFrame {
      * Creates new form GUIWhoIs
      */
     public GUIWhoIs() {
-        try {
-            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
-            this.setUndecorated(true);
+//        try {
+//            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
+//            this.setUndecorated(true);
             initComponents();
             setFrame();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (UnsupportedLookAndFeelException ex) {
+//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     private void setFrame() {
         this.setExtendedState(MAXIMIZED_BOTH);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.getContentPane().setSize(screenSize);
+        this.getContentPane().setSize(GameConstants.SCREEN_SIZE);
         this.getContentPane().setLayout(new BorderLayout());
         setImagePanel();
         setOptionPanel();
@@ -98,8 +98,7 @@ public class GUIWhoIs extends javax.swing.JFrame {
 
     private void initOptions() {
         for (int i = 0; i < 4; i++) {
-            System.out.println(colores[i]);
-            JButton but = new JButton("Boton " + i);
+            JButton but = new JButton("button");
             but.setForeground(Colors.ONYX);
             but.setFont(this.getFont().deriveFont(Font.BOLD, 18f));
             but.setBackground(colores[i]);

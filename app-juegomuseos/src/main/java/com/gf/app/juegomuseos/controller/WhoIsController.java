@@ -10,7 +10,9 @@ import com.gf.app.juegomuseos.models.Artwork;
 import com.gf.app.juegomuseos.models.Author;
 import com.gf.app.juegomuseos.utils.ImagesSize;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
+import com.gf.app.juegomuseos.views.GUIPrincipal;
 import com.gf.app.juegomuseos.views.GUIWhoIs;
+import com.gf.app.juegomuseos.views.ResultDialog;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
@@ -23,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,29 +34,20 @@ import javax.swing.JOptionPane;
  */
 public class WhoIsController {
 
-    //habria que meter en el controlador la pagina principal
     private GUIWhoIs view;
+    private JFrame parent;
 
     private ArtworkDAO awDAO = new ArtworkDAO();
     private AuthorDAO atDAO = new AuthorDAO();
 
     private int counter;
     private int fails;
-
-    private boolean proceed = true;
-
+    private boolean mode;
+    
     private Artwork imageSelected;
     private Author solution;
 
     private List<Integer> repeatedDB = new ArrayList<>();
-
-    public WhoIsController(GUIWhoIs view) {
-        this.view = view;
-        this.counter = 0;
-        this.fails = 0;
-        addListenerButtons();
-        launchGame();
-    }
 
     private ActionListener listenerButtons = (e) -> {
         JButton but = (JButton) e.getSource();
@@ -61,18 +55,44 @@ public class WhoIsController {
         try {
             Author at = atDAO.selectId(atId);
             if (but.getText().equals(at.getNombre_autor())) {
-                JOptionPane.showMessageDialog(null, "La solución es correcta");
+                ResultDialog rd = new ResultDialog(view, true);
+                rd.initTimer();
+                rd.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "La solucion era " + at.getNombre_autor());
+                ResultDialog rd = new ResultDialog(view, false);
+                rd.initTimer();
+                rd.setVisible(true);
                 fails++;
             }
             counter++;
-            proceed = true;
+            if (counter < 10) {
+                initGame();
+            } else {
+                view.dispose();
+                JOptionPane.showMessageDialog(null, "Siguiente jogo");
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error garrafal");
         }
     };
 
+    public WhoIsController(GUIWhoIs view, JFrame parent, boolean mode) {
+        this.view = view;
+        this.parent = parent;
+        this.mode = mode;
+        this.counter = 0;
+        updateGameData();
+        addListenerButtons();
+        launchGame();
+    }
+
+    private void updateGameData(){
+        if (parent instanceof GUIPrincipal) {
+            parent = (GUIPrincipal) parent;
+            
+        }
+    }
+    
     private void addListenerButtons() {
         for (JButton option : view.getOptions()) {
             option.addActionListener(listenerButtons);
@@ -81,25 +101,23 @@ public class WhoIsController {
 
     private void launchGame() {
         view.setVisible(true);
-        while (counter < 10) {
-            if (proceed) {
-                initGame();
-            }
-        }
-        JOptionPane.showMessageDialog(null, "Siguiente jogo");
+        initGame();
     }
 
     private void initGame() {
         try {
-            proceed = false;
-            int index = 0;
-            do {
+            int index;
+            if (!this.repeatedDB.isEmpty()) {
+                do {
+                    imageSelected = awDAO.selectNum(1).get(0);
+                    index = imageSelected.getId_obra();
+                    if (Collections.binarySearch(repeatedDB, index) < 0) {
+                        repeatedDB.add(index);
+                    }
+                } while (Collections.binarySearch(repeatedDB, index) >= 0);
+            } else {
                 imageSelected = awDAO.selectNum(1).get(0);
-                index = imageSelected.getId_obra();
-                if (Collections.binarySearch(repeatedDB, index) < 0) {
-                    repeatedDB.add(index);
-                }
-            } while (Collections.binarySearch(repeatedDB, index) >= 0);
+            }
             view.getImageText().setText(imageSelected.getNombre_obra());
             solution = atDAO.selectId(imageSelected.getId_autor());
             List<Author> authorsNames = new ArrayList<>();
@@ -114,7 +132,9 @@ public class WhoIsController {
             setIcon();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
+            counter = 15;
         }
+        view.repaint();
     }
 
     public void setIcon() {
@@ -126,7 +146,6 @@ public class WhoIsController {
         } catch (MalformedURLException ex) {
             Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(view.getPanelImages().getSize());
         Image proportionalImage = ImagesSize.getProportionalDimensionImage(i, view.getPanelImages().getSize());
         view.getImage().setIcon(new ImageIcon(proportionalImage));
     }

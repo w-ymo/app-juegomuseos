@@ -4,17 +4,14 @@
  */
 package com.gf.app.juegomuseos.views;
 
-import com.gf.app.juegomuseos.models.Artwork;
+import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Toolkit;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,42 +19,40 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 /**
  *
  * @author noelp
  */
-public class GUIGregorioFernandez extends javax.swing.JFrame {
+public class GUISelectGame extends javax.swing.JFrame {
 
-    private GUIPrincipal guip;
-
-    //Aniadir crono
-    //aniadir boton de info?
+    private JPanel panelOptions;
     private JPanel panelTitle;
-    private JPanel panelImages;
+    private JPanel panelContainer;
 
-    private List<JButton> images = new ArrayList<>();
+    private List<JButton> options = new ArrayList<>();
 
     /**
-     * Creates new form GUIGregorioFernandez
+     * Creates new form GUISelectGame
      */
-    public GUIGregorioFernandez() {
-        try {
-            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
-            this.setUndecorated(true);
+    public GUISelectGame() {
+//        try {
+//            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
             initComponents();
             setFrame();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (UnsupportedLookAndFeelException ex) {
+//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     private void setFrame() {
@@ -65,65 +60,39 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.getContentPane().setSize(screenSize);
         this.getContentPane().setLayout(new BorderLayout());
-        setTitlePanel();
-        setImagePanel();
+        panelContainer = new JPanel(new GridLayout(2, 0));
+        this.getContentPane().add(panelContainer);
+        setTitle();
+        setButtons();
     }
 
-    private void setTitlePanel() {
-        panelTitle = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 20));
-        this.getContentPane().add(panelTitle, BorderLayout.NORTH);
-        JLabel title = new JLabel("SELECCIONA LA IMAGEN QUE PERTENECE A GREGORIO FERNÁNDEZ");
-        title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+    private void setTitle() {
+        panelTitle = new JPanel(new BorderLayout());
+        JLabel title = new JLabel("Seleccione el modo de juego");
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        title.setFont(this.getFont().deriveFont(Font.BOLD, 50f));
         panelTitle.add(title);
+        panelContainer.add(panelTitle);
     }
 
-    private void setImagePanel() {
-        panelImages = new JPanel(new GridLayout(0, 2));
-        this.getContentPane().add(panelImages, BorderLayout.CENTER);
-        panelImages.setSize(this.getContentPane().getWidth(), (int) (this.getContentPane().getHeight() * 0.60));
-        initButtonImage();
-        for (JButton image : images) {
-            panelImages.add(image);
+    private void setButtons() {
+        panelOptions = new JPanel(new GridLayout(0, 4));
+        for (int i = 0; i < 4; i++) {
+            JButton but = new JButton(GameConstants.GAMES_NAMES[i]);
+            but.setFont(this.getFont().deriveFont(20f));
+            but.setName(GameConstants.GAMES_CODES[i]);
+            options.add(but);
+            panelOptions.add(but);
         }
+        panelContainer.add(panelOptions);
     }
 
-    private void initButtonImage() {
-        for (int i = 0; i < 2; i++) {
-            JButton but = new JButton();
-            images.add(but);
-        }
+    public List<JButton> getOptions() {
+        return options;
     }
 
-    public GUIPrincipal getGuip() {
-        return guip;
-    }
-
-    public void setGuip(GUIPrincipal guip) {
-        this.guip = guip;
-    }
-
-    public List<JButton> getImages() {
-        return images;
-    }
-
-    public void setImages(List<JButton> images) {
-        this.images = images;
-    }
-
-    public JPanel getPanelTitle() {
-        return panelTitle;
-    }
-
-    public void setPanelTitle(JPanel panelTitle) {
-        this.panelTitle = panelTitle;
-    }
-
-    public JPanel getPanelImages() {
-        return panelImages;
-    }
-
-    public void setPanelImages(JPanel panelImages) {
-        this.panelImages = panelImages;
+    public void setOptions(List<JButton> options) {
+        this.options = options;
     }
 
     /**
@@ -150,7 +119,7 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//
+
 //    /**
 //     * @param args the command line arguments
 //     */
@@ -168,20 +137,20 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(GUIGregorioFernandez.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(GUISelectGame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(GUIGregorioFernandez.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(GUISelectGame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(GUIGregorioFernandez.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(GUISelectGame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(GUIGregorioFernandez.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(GUISelectGame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new GUIGregorioFernandez().setVisible(true);
+//                new GUISelectGame().setVisible(true);
 //            }
 //        });
 //    }
