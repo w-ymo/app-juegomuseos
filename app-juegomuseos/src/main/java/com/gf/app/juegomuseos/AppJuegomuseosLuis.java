@@ -9,6 +9,7 @@ import com.gf.app.juegomuseos.controller.MuseumsTFController;
 import com.gf.app.juegomuseos.controller.WhoIsController;
 import com.gf.app.juegomuseos.dao.ArtworkDAO;
 import com.gf.app.juegomuseos.dao.AuthorDAO;
+import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
 import com.gf.app.juegomuseos.views.GUIMuseumsTF;
 import com.gf.app.juegomuseos.views.GUIWhoIs;
@@ -31,7 +32,7 @@ public class AppJuegomuseosLuis {
 //        GregFernandezController gf_contr = new GregFernandezController(gf);
 
         GUIMuseumsTF mtf = new GUIMuseumsTF();
-        MuseumsTFController mtf_contr = new MuseumsTFController(mtf);
+        MuseumsTFController mtf_contr = new MuseumsTFController(mtf, GameConstants.FREE_MODE);
 
 //        AuthorDAO at = new AuthorDAO();
 //        ArtworkDAO aw = new ArtworkDAO();
