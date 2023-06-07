@@ -1,2 +1,2 @@
 #AppSettings
-Modo oscuro-com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme
+Modo claro-com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme

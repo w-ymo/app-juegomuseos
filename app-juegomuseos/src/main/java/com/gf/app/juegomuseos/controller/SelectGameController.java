@@ -23,7 +23,6 @@ public class SelectGameController implements GameControllers {
 
     private ActionListener al = (e) -> {
         JButton selected = (JButton) e.getSource();
-        parent.getView().setVisible(false);
         view.dispose();
         switch (selected.getName()) {
             case GameConstants.WHOIS_CODE -> {
