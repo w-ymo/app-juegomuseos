@@ -15,7 +15,7 @@ public interface GameConstants {
 
     public static final boolean FREE_MODE = false;
 
-    public static final boolean COMP_MODE = false;
+    public static final boolean COMP_MODE = true;
     
     public static final String WHOIS_CODE = "WH";
     

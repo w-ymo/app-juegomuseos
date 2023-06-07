@@ -4,6 +4,7 @@
  */
 package com.gf.app.juegomuseos.views;
 
+import com.gf.app.juegomuseos.utils.GameData;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -36,7 +37,7 @@ public class GUISettings extends javax.swing.JDialog {
         this.setResizable(false);
         this.getContentPane().setLayout(new BorderLayout());
         panelOptions = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        styleButton = new JButton("Modo oscuro");
+        styleButton = new JButton(GameData.getInfoStyle()[0]);
         panelOptions.add(styleButton);
         styleButton.setVerticalAlignment(SwingConstants.CENTER);
         this.getContentPane().add(panelOptions);

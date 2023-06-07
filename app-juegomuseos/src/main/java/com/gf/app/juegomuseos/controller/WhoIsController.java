@@ -8,8 +8,10 @@ import com.gf.app.juegomuseos.dao.ArtworkDAO;
 import com.gf.app.juegomuseos.dao.AuthorDAO;
 import com.gf.app.juegomuseos.models.Artwork;
 import com.gf.app.juegomuseos.models.Author;
+import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.utils.ImagesSize;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
+import com.gf.app.juegomuseos.views.GUIMuseumsTF;
 import com.gf.app.juegomuseos.views.GUIPrincipal;
 import com.gf.app.juegomuseos.views.GUIWhoIs;
 import com.gf.app.juegomuseos.views.ResultDialog;
@@ -27,23 +29,25 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
  * @author priparno
  */
-public class WhoIsController {
+public class WhoIsController implements GameControllers {
 
     private GUIWhoIs view;
-    private JFrame parent;
+    private GameControllers parent;
 
     private ArtworkDAO awDAO = new ArtworkDAO();
     private AuthorDAO atDAO = new AuthorDAO();
 
     private int counter;
     private int fails;
+    private Timer timer;
     private boolean mode;
-    
+
     private Artwork imageSelected;
     private Author solution;
 
@@ -68,31 +72,48 @@ public class WhoIsController {
             if (counter < 10) {
                 initGame();
             } else {
+                setGameData();
+                if (mode == GameConstants.COMP_MODE) {
+                    MuseumsTFController nextGame = new MuseumsTFController(new GUIMuseumsTF(), parent, mode);
+                }else{
+                    openMenu();
+                }
                 view.dispose();
-                JOptionPane.showMessageDialog(null, "Siguiente jogo");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error garrafal");
         }
     };
 
-    public WhoIsController(GUIWhoIs view, JFrame parent, boolean mode) {
+    public WhoIsController(GUIWhoIs view, GameControllers parent, boolean mode) {
         this.view = view;
         this.parent = parent;
         this.mode = mode;
         this.counter = 0;
-        updateGameData();
+        getGameData();
         addListenerButtons();
         launchGame();
     }
 
-    private void updateGameData(){
-        if (parent instanceof GUIPrincipal) {
-            parent = (GUIPrincipal) parent;
-            
+    private void openMenu(){
+        if (parent instanceof SelectGameController parentC) {
+            parentC.getMainController().getView().setVisible(true);
         }
     }
     
+    private void getGameData() {
+        if (parent instanceof MainController parentC) {
+            this.fails = parentC.getFails();
+            this.timer = parentC.getTimer();
+        }
+    }
+
+    private void setGameData() {
+        if (parent instanceof MainController parentC) {
+            parentC.setFails(fails);
+        }
+    }
+
     private void addListenerButtons() {
         for (JButton option : view.getOptions()) {
             option.addActionListener(listenerButtons);

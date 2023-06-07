@@ -7,7 +7,6 @@ package com.gf.app.juegomuseos.controller;
 import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
 import com.gf.app.juegomuseos.views.GUIMuseumsTF;
-import com.gf.app.juegomuseos.views.GUIPrincipal;
 import com.gf.app.juegomuseos.views.GUISelectGame;
 import com.gf.app.juegomuseos.views.GUIWhoIs;
 import java.awt.event.ActionListener;
@@ -17,27 +16,25 @@ import javax.swing.JButton;
  *
  * @author noelp
  */
-public class SelectGameController {
+public class SelectGameController implements GameControllers {
 
-    private GUIPrincipal parentView;
+    private MainController parent;
     private GUISelectGame view;
 
     private ActionListener al = (e) -> {
         JButton selected = (JButton) e.getSource();
-        parentView.dispose();
+        parent.getView().setVisible(false);
         view.dispose();
-        //parentView.setVisible(false);
         switch (selected.getName()) {
             case GameConstants.WHOIS_CODE -> {
-                WhoIsController controllerWH = new WhoIsController(new GUIWhoIs(), parentView, GameConstants.FREE_MODE);
+                WhoIsController controllerWH = new WhoIsController(new GUIWhoIs(), this, GameConstants.FREE_MODE);
             }
             case GameConstants.TRUEFALSE_CODE -> {
-//                GUIMuseumsTF guim = new GUIMuseumsTF();
-//                MuseumsTFController controllerMuseum = new MuseumsTFController(guim);
+                MuseumsTFController controllerMTF = new MuseumsTFController(new GUIMuseumsTF(), this, GameConstants.FREE_MODE);
             }
             case GameConstants.GREGORIO_CODE -> {
                 GUIGregorioFernandez guigf = new GUIGregorioFernandez();
-                GregFernandezController controllerGF = new GregFernandezController(guigf, parentView, GameConstants.FREE_MODE);
+                GregFernandezController controllerGF = new GregFernandezController(guigf, this, GameConstants.FREE_MODE);
             }
             case GameConstants.MAPGAME_CODE -> {
                 System.out.println("map");
@@ -48,15 +45,9 @@ public class SelectGameController {
         }
     };
 
-    public SelectGameController(GUISelectGame view) {
+    public SelectGameController(GUISelectGame view, MainController parent) {
         this.view = view;
-        addActionListener();
-        launchView();
-    }
-
-    public SelectGameController(GUISelectGame view, GUIPrincipal parentView) {
-        this.view = view;
-        this.parentView = parentView;
+        this.parent = parent;
         addActionListener();
         launchView();
     }
@@ -69,6 +60,10 @@ public class SelectGameController {
 
     private void launchView() {
         view.setVisible(true);
+    }
+
+    public MainController getMainController() {
+        return (MainController) parent;
     }
 
 }

@@ -5,6 +5,7 @@
 package com.gf.app.juegomuseos.views;
 
 import com.gf.app.juegomuseos.utils.GameConstants;
+import com.gf.app.juegomuseos.utils.GameData;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -38,7 +39,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
      */
     public GUIPrincipal() {
         try {
-            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
+            UIManager.setLookAndFeel(GameData.STYLE);
             this.setUndecorated(true);
             initComponents();
             setFrame();

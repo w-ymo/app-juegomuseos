@@ -10,7 +10,7 @@ import com.gf.app.juegomuseos.views.GUIInfo;
  *
  * @author priparno
  */
-public class InfoController {
+public class InfoController implements GameControllers{
     
     private GUIInfo view;
 

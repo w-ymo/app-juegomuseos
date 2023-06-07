@@ -7,8 +7,10 @@ package com.gf.app.juegomuseos.controller;
 import com.gf.app.juegomuseos.dao.ArtworkDAO;
 import com.gf.app.juegomuseos.dao.AuthorDAO;
 import com.gf.app.juegomuseos.models.Artwork;
+import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.utils.ImagesSize;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
+import com.gf.app.juegomuseos.views.GUIMuseumsTF;
 import com.gf.app.juegomuseos.views.ResultDialog;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -23,29 +25,34 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
  * @author priparno
  */
-public class GregFernandezController {
+public class GregFernandezController implements GameControllers {
 
     private GUIGregorioFernandez view;
-    private JFrame parent;
-    
+    private GameControllers parent;
+
     private ArtworkDAO awDAO = new ArtworkDAO();
     private AuthorDAO atDAO = new AuthorDAO();
 
+    private boolean mode;
+
     private int counter;
     private int fails;
+    private Timer timer;
 
     private Artwork solution;
 
-    public GregFernandezController(GUIGregorioFernandez view, JFrame parent, boolean mode) {
+    public GregFernandezController(GUIGregorioFernandez view, GameControllers parent, boolean mode) {
         this.view = view;
         this.parent = parent;
+        this.mode = mode;
         this.counter = 0;
-        this.fails = 0;
+        getGameData();
         addListenerButtons();
         launchGame();
     }
@@ -67,13 +74,39 @@ public class GregFernandezController {
             if (counter < 5) {
                 initGame();
             } else {
-                view.dispose();
                 JOptionPane.showMessageDialog(null, "Siguiente jogo");
+                setGameData();
+                if (mode == GameConstants.COMP_MODE) {
+                    //map controller
+                    System.out.println("map");
+                } else {
+                    openMenu();
+                }
+                view.dispose();
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error garrafal");
         }
     };
+
+    private void openMenu() {
+        if (parent instanceof SelectGameController parentC) {
+            parentC.getMainController().getView().setVisible(true);
+        }
+    }
+
+    private void getGameData() {
+        if (parent instanceof MainController parentC) {
+            this.fails = parentC.getFails();
+            this.timer = parentC.getTimer();
+        }
+    }
+
+    private void setGameData() {
+        if (parent instanceof MainController parentC) {
+            parentC.setFails(fails);
+        }
+    }
 
     private void addListenerButtons() {
         for (JButton option : view.getImages()) {
