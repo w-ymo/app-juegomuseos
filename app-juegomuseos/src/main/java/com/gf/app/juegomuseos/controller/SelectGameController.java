@@ -29,7 +29,7 @@ public class SelectGameController implements GameControllers {
                 WhoIsController controllerWH = new WhoIsController(new GUIWhoIs(), this, GameConstants.FREE_MODE);
             }
             case GameConstants.TRUEFALSE_CODE -> {
-                MuseumsTFController controllerMTF = new MuseumsTFController(new GUIMuseumsTF(), this, GameConstants.FREE_MODE);
+                MuseumsTFController controllerMTF = new MuseumsTFController(new GUIMuseumsTF(), GameConstants.FREE_MODE);
             }
             case GameConstants.GREGORIO_CODE -> {
                 GUIGregorioFernandez guigf = new GUIGregorioFernandez();

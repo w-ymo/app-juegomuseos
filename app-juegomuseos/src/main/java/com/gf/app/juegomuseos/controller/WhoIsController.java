@@ -74,7 +74,7 @@ public class WhoIsController implements GameControllers {
             } else {
                 setGameData();
                 if (mode == GameConstants.COMP_MODE) {
-                    MuseumsTFController nextGame = new MuseumsTFController(new GUIMuseumsTF(), parent, mode);
+                    MuseumsTFController nextGame = new MuseumsTFController(new GUIMuseumsTF(),GameConstants.COMP_MODE);
                 }else{
                     openMenu();
                 }

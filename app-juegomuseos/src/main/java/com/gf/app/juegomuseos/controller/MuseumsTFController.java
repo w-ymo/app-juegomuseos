@@ -18,8 +18,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -53,7 +51,7 @@ public class MuseumsTFController implements ActionListener, GameControllers {
     private ArrayList<Integer> repeatedDB = new ArrayList<>();
     private ArrayList<Integer> repeatedFake = new ArrayList<>();
 
-    public MuseumsTFController(GUIMuseumsTF view, GameControllers parent, boolean mode) {
+    public MuseumsTFController(GUIMuseumsTF view, boolean mode) {
         this.view = view;
         this.counter = 0;
         this.mode = mode;
