@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,7 +27,7 @@ import org.jxmapviewer.viewer.TileFactoryInfo;
  * @author Luis
  */
 public class GUIMap extends javax.swing.JFrame {
-
+    
     private JXMapKit mapKit = new JXMapKit();
     private TileFactoryInfo info;
     private DefaultTileFactory tileFactory;
@@ -34,6 +35,7 @@ public class GUIMap extends javax.swing.JFrame {
     private JLabel artworkImage;
     private JLabel artworkLabel;
     private JLabel authorLabel;
+    private JButton confirmButton;
 
     /**
      * Creates new form GUIMap
@@ -41,8 +43,9 @@ public class GUIMap extends javax.swing.JFrame {
     public GUIMap() {
         try {
             UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
-        initComponents();
-        setFrame();
+            initComponents();
+            setFrame();
+            this.setVisible(true);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -54,39 +57,41 @@ public class GUIMap extends javax.swing.JFrame {
         this.getContentPane().setLayout(new BorderLayout());
         setMapKit();
         setInfoPanel();
-        this.getContentPane().add(mapKit,BorderLayout.CENTER);
-        this.getContentPane().add(infoPanel,BorderLayout.WEST);
+        this.getContentPane().add(mapKit, BorderLayout.CENTER);
+        this.getContentPane().add(infoPanel, BorderLayout.WEST);
     }
-
+    
     private void setInfoPanel() {
-        infoPanel = new JPanel(new GridLayout(3, 0));
+        infoPanel = new JPanel(new GridLayout(4, 0));
         artworkImage = new JLabel("Buenos dias soy una jlabel");
         artworkLabel = new JLabel("Hola");
         authorLabel = new JLabel("Jelou mansana");
+        confirmButton = new JButton("Fijar País");
         
         artworkLabel.setPreferredSize(new Dimension(artworkImage.getSize().width, (int) (GameConstants.SCREEN_SIZE.height * 0.33)));
-        authorLabel.setPreferredSize(new Dimension(artworkImage.getSize().width,  (int) (GameConstants.SCREEN_SIZE.height * 0.33)));
+        authorLabel.setPreferredSize(new Dimension(artworkImage.getSize().width, (int) (GameConstants.SCREEN_SIZE.height * 0.33)));
         artworkLabel.setHorizontalAlignment((int) CENTER_ALIGNMENT);
         authorLabel.setHorizontalAlignment((int) CENTER_ALIGNMENT);
         
         infoPanel.add(artworkImage);
         infoPanel.add(artworkLabel);
         infoPanel.add(authorLabel);
+        infoPanel.add(confirmButton);
     }
-
+    
     private void setMapKit() {
         info = new OSMTileFactoryInfo();
         tileFactory = new DefaultTileFactory(info);
         mapKit.setTileFactory(tileFactory);
         mapKit.setZoom(15);
         mapKit.getMainMap().setOverlayPainter(null);
-        mapKit.setBounds(0, -65,GameConstants.SCREEN_SIZE.width,GameConstants.SCREEN_SIZE.height);
+        mapKit.setBounds(0, -65, GameConstants.SCREEN_SIZE.width, GameConstants.SCREEN_SIZE.height);
     }
-
+    
     public JXMapKit getMapKit() {
         return mapKit;
     }
-
+    
     public void setMapKit(JXMapKit mapKit) {
         this.mapKit = mapKit;
     }
@@ -94,35 +99,35 @@ public class GUIMap extends javax.swing.JFrame {
     public JPanel getInfoPanel() {
         return infoPanel;
     }
-
+    
     public void setInfoPanel(JPanel infoPanel) {
         this.infoPanel = infoPanel;
     }
-
+    
     public JLabel getArtworkImage() {
         return artworkImage;
     }
-
+    
     public void setArtworkImage(JLabel artworkImage) {
         this.artworkImage = artworkImage;
     }
-
+    
     public JLabel getArtworkLabel() {
         return artworkLabel;
     }
-
+    
     public void setArtworkLabel(JLabel artworkLabel) {
         this.artworkLabel = artworkLabel;
     }
-
+    
     public JLabel getAuthorLabel() {
         return authorLabel;
     }
-
+    
     public void setAuthorLabel(JLabel authorLabel) {
         this.authorLabel = authorLabel;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
