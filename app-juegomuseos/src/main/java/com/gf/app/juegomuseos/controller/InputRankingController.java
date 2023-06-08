@@ -39,6 +39,7 @@ public class InputRankingController implements GameControllers{
 
     public InputRankingController(GUIInputRanking view, GameControllers parent) {
         this.view = view;
+        this.parent = parent;
         addActionListener();
         launch();
     }
