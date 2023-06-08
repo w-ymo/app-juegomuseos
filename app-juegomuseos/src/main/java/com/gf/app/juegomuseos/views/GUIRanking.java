@@ -4,17 +4,82 @@
  */
 package com.gf.app.juegomuseos.views;
 
+import com.gf.app.juegomuseos.utils.GameConstants;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author priparno
  */
 public class GUIRanking extends javax.swing.JFrame {
 
+    private JTable ranking;
+    private JButton exitButton;
+
+    private DefaultTableModel model;
+    private String[] columnNames = {"Nombre", "Puntuación"};
+
     /**
      * Creates new form GUIRanking
      */
     public GUIRanking() {
         initComponents();
+        setFrame();
+    }
+
+    private void setFrame() {
+        this.setPreferredSize(GameConstants.SCREEN_SIZE);
+        this.pack();
+        this.setExtendedState(MAXIMIZED_BOTH);
+        this.getContentPane().setLayout(new BorderLayout());
+        setTable();
+        setButton();
+        this.getContentPane().add(ranking);
+
+    }
+
+    private void setTable() {
+        model = new DefaultTableModel();
+        model.setDataVector(null, columnNames);
+        ranking = new JTable();
+        ranking.setEnabled(false);
+        ranking.setModel(model);
+    }
+
+    private void setButton() {
+        exitButton = new JButton("Volver");
+        JPanel extra = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        extra.add(exitButton);
+        this.getContentPane().add(extra, BorderLayout.NORTH);
+    }
+
+    public JTable getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(JTable ranking) {
+        this.ranking = ranking;
+    }
+
+    public JButton getExitButton() {
+        return exitButton;
+    }
+
+    public void setExitButton(JButton exitButton) {
+        this.exitButton = exitButton;
+    }
+
+    public DefaultTableModel getModel() {
+        return model;
+    }
+
+    public void setModel(DefaultTableModel model) {
+        this.model = model;
     }
 
     /**
@@ -41,41 +106,41 @@ public class GUIRanking extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUIRanking().setVisible(true);
-            }
-        });
-    }
+//
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new GUIRanking().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

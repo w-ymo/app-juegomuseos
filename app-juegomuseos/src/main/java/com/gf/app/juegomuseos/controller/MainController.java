@@ -9,6 +9,7 @@ import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.utils.Music;
 import com.gf.app.juegomuseos.views.GUIInfo;
 import com.gf.app.juegomuseos.views.GUIPrincipal;
+import com.gf.app.juegomuseos.views.GUIRanking;
 import com.gf.app.juegomuseos.views.GUISelectGame;
 import com.gf.app.juegomuseos.views.GUISettings;
 import com.gf.app.juegomuseos.views.GUIWhoIs;
@@ -41,6 +42,9 @@ public class MainController implements GameControllers {
                 GUISelectGame guisg = new GUISelectGame();
                 SelectGameController controllerSelectGame = new SelectGameController(guisg, this);
             }
+            case "RANKING" -> {
+                RankingController controllerRanking = new RankingController(new GUIRanking(), this);
+            }
             case "INFORMACION" -> {
                 InfoController controllerInfo = new InfoController(new GUIInfo(view, true));
             }
@@ -48,7 +52,7 @@ public class MainController implements GameControllers {
                 SettingsController controllerSettings = new SettingsController(new GUISettings(view, true), this);
             }
             case "SALIR" -> {
-                //Music.stop();
+                Music.stop();
                 view.dispose();
             }
             default ->
@@ -60,7 +64,7 @@ public class MainController implements GameControllers {
         this.view = view;
         addActionListener();
         launch();
-        //Music.start();
+        Music.start();
     }
 
     private void addActionListener() {
