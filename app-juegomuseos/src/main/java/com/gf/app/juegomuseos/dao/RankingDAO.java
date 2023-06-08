@@ -64,4 +64,6 @@ public class RankingDAO {
         return partialList;
     }
     
+    //insertar
+    
 }

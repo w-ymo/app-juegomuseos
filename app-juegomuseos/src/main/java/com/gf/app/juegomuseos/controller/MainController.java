@@ -5,6 +5,7 @@
 package com.gf.app.juegomuseos.controller;
 
 import com.gf.app.juegomuseos.utils.GameConstants;
+import com.gf.app.juegomuseos.utils.Music;
 import com.gf.app.juegomuseos.views.GUIInfo;
 import com.gf.app.juegomuseos.views.GUIPrincipal;
 import com.gf.app.juegomuseos.views.GUISelectGame;
@@ -47,6 +48,7 @@ public class MainController implements GameControllers {
                 SettingsController controllerSettings = new SettingsController(new GUISettings(view, true));
             }
             case "SALIR" -> {
+                Music.stop();
                 view.dispose();
             }
             default ->
@@ -58,6 +60,7 @@ public class MainController implements GameControllers {
         this.view = view;
         addActionListener();
         launchView();
+        Music.start();
     }
 
     private void addActionListener() {

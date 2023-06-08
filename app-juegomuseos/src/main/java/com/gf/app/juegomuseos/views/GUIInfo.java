@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JEditorPane;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -17,6 +18,7 @@ import javax.swing.JEditorPane;
 public class GUIInfo extends javax.swing.JDialog {
 
     private JEditorPane textArea;
+    private JScrollPane scrollPanel;
 
     /**
      * Creates new form GUIInfo
@@ -29,12 +31,13 @@ public class GUIInfo extends javax.swing.JDialog {
 
     private void setFrame() {
         textArea = new JEditorPane();
+        scrollPanel = new JScrollPane(textArea);
         textArea.setContentType("text/html");
         textArea.setText(GameData.getInfoHtml());
         textArea.setEditable(false);
         this.setResizable(false);
         this.getContentPane().setLayout(new BorderLayout());
-        this.getContentPane().add(textArea);
+        this.getContentPane().add(scrollPanel);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setPreferredSize(new Dimension((int) (screenSize.width * 0.6), (int) (screenSize.height * 0.7)));
         this.pack();
