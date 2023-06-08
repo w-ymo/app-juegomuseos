@@ -7,7 +7,6 @@ package com.gf.app.juegomuseos.views;
 import com.gf.app.juegomuseos.utils.Colors;
 import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -20,21 +19,40 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
+ * GUIWhoIs: vista del controlador {@link WhoIsController} donde se muestran 4
+ * botones y una imagen y se debe escoger cual es el autor de la imagen.
+ *
+ * @see WhoIsController
  *
  * @author priparno
  */
 public class GUIWhoIs extends javax.swing.JFrame {
 
-    private GUIPrincipal guip;
+    /**
+     * panelImages: un panel que contiene la imagen y el nombre de la obra.
+     */
+    private JPanel imagesPanel;
+    /**
+     * panelOptions: un panel que contiene los 4 botones de las opciones.
+     */
+    private JPanel optionsPanel;
 
-    private JPanel panelImages;
-    private JPanel panelOptions;
-
-    private static final Color[] colores = Colors.BUTTONS_COLORS;
-
+    /**
+     * image: es la etiqueta que contendra la imagen.
+     */
     private JLabel image;
+    /**
+     * imageText: la etiqueta que contendra el nombre de la obra.
+     */
     private JLabel imageText;
+    /**
+     * options: una lista de {@link JButton} que tendran el nombre de los
+     * autores para adivinarlo.
+     */
     private List<JButton> options = new ArrayList<>();
+    /**
+     * textTime: es la {@link JLabel} que contendra el cronometro.
+     */
     private JLabel textTime;
 
     /**
@@ -45,6 +63,10 @@ public class GUIWhoIs extends javax.swing.JFrame {
         setFrame();
     }
 
+    /**
+     * setFrame: es el metodo principal que coloca en la vista los botones y el
+     * titulo.
+     */
     private void setFrame() {
         this.setExtendedState(MAXIMIZED_BOTH);
         this.getContentPane().setSize(GameConstants.SCREEN_SIZE);
@@ -54,6 +76,9 @@ public class GUIWhoIs extends javax.swing.JFrame {
         setOptionPanel();
     }
 
+    /**
+     * setTimePanel: panel que situa el cronometro.
+     */
     private void setTimePanel() {
         JPanel extra = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         textTime = new JLabel();
@@ -61,94 +86,99 @@ public class GUIWhoIs extends javax.swing.JFrame {
         this.getContentPane().add(extra, BorderLayout.NORTH);
     }
 
+    /**
+     * setImagePanel: coloca la etiqueta donde estara la imagen y la etiqueta
+     * donde se situara el nombre de la obra.
+     */
     private void setImagePanel() {
-        panelImages = new JPanel(new BorderLayout());
-        panelImages.setSize(new Dimension(this.getContentPane().getWidth(), (int) (this.getContentPane().getHeight() * 0.8)));
-        this.getContentPane().add(panelImages, BorderLayout.CENTER);
+        imagesPanel = new JPanel(new BorderLayout());
+        imagesPanel.setSize(new Dimension(this.getContentPane().getWidth(), (int) (this.getContentPane().getHeight() * 0.8)));
+        this.getContentPane().add(imagesPanel, BorderLayout.CENTER);
         image = new JLabel();
         imageText = new JLabel("Bottom text");
         imageText.setPreferredSize(new Dimension(this.getSize().width, (int) (this.getSize().height * 0.2)));
         imageText.setFont(new Font(Font.DIALOG, Font.BOLD, 20));
         image.setHorizontalAlignment(SwingConstants.CENTER);
         imageText.setHorizontalAlignment(SwingConstants.CENTER);
-        panelImages.add(image, BorderLayout.CENTER);
-        panelImages.add(imageText, BorderLayout.SOUTH);
+        imagesPanel.add(image, BorderLayout.CENTER);
+        imagesPanel.add(imageText, BorderLayout.SOUTH);
     }
 
+    /**
+     * setOptionPanel: coloca los botones que incluiran el nombre de los
+     * autores.
+     */
     private void setOptionPanel() {
-        panelOptions = new JPanel(new GridLayout(2, 2));
-        panelOptions.setPreferredSize(new Dimension(this.getSize().width, (int) (this.getSize().height * 0.5)));
-        this.getContentPane().add(panelOptions, BorderLayout.SOUTH);
+        optionsPanel = new JPanel(new GridLayout(2, 2));
+        optionsPanel.setPreferredSize(new Dimension(this.getSize().width, (int) (this.getSize().height * 0.5)));
+        this.getContentPane().add(optionsPanel, BorderLayout.SOUTH);
         initOptions();
         for (JButton option : options) {
-            panelOptions.add(option);
+            optionsPanel.add(option);
         }
     }
 
+    /**
+     * initOptions: crea los botones.
+     */
     private void initOptions() {
         for (int i = 0; i < 4; i++) {
             JButton but = new JButton("button");
             but.setForeground(Colors.ONYX);
             but.setFont(this.getFont().deriveFont(Font.BOLD, 18f));
-            but.setBackground(colores[i]);
+            but.setBackground(Colors.BUTTONS_COLORS[i]);
             options.add(but);
         }
     }
 
-    public GUIPrincipal getGuip() {
-        return guip;
-    }
-
-    public void setGuip(GUIPrincipal guip) {
-        this.guip = guip;
-    }
-
+    //GETTER/SETTER
+    /**
+     * getImage: devuelve un {@link JLabel} donde se situa la imagen.
+     *
+     * @return un {@link JLabel}
+     */
     public JLabel getImage() {
         return image;
     }
 
-    public void setImage(JLabel image) {
-        this.image = image;
-    }
-
+    /**
+     * getImageText: devuelve un {@link JLabel} donde se situa el nombre de la
+     * obra.
+     *
+     * @return un {@link JLabel}
+     */
     public JLabel getImageText() {
         return imageText;
     }
 
-    public void setImageText(JLabel imageText) {
-        this.imageText = imageText;
-    }
-
+    /**
+     * getOptions: devuelve una lista de {@link JButton} que son los botones que
+     * incluiran los nombres de los autores.
+     *
+     * @return una lista de {@link JButton}
+     */
     public List<JButton> getOptions() {
         return options;
     }
 
-    public void setOptions(List<JButton> options) {
-        this.options = options;
-    }
-
+    /**
+     * getPanelImages: devuelve un panel {@link JPanel} que contiene la imagen.
+     *
+     * @return un {@link JPanel}
+     */
     public JPanel getPanelImages() {
-        return panelImages;
+        return imagesPanel;
     }
 
-    public void setPanelImages(JPanel panelImages) {
-        this.panelImages = panelImages;
-    }
-
-    public JPanel getPanelOptions() {
-        return panelOptions;
-    }
-
-    public void setPanelOptions(JPanel panelOptions) {
-        this.panelOptions = panelOptions;
-    }
-
+    /**
+     * getTextTime: devuelve el {@link JLabel} del cronometro.
+     *
+     * @see Crono
+     *
+     * @return un {@link JLabel}
+     */
     public JLabel getTextTime() {
         return textTime;
-    }
-
-    public void setTextTime(JLabel textTime) {
-        this.textTime = textTime;
     }
 
     /**
@@ -175,41 +205,6 @@ public class GUIWhoIs extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(GUIWhoIs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(GUIWhoIs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(GUIWhoIs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(GUIWhoIs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new GUIWhoIs().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

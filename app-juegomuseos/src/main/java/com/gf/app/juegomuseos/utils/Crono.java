@@ -11,35 +11,50 @@ import javax.swing.Timer;
 import javax.swing.JLabel;
 
 /**
- * Crono: 
- * 
+ * Crono: es el cronometro del juego cuando es modo competitivo.
+ *
  * @author priparno
  */
 public class Crono {
 
+    /**
+     * timer: objeto de tipo {@link Timer} que actualiza a cada segundo el
+     * tiempo.
+     */
     private Timer timer;
+    /**
+     * time: el numero de segundos que transcurren
+     */
     private int time;
+    /**
+     * textTime: el componente donde se pondra el cronometro.
+     */
     private JLabel textTime;
 
-    private ActionListener al = (e) -> {
+    /**
+     * timeListener: es la accion que realiza {@link #timer}. Esta es aumentar
+     * el numero de tiempo en uno y poner el tiempo formateado con
+     * {@link #getFormattedTime()}.
+     */
+    private ActionListener timeListener = (e) -> {
         time++;
-        textTime.setText(getFormattedTime());
+        getTextTime().setText(getFormattedTime());
     };
 
+    /**
+     * Crono: es el contructor de un cronometro que utiliza {@link Timer}. Cada
+     * segundo añade 1 segundo al cronometro.
+     */
     public Crono() {
-        timer = new Timer(1000, al);
+        timer = new Timer(1000, timeListener);
         timer.start();
     }
 
-    public JLabel getTextTime() {
-        return textTime;
-    }
-
-    public void setTextTime(JLabel textTime) {
-        this.textTime = textTime;
-        textTime.setFont(textTime.getFont().deriveFont(Font.BOLD, 20f));
-    }
-
+    /**
+     * getFormattedTime: formatea la cantidad de tiempo en segundos a 'mm:ss'.
+     *
+     * @return una cadena con el tiempo formateado en 'mm:ss'
+     */
     public String getFormattedTime() {
         int hour, min, sec;
         hour = (time / 3600);
@@ -49,10 +64,42 @@ public class Crono {
         return df.format(min) + ":" + df.format(sec);
     }
 
+    //GETTER/SETTER
+    /**
+     * getTextTime: devuelve el componente de tipo {@link JLabel} donde se
+     * pondra el texto.
+     *
+     * @return un componente {@link JLabel}
+     */
+    public JLabel getTextTime() {
+        return textTime;
+    }
+
+    /**
+     * setTextTime: actualiza el componente con el pasado por parametro y le
+     * pone un tamanio de fuente de 20 pixeles.
+     *
+     * @param textTime un componente de tipo {@link JLabel}
+     */
+    public void setTextTime(JLabel textTime) {
+        this.textTime = textTime;
+        textTime.setFont(textTime.getFont().deriveFont(Font.BOLD, 20f));
+    }
+
+    /**
+     * getTime: devuelve el numero de segundos.
+     *
+     * @return un entero que representa el numero de segundos
+     */
     public int getTime() {
         return time;
     }
 
+    /**
+     * setTime: actualiza el numero de segundos.
+     *
+     * @param time un entero que representa el nuevo numero de segundos.
+     */
     public void setTime(int time) {
         this.time = time;
     }
