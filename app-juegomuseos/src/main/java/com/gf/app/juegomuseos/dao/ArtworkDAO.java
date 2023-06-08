@@ -36,6 +36,8 @@ public class ArtworkDAO {
                     a.setImagen_obra(rs.getString("imagen_obra"));
                     a.setId_autor(rs.getInt("id_autor"));
                     a.setId_museo(rs.getInt("id_museo"));
+                    a.setLatitud(rs.getDouble("latitud"));
+                    a.setLongitud(rs.getDouble("longitud"));
                     list.add(a);
                 }
             }
@@ -58,6 +60,8 @@ public class ArtworkDAO {
                     a.setImagen_obra(rs.getString("imagen_obra"));
                     a.setId_autor(rs.getInt("id_autor"));
                     a.setId_museo(rs.getInt("id_museo"));
+                    a.setLatitud(rs.getDouble("latitud"));
+                    a.setLongitud(rs.getDouble("longitud"));
                 }
             }
         }
@@ -90,6 +94,8 @@ public class ArtworkDAO {
                     a.setImagen_obra(rs.getString("imagen_obra"));
                     a.setId_autor(rs.getInt("id_autor"));
                     a.setId_museo(rs.getInt("id_museo"));
+                    a.setLatitud(rs.getDouble("latitud"));
+                    a.setLongitud(rs.getDouble("longitud"));
                     list.add(a);
                 }
             }
@@ -113,6 +119,8 @@ public class ArtworkDAO {
                     a.setImagen_obra(rs.getString("imagen_obra"));
                     a.setId_autor(rs.getInt("id_autor"));
                     a.setId_museo(rs.getInt("id_museo"));
+                    a.setLatitud(rs.getDouble("latitud"));
+                    a.setLongitud(rs.getDouble("longitud"));
                     list.add(a);
                 }
             }
@@ -136,6 +144,8 @@ public class ArtworkDAO {
                     a.setImagen_obra(rs.getString("imagen_obra"));
                     a.setId_autor(rs.getInt("id_autor"));
                     a.setId_museo(rs.getInt("id_museo"));
+                    a.setLatitud(rs.getDouble("latitud"));
+                    a.setLongitud(rs.getDouble("longitud"));
                     list.add(a);
                 }
             }
