@@ -28,15 +28,16 @@ public class SettingsController implements GameControllers {
     private ChangeListener cl = (e) -> {
         int volume = ((JSlider) e.getSource()).getValue();
         Music.setVolume(volume);
+        GameData.updateInfoVolume("Volume%"+volume);
     };
 
     private ActionListener al = (e) -> {
         JButton but = (JButton) e.getSource();
         if (but.getText().equals("Modo oscuro")) {
-            GameData.updateInfoStyle("Modo claro-" + GameData.LIGHT_LAF);
+            GameData.updateInfoStyle("Modo claro%" + GameData.LIGHT_LAF);
             but.setText("Modo claro");
         } else {
-            GameData.updateInfoStyle("Modo oscuro-" + GameData.DARK_LAF);
+            GameData.updateInfoStyle("Modo oscuro%" + GameData.DARK_LAF);
             but.setText("Modo oscuro");
         }
         try {

@@ -8,17 +8,14 @@ import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -57,11 +54,14 @@ public class GUIInputRanking extends javax.swing.JFrame {
         gameData = new JPanel(new BorderLayout());
         JPanel extra = new JPanel(new GridLayout(0, 3));
         gameData.setPreferredSize(new Dimension(GameConstants.SCREEN_SIZE.width, (int) (GameConstants.SCREEN_SIZE.height * 0.4)));
-        realTime = new JLabel("a");
+        realTime = new JLabel();
+        realTime.setFont(this.getFont().deriveFont(Font.BOLD, 25f));
         realTime.setHorizontalAlignment(SwingConstants.CENTER);
-        penalties = new JLabel("b");
+        penalties = new JLabel();
+        penalties.setFont(this.getFont().deriveFont(Font.BOLD, 25f));
         penalties.setHorizontalAlignment(SwingConstants.CENTER);
-        totalTime = new JLabel("c");
+        totalTime = new JLabel();
+        totalTime.setFont(this.getFont().deriveFont(Font.BOLD, 25f));
         totalTime.setHorizontalAlignment(SwingConstants.CENTER);
         extra.add(realTime);
         extra.add(penalties);
