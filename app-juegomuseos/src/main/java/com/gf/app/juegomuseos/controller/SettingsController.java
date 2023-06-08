@@ -5,9 +5,13 @@
 package com.gf.app.juegomuseos.controller;
 
 import com.gf.app.juegomuseos.utils.GameData;
+import com.gf.app.juegomuseos.utils.Music;
 import com.gf.app.juegomuseos.views.GUISettings;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -16,6 +20,11 @@ import javax.swing.JButton;
 public class SettingsController implements GameControllers {
     
     private GUISettings view;
+    
+    private ChangeListener cl = (e) -> {
+        int volume = ((JSlider) e.getSource()).getValue();
+        Music.setVolume(volume);
+    };
     
     private ActionListener al = (e) -> {
         JButton but = (JButton) e.getSource();
@@ -26,11 +35,12 @@ public class SettingsController implements GameControllers {
             GameData.updateInfoStyle("Modo oscuro-" + GameData.DARK_LAF);
             but.setText("Modo oscuro");
         }
+        JOptionPane.showMessageDialog(null, "Debe reiniciar la aplicación para mostrar el nuevo estilo.");
     };
     
     public SettingsController(GUISettings view) {
         this.view = view;
-        addActionListener();
+        addListeners();
         launchView();
     }
     
@@ -38,8 +48,9 @@ public class SettingsController implements GameControllers {
         view.setVisible(true);
     }
     
-    private void addActionListener() {
+    private void addListeners() {
         view.getStyleButton().addActionListener(al);
+        view.getVolumeSlider().addChangeListener(cl);
     }
     
 }

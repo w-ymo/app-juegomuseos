@@ -8,10 +8,13 @@ import com.gf.app.juegomuseos.utils.GameData;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 
 /**
@@ -21,9 +24,11 @@ import javax.swing.SwingConstants;
 public class GUISettings extends javax.swing.JDialog {
 
     private JPanel panelOptions;
-    
+
     private JButton styleButton;
-    
+
+    private JSlider volumeSlider;
+
     /**
      * Creates new form GUISettings
      */
@@ -36,15 +41,43 @@ public class GUISettings extends javax.swing.JDialog {
     private void setFrame() {
         this.setResizable(false);
         this.getContentPane().setLayout(new BorderLayout());
-        panelOptions = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        styleButton = new JButton(GameData.getInfoStyle()[0]);
-        panelOptions.add(styleButton);
-        styleButton.setVerticalAlignment(SwingConstants.CENTER);
+        panelOptions = new JPanel(new GridLayout(4, 0));
+        //ajustes de estilo
+        setStylePanel();
+        //ajustes de sonido
+        setVolumePanel();
         this.getContentPane().add(panelOptions);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setPreferredSize(new Dimension((int) (screenSize.width * 0.6), (int) (screenSize.height * 0.7)));
+        this.setPreferredSize(new Dimension((int) (screenSize.width * 0.3), (int) (screenSize.height * 0.5)));
         this.pack();
         this.setLocationRelativeTo(null);
+    }
+
+    private void setStylePanel() {
+        styleButton = new JButton(GameData.getInfoStyle()[0]);
+        JLabel styleLabel = new JLabel("AJUSTES DE ESTILO");
+        styleLabel.setFont(this.getFont().deriveFont(Font.BOLD, 22f));
+        styleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        panelOptions.add(styleLabel);
+        panelOptions.add(styleButton);
+    }
+
+    private void setVolumePanel() {
+        volumeSlider = new JSlider(-80, 6, 0);
+        volumeSlider.setPaintTrack(true);
+        JLabel volumeLabel = new JLabel("AJUSTES DE SONIDO");
+        volumeLabel.setFont(this.getFont().deriveFont(Font.BOLD, 22f));
+        volumeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        panelOptions.add(volumeLabel);
+        panelOptions.add(volumeSlider);
+    }
+
+    public JSlider getVolumeSlider() {
+        return volumeSlider;
+    }
+
+    public void setVolumeSlider(JSlider volumeSlider) {
+        this.volumeSlider = volumeSlider;
     }
     
     /**
@@ -113,7 +146,6 @@ public class GUISettings extends javax.swing.JDialog {
 //            }
 //        });
 //    }
-
     public JButton getStyleButton() {
         return styleButton;
     }

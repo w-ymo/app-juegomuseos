@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -20,23 +21,32 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class Music {
 
-    private static File music = new File(".\\src\\main\\java\\com\\gf\\app\\juegomuseos\\resources\\song1.wav");
+    private static final File MUSIC = new File(".\\src\\main\\java\\com\\gf\\app\\juegomuseos\\resources\\song1.wav");
     private static AudioInputStream input;
     private static Clip clip;
 
     public static void start() {
         try {
-            input = AudioSystem.getAudioInputStream(music);
+            input = AudioSystem.getAudioInputStream(MUSIC);
             clip = AudioSystem.getClip();
             clip.open(input);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
             clip.start();
-        } catch (UnsupportedAudioFileException ex) {
-            Logger.getLogger(Music.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Music.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (LineUnavailableException ex) {
-            Logger.getLogger(Music.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+            System.err.println("Problemitas");
         }
+    }
+
+    private static void setGain(float value) {
+        FloatControl gainControl
+                = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(value); // Reduce volume by 10 decibels.
+    }
+
+    public static void setVolume(int value) {
+        float min = -80;
+        float max = 6;
+        setGain(value);
     }
 
     public static void stop() {
@@ -44,7 +54,7 @@ public class Music {
             clip.stop();
             input.close();
         } catch (IOException ex) {
-            Logger.getLogger(Music.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error");
         }
     }
 }

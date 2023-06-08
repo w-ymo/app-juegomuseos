@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -58,14 +59,15 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
     }
 
     private void setTitlePanel() {
-        panelTitle = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 20));
+        panelTitle = new JPanel(new BorderLayout());
         this.getContentPane().add(panelTitle, BorderLayout.NORTH);
         JLabel title = new JLabel("SELECCIONA LA IMAGEN QUE PERTENECE A GREGORIO FERNÁNDEZ");
         textTime = new JLabel();
         textTime.setHorizontalAlignment(SwingConstants.RIGHT);
         title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
-        panelTitle.add(title);
-        panelTitle.add(textTime);
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        panelTitle.add(title, BorderLayout.CENTER);
+        panelTitle.add(textTime, BorderLayout.EAST);        
     }
 
     private void setImagePanel() {

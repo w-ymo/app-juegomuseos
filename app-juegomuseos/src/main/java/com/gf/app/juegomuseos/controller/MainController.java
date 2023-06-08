@@ -15,7 +15,6 @@ import com.gf.app.juegomuseos.views.GUIWhoIs;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.Timer;
 
 /**
  *
@@ -51,7 +50,7 @@ public class MainController implements GameControllers {
                 SettingsController controllerSettings = new SettingsController(new GUISettings(view, true));
             }
             case "SALIR" -> {
-                //Music.stop();
+                Music.stop();
                 view.dispose();
             }
             default ->
@@ -63,7 +62,7 @@ public class MainController implements GameControllers {
         this.view = view;
         addActionListener();
         launchView();
-        //Music.start();
+        Music.start();
     }
 
     private void addActionListener() {

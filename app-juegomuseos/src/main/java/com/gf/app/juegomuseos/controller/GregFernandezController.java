@@ -78,7 +78,6 @@ public class GregFernandezController implements GameControllers {
             if (counter < 5) {
                 initGame();
             } else {
-                JOptionPane.showMessageDialog(null, "Siguiente jogo");
                 setGameData();
                 if (mode == GameConstants.COMP_MODE) {
                     //map controller
