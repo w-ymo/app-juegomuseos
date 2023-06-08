@@ -6,6 +6,7 @@ package com.gf.app.juegomuseos.controller;
 
 import com.gf.app.juegomuseos.dao.MuseumDAO;
 import com.gf.app.juegomuseos.models.Museum;
+import com.gf.app.juegomuseos.utils.Crono;
 import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
 import com.gf.app.juegomuseos.views.GUIMuseumsTF;
@@ -37,7 +38,7 @@ public class MuseumsTFController implements ActionListener, GameControllers {
 
     private int counter;
     private int fails;
-    private Timer timer;
+    private Crono timer;
 
     private boolean accessType; //true -> recoge de BD, false -> recoge de array
     private Museum mSolution;
@@ -51,11 +52,15 @@ public class MuseumsTFController implements ActionListener, GameControllers {
     private ArrayList<Integer> repeatedDB = new ArrayList<>();
     private ArrayList<Integer> repeatedFake = new ArrayList<>();
 
-    public MuseumsTFController(GUIMuseumsTF view, boolean mode) {
+    public MuseumsTFController(GUIMuseumsTF view, GameControllers parent, boolean mode) {
         this.view = view;
         this.counter = 0;
         this.mode = mode;
+        this.parent = parent;
         getGameData();
+        if (mode == GameConstants.COMP_MODE) {
+            this.timer.setTextTime(view.getTextTime());
+        }
         addListenerButtons();
         launchGame();
     }

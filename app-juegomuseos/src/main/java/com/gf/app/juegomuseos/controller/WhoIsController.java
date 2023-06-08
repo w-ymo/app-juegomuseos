@@ -8,6 +8,7 @@ import com.gf.app.juegomuseos.dao.ArtworkDAO;
 import com.gf.app.juegomuseos.dao.AuthorDAO;
 import com.gf.app.juegomuseos.models.Artwork;
 import com.gf.app.juegomuseos.models.Author;
+import com.gf.app.juegomuseos.utils.Crono;
 import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.utils.ImagesSize;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
@@ -45,7 +46,7 @@ public class WhoIsController implements GameControllers {
 
     private int counter;
     private int fails;
-    private Timer timer;
+    private Crono timer;
     private boolean mode;
 
     private Artwork imageSelected;
@@ -74,8 +75,8 @@ public class WhoIsController implements GameControllers {
             } else {
                 setGameData();
                 if (mode == GameConstants.COMP_MODE) {
-                    MuseumsTFController nextGame = new MuseumsTFController(new GUIMuseumsTF(),GameConstants.COMP_MODE);
-                }else{
+                    MuseumsTFController nextGame = new MuseumsTFController(new GUIMuseumsTF(), parent, GameConstants.COMP_MODE);
+                } else {
                     openMenu();
                 }
                 view.dispose();
@@ -91,16 +92,19 @@ public class WhoIsController implements GameControllers {
         this.mode = mode;
         this.counter = 0;
         getGameData();
+        if (mode == GameConstants.COMP_MODE) {
+            this.timer.setTextTime(view.getTextTime());
+        }
         addListenerButtons();
         launchGame();
     }
 
-    private void openMenu(){
+    private void openMenu() {
         if (parent instanceof SelectGameController parentC) {
             parentC.getMainController().getView().setVisible(true);
         }
     }
-    
+
     private void getGameData() {
         if (parent instanceof MainController parentC) {
             this.fails = parentC.getFails();

@@ -7,19 +7,22 @@ package com.gf.app.juegomuseos.dao;
 import com.gf.app.juegomuseos.models.Ranking;
 import com.gf.app.juegomuseos.utils.ConnectionDB;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author noelp
  */
 public class RankingDAO {
-    
+
     public List<Ranking> selectAll() throws SQLException {
         String sql = "SELECT * FROM ranking";
         List<Ranking> list = new ArrayList<>();
@@ -53,7 +56,7 @@ public class RankingDAO {
         }
         return r;
     }
-    
+
     public List<Ranking> selectNum(int num) throws SQLException {
         List<Ranking> fullList = selectAll();
         Collections.shuffle(fullList);
@@ -63,7 +66,16 @@ public class RankingDAO {
         }
         return partialList;
     }
-    
-    //insertar
-    
+
+    public boolean insert(Ranking r) throws SQLException {
+        try ( Connection con = ConnectionDB.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO ranking (nombre_usuario,puntuacion) VALUES (?,?)");
+            ps.setString(1, r.getNombre_usuario());
+            ps.setString(2, r.getPuntuacion());
+            if (ps.executeUpdate() > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

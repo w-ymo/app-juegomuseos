@@ -31,8 +31,8 @@ public class AppJuegomuseosLuis {
 //        GUIGregorioFernandez gf = new GUIGregorioFernandez();
 //        GregFernandezController gf_contr = new GregFernandezController(gf);
 
-        GUIMuseumsTF mtf = new GUIMuseumsTF();
-        MuseumsTFController mtf_contr = new MuseumsTFController(mtf, GameConstants.FREE_MODE);
+//        GUIMuseumsTF mtf = new GUIMuseumsTF();
+//        MuseumsTFController mtf_contr = new MuseumsTFController(mtf, GameConstants.FREE_MODE);
 
 //        AuthorDAO at = new AuthorDAO();
 //        ArtworkDAO aw = new ArtworkDAO();

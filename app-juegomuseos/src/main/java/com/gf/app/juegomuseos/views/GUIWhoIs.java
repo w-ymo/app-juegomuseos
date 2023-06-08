@@ -9,19 +9,15 @@ import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -31,8 +27,6 @@ public class GUIWhoIs extends javax.swing.JFrame {
 
     private GUIPrincipal guip;
 
-    //aniadir crono
-    //aniadir boton info?
     private JPanel panelImages;
     private JPanel panelOptions;
 
@@ -41,35 +35,30 @@ public class GUIWhoIs extends javax.swing.JFrame {
     private JLabel image;
     private JLabel imageText;
     private List<JButton> options = new ArrayList<>();
+    private JLabel textTime;
 
-    //net.sourceforge.napkinlaf.NapkinLookAndFeel
     /**
      * Creates new form GUIWhoIs
      */
     public GUIWhoIs() {
-//        try {
-//            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
-//            this.setUndecorated(true);
-            initComponents();
-            setFrame();
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (UnsupportedLookAndFeelException ex) {
-//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        initComponents();
+        setFrame();
     }
 
     private void setFrame() {
         this.setExtendedState(MAXIMIZED_BOTH);
         this.getContentPane().setSize(GameConstants.SCREEN_SIZE);
         this.getContentPane().setLayout(new BorderLayout());
+        setTimePanel();
         setImagePanel();
         setOptionPanel();
-        //setGame();
+    }
+
+    private void setTimePanel() {
+        JPanel extra = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        textTime = new JLabel();
+        extra.add(textTime);
+        this.getContentPane().add(extra, BorderLayout.NORTH);
     }
 
     private void setImagePanel() {
@@ -152,6 +141,14 @@ public class GUIWhoIs extends javax.swing.JFrame {
 
     public void setPanelOptions(JPanel panelOptions) {
         this.panelOptions = panelOptions;
+    }
+
+    public JLabel getTextTime() {
+        return textTime;
+    }
+
+    public void setTextTime(JLabel textTime) {
+        this.textTime = textTime;
     }
 
     /**

@@ -7,6 +7,7 @@ package com.gf.app.juegomuseos.controller;
 import com.gf.app.juegomuseos.dao.ArtworkDAO;
 import com.gf.app.juegomuseos.dao.AuthorDAO;
 import com.gf.app.juegomuseos.models.Artwork;
+import com.gf.app.juegomuseos.utils.Crono;
 import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.utils.ImagesSize;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
@@ -43,7 +44,7 @@ public class GregFernandezController implements GameControllers {
 
     private int counter;
     private int fails;
-    private Timer timer;
+    private Crono timer;
 
     private Artwork solution;
 
@@ -53,6 +54,9 @@ public class GregFernandezController implements GameControllers {
         this.mode = mode;
         this.counter = 0;
         getGameData();
+        if (mode == GameConstants.COMP_MODE) {
+            this.timer.setTextTime(view.getTextTime());
+        }
         addListenerButtons();
         launchGame();
     }

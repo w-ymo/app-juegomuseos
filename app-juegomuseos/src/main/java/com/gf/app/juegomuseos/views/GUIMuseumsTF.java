@@ -8,6 +8,7 @@ import com.gf.app.juegomuseos.utils.Colors;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.logging.Level;
@@ -28,15 +29,15 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
 
     //com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme -> Claro
     //com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme -> Oscuro
-    
-    private GUIPrincipal guip;
     private JPanel museumPanel;
     private JPanel buttonsPanel;
-    
+
     private JLabel museumLabel;
-    
+
     private JButton trueButton;
     private JButton falseButton;
+
+    private JLabel textTime;
 
     /**
      * Creates new form GUIVFMuseos
@@ -45,11 +46,12 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
         try {
             this.setUndecorated(true);
             UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
-            initComponents();     
+            initComponents();
             setFrame();
+            setTimePanel();
             setMuseumPanel();
             setButtonsPanel();
-               
+
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,18 +62,25 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.getContentPane().setLayout(new BorderLayout());
     }
-    
-    private void setMuseumPanel() {     
+
+    private void setTimePanel() {
+        JPanel extra = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        this.getContentPane().add(extra, BorderLayout.NORTH);
+        textTime = new JLabel();
+        extra.add(textTime);
+    }
+
+    private void setMuseumPanel() {
         museumPanel = new JPanel(new BorderLayout());
         this.getContentPane().add(museumPanel, BorderLayout.CENTER);
         //Label
         museumLabel = new JLabel("Museo");
         Font font = new Font(museumLabel.getFont().getName(), Font.PLAIN, 75);
         museumLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        museumLabel.setFont(font); 
+        museumLabel.setFont(font);
         museumPanel.add(museumLabel, BorderLayout.CENTER);
     }
-    
+
     private void setButtonsPanel() {
         buttonsPanel = new JPanel(new GridLayout(1, 2));
         this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
@@ -97,7 +106,7 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
     public void setMuseumLabel(JLabel museumLabel) {
         this.museumLabel = museumLabel;
     }
-    
+
     public JButton getTrueButton() {
         return trueButton;
     }
@@ -113,8 +122,15 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
     public void setFalseButton(JButton falseButton) {
         this.falseButton = falseButton;
     }
-    
-    
+
+    public JLabel getTextTime() {
+        return textTime;
+    }
+
+    public void setTextTime(JLabel textTime) {
+        this.textTime = textTime;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

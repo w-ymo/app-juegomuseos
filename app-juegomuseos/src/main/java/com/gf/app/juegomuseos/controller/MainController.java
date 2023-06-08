@@ -4,6 +4,7 @@
  */
 package com.gf.app.juegomuseos.controller;
 
+import com.gf.app.juegomuseos.utils.Crono;
 import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.utils.Music;
 import com.gf.app.juegomuseos.views.GUIInfo;
@@ -24,8 +25,9 @@ public class MainController implements GameControllers {
 
     private GUIPrincipal view;
 
-    private Timer timer;
-    private int fails;
+    private int fails = 0;
+
+    private Crono timer;
 
     private ActionListener al = (e) -> {
         List<JButton> list = view.getOptions();
@@ -33,6 +35,7 @@ public class MainController implements GameControllers {
         switch (selected.getText()) {
             case "MODO YINCANA" -> {
                 view.dispose();
+                timer = new Crono();
                 GUIWhoIs guiwh = new GUIWhoIs();
                 WhoIsController controllerWH = new WhoIsController(guiwh, this, GameConstants.COMP_MODE);
             }
@@ -48,7 +51,7 @@ public class MainController implements GameControllers {
                 SettingsController controllerSettings = new SettingsController(new GUISettings(view, true));
             }
             case "SALIR" -> {
-                Music.stop();
+                //Music.stop();
                 view.dispose();
             }
             default ->
@@ -60,7 +63,7 @@ public class MainController implements GameControllers {
         this.view = view;
         addActionListener();
         launchView();
-        Music.start();
+        //Music.start();
     }
 
     private void addActionListener() {
@@ -73,11 +76,11 @@ public class MainController implements GameControllers {
         view.setVisible(true);
     }
 
-    public Timer getTimer() {
+    public Crono getTimer() {
         return timer;
     }
 
-    public void setTimer(Timer timer) {
+    public void setTimer(Crono timer) {
         this.timer = timer;
     }
 

@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -33,31 +34,18 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
 
     private GUIPrincipal guip;
 
-    //Aniadir crono
-    //aniadir boton de info?
     private JPanel panelTitle;
     private JPanel panelImages;
 
     private List<JButton> images = new ArrayList<>();
+    private JLabel textTime;
 
     /**
      * Creates new form GUIGregorioFernandez
      */
     public GUIGregorioFernandez() {
-        try {
-            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
-            this.setUndecorated(true);
             initComponents();
             setFrame();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     private void setFrame() {
@@ -73,8 +61,11 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
         panelTitle = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 20));
         this.getContentPane().add(panelTitle, BorderLayout.NORTH);
         JLabel title = new JLabel("SELECCIONA LA IMAGEN QUE PERTENECE A GREGORIO FERNÁNDEZ");
+        textTime = new JLabel();
+        textTime.setHorizontalAlignment(SwingConstants.RIGHT);
         title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
         panelTitle.add(title);
+        panelTitle.add(textTime);
     }
 
     private void setImagePanel() {
@@ -124,6 +115,14 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
 
     public void setPanelImages(JPanel panelImages) {
         this.panelImages = panelImages;
+    }
+
+    public JLabel getTextTime() {
+        return textTime;
+    }
+
+    public void setTextTime(JLabel textTime) {
+        this.textTime = textTime;
     }
 
     /**
