@@ -23,13 +23,13 @@ public class SelectGameController implements GameControllers {
 
     private ActionListener al = (e) -> {
         JButton selected = (JButton) e.getSource();
-        view.dispose();
+        parent.getView().dispose();
         switch (selected.getName()) {
             case GameConstants.WHOIS_CODE -> {
                 WhoIsController controllerWH = new WhoIsController(new GUIWhoIs(), this, GameConstants.FREE_MODE);
             }
             case GameConstants.TRUEFALSE_CODE -> {
-                MuseumsTFController controllerMTF = new MuseumsTFController(new GUIMuseumsTF(),this, GameConstants.FREE_MODE);
+                MuseumsTFController controllerMTF = new MuseumsTFController(new GUIMuseumsTF(), this, GameConstants.FREE_MODE);
             }
             case GameConstants.GREGORIO_CODE -> {
                 GUIGregorioFernandez guigf = new GUIGregorioFernandez();
@@ -48,7 +48,7 @@ public class SelectGameController implements GameControllers {
         this.view = view;
         this.parent = parent;
         addActionListener();
-        launchView();
+        launch();
     }
 
     private void addActionListener() {
@@ -57,12 +57,21 @@ public class SelectGameController implements GameControllers {
         }
     }
 
-    private void launchView() {
-        view.setVisible(true);
-    }
-
     public MainController getMainController() {
         return (MainController) parent;
+    }
+
+    public GUISelectGame getView() {
+        return view;
+    }
+
+    public void setView(GUISelectGame view) {
+        this.view = view;
+    }
+    
+    @Override
+    public void launch() {
+        view.setVisible(true);
     }
 
 }

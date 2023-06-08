@@ -5,12 +5,15 @@
 package com.gf.app.juegomuseos.controller;
 
 import com.gf.app.juegomuseos.utils.GameData;
+import static com.gf.app.juegomuseos.utils.GameData.STYLE;
 import com.gf.app.juegomuseos.utils.Music;
 import com.gf.app.juegomuseos.views.GUISettings;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.event.ChangeListener;
 
 /**
@@ -18,14 +21,15 @@ import javax.swing.event.ChangeListener;
  * @author priparno
  */
 public class SettingsController implements GameControllers {
-    
+
+    private MainController parent;
     private GUISettings view;
-    
+
     private ChangeListener cl = (e) -> {
         int volume = ((JSlider) e.getSource()).getValue();
         Music.setVolume(volume);
     };
-    
+
     private ActionListener al = (e) -> {
         JButton but = (JButton) e.getSource();
         if (but.getText().equals("Modo oscuro")) {
@@ -35,22 +39,30 @@ public class SettingsController implements GameControllers {
             GameData.updateInfoStyle("Modo oscuro-" + GameData.DARK_LAF);
             but.setText("Modo oscuro");
         }
-        JOptionPane.showMessageDialog(null, "Debe reiniciar la aplicación para mostrar el nuevo estilo.");
+        try {
+            UIManager.setLookAndFeel(GameData.getInfoStyle()[1]);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        SwingUtilities.updateComponentTreeUI(parent.getView());
+        this.view.dispose();
     };
-    
-    public SettingsController(GUISettings view) {
+
+    public SettingsController(GUISettings view, MainController parent) {
         this.view = view;
+        this.parent = parent;
         addListeners();
-        launchView();
+        launch();
     }
-    
-    private void launchView() {
-        view.setVisible(true);
-    }
-    
+
     private void addListeners() {
         view.getStyleButton().addActionListener(al);
         view.getVolumeSlider().addChangeListener(cl);
     }
-    
+
+    @Override
+    public void launch() {
+        view.setVisible(true);
+    }
+
 }

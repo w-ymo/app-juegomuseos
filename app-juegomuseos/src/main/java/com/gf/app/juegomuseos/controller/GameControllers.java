@@ -9,5 +9,5 @@ package com.gf.app.juegomuseos.controller;
  * @author priparno
  */
 public interface GameControllers {
-    
+    public void launch();
 }

@@ -62,7 +62,7 @@ public class MuseumsTFController implements ActionListener, GameControllers {
             this.timer.setTextTime(view.getTextTime());
         }
         addListenerButtons();
-        launchGame();
+        launch();
     }
 
     private void openMenu() {
@@ -71,6 +71,14 @@ public class MuseumsTFController implements ActionListener, GameControllers {
         }
     }
 
+    private void closeParentView() {
+        if (parent instanceof SelectGameController parentC) {
+            parentC.getView().setVisible(false);
+        }else if(parent instanceof MainController parentC){
+            parentC.getView().setVisible(false);
+        }
+    }
+    
     private void getGameData() {
         if (parent instanceof MainController parentC) {
             this.fails = parentC.getFails();
@@ -115,11 +123,6 @@ public class MuseumsTFController implements ActionListener, GameControllers {
         }
         view.getMuseumLabel().setText(mSolution.getNombre_museo());
         setLabelLength();
-    }
-
-    private void launchGame() {
-        view.setVisible(true);
-        initGame();
     }
 
     private void addListenerButtons() {
@@ -186,6 +189,13 @@ public class MuseumsTFController implements ActionListener, GameControllers {
             }
             view.dispose();
         }
+    }
+
+    @Override
+    public void launch() {
+        view.setVisible(true);
+        closeParentView();
+        initGame();
     }
 
 }

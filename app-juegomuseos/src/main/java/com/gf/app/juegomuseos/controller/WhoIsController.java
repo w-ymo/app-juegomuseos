@@ -96,12 +96,20 @@ public class WhoIsController implements GameControllers {
             this.timer.setTextTime(view.getTextTime());
         }
         addListenerButtons();
-        launchGame();
+        launch();
     }
 
     private void openMenu() {
         if (parent instanceof SelectGameController parentC) {
             parentC.getMainController().getView().setVisible(true);
+        }
+    }
+    
+    private void closeParentView() {
+        if (parent instanceof SelectGameController parentC) {
+            parentC.getView().setVisible(false);
+        }else if(parent instanceof MainController parentC){
+            parentC.getView().setVisible(false);
         }
     }
 
@@ -124,25 +132,19 @@ public class WhoIsController implements GameControllers {
         }
     }
 
-    private void launchGame() {
-        view.setVisible(true);
-        initGame();
-    }
-
     private void initGame() {
         try {
-            int index;
-            if (!this.repeatedDB.isEmpty()) {
-                do {
+            Collections.sort(repeatedDB);
+            do {
+                try {
                     imageSelected = awDAO.selectNum(1).get(0);
-                    index = imageSelected.getId_obra();
-                    if (Collections.binarySearch(repeatedDB, index) < 0) {
-                        repeatedDB.add(index);
+                    if (Collections.binarySearch(repeatedDB, imageSelected.getId_obra()) < 0) {
+                        repeatedDB.add(imageSelected.getId_obra());
                     }
-                } while (Collections.binarySearch(repeatedDB, index) >= 0);
-            } else {
-                imageSelected = awDAO.selectNum(1).get(0);
-            }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            } while (Collections.binarySearch(repeatedDB, imageSelected.getId_obra()) >= 0);
             view.getImageText().setText(imageSelected.getNombre_obra());
             solution = atDAO.selectId(imageSelected.getId_autor());
             List<Author> authorsNames = new ArrayList<>();
@@ -159,7 +161,6 @@ public class WhoIsController implements GameControllers {
             JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
             counter = 15;
         }
-        view.repaint();
     }
 
     public void setIcon() {
@@ -183,4 +184,10 @@ public class WhoIsController implements GameControllers {
     //o si hacemos de adivinar autor (me parece más qrious)
     //sacar el autor, añadir otros 3 random y hacer shuffle de la lista de 
     //botones (que ya tienen el nombre de los autores)
+    @Override
+    public void launch() {
+        initGame();
+        closeParentView();
+        view.setVisible(true);
+    }
 }

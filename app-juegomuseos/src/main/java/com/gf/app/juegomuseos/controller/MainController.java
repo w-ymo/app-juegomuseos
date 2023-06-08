@@ -33,13 +33,11 @@ public class MainController implements GameControllers {
         JButton selected = (JButton) e.getSource();
         switch (selected.getText()) {
             case "MODO YINCANA" -> {
-                view.dispose();
                 timer = new Crono();
                 GUIWhoIs guiwh = new GUIWhoIs();
                 WhoIsController controllerWH = new WhoIsController(guiwh, this, GameConstants.COMP_MODE);
             }
             case "MODO LIBRE" -> {
-                view.dispose();
                 GUISelectGame guisg = new GUISelectGame();
                 SelectGameController controllerSelectGame = new SelectGameController(guisg, this);
             }
@@ -47,10 +45,10 @@ public class MainController implements GameControllers {
                 InfoController controllerInfo = new InfoController(new GUIInfo(view, true));
             }
             case "AJUSTES" -> {
-                SettingsController controllerSettings = new SettingsController(new GUISettings(view, true));
+                SettingsController controllerSettings = new SettingsController(new GUISettings(view, true), this);
             }
             case "SALIR" -> {
-                Music.stop();
+                //Music.stop();
                 view.dispose();
             }
             default ->
@@ -61,18 +59,14 @@ public class MainController implements GameControllers {
     public MainController(GUIPrincipal view) {
         this.view = view;
         addActionListener();
-        launchView();
-        Music.start();
+        launch();
+        //Music.start();
     }
 
     private void addActionListener() {
         for (JButton option : view.getOptions()) {
             option.addActionListener(al);
         }
-    }
-
-    private void launchView() {
-        view.setVisible(true);
     }
 
     public Crono getTimer() {
@@ -97,6 +91,11 @@ public class MainController implements GameControllers {
 
     public void setView(GUIPrincipal view) {
         this.view = view;
+    }
+
+    @Override
+    public void launch() {
+        view.setVisible(true);
     }
 
 }

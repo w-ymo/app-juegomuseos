@@ -11,7 +11,6 @@ import com.gf.app.juegomuseos.utils.Crono;
 import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.utils.ImagesSize;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
-import com.gf.app.juegomuseos.views.GUIMuseumsTF;
 import com.gf.app.juegomuseos.views.ResultDialog;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -22,11 +21,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 
 /**
  *
@@ -47,6 +46,7 @@ public class GregFernandezController implements GameControllers {
     private Crono timer;
 
     private Artwork solution;
+    private List<Artwork> gregorioArtwork;
 
     public GregFernandezController(GUIGregorioFernandez view, GameControllers parent, boolean mode) {
         this.view = view;
@@ -58,7 +58,7 @@ public class GregFernandezController implements GameControllers {
             this.timer.setTextTime(view.getTextTime());
         }
         addListenerButtons();
-        launchGame();
+        launch();
     }
 
     private ActionListener listenerButtons = (e) -> {
@@ -117,16 +117,18 @@ public class GregFernandezController implements GameControllers {
         }
     }
 
-    private void launchGame() {
-        view.setVisible(true);
-        initGame();
+    private void closeParentView() {
+        if (parent instanceof SelectGameController parentC) {
+            parentC.getView().setVisible(false);
+        } else if (parent instanceof MainController parentC) {
+            parentC.getView().setVisible(false);
+        }
     }
 
     private void initGame() {
         try {
-            List<Artwork> gregorioArtwork = awDAO.selectIdAuthor(atDAO.getIdGregorioFernandez());
-            Collections.shuffle(gregorioArtwork);
             solution = gregorioArtwork.get(0);
+            gregorioArtwork.remove(0);
             List<Artwork> artworksNames = new ArrayList<>();
             artworksNames.add(solution);
             //el campo clave sera el de la solucion
@@ -164,4 +166,16 @@ public class GregFernandezController implements GameControllers {
     //piedad para que sea similar
     //o
     //random tambien, pero que pille las obras que sean escultura y que no sean de gregorio fernandez
+    @Override
+    public void launch() {
+        try {
+            gregorioArtwork = awDAO.selectIdAuthor(atDAO.getIdGregorioFernandez());
+            Collections.shuffle(gregorioArtwork);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
+        }
+        initGame();
+        closeParentView();
+        view.setVisible(true);
+    }
 }

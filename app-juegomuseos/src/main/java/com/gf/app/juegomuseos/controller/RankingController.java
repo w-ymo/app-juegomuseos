@@ -14,7 +14,7 @@ import java.sql.SQLException;
  *
  * @author priparno
  */
-public class RankingController {
+public class RankingController implements GameControllers{
 
     private GUIRanking view;
     private GameControllers parent;
@@ -40,16 +40,11 @@ public class RankingController {
     public RankingController(GUIRanking view, GameControllers parent) {
         this.view = view;
         addActionListener();
-        launchView();
+        launch();
     }
 
     private void addActionListener() {
         view.getConfirmButton().addActionListener(al);
-    }
-
-    private void launchView() {
-        this.view.setVisible(true);
-        setData();
     }
 
     private void setData() {
@@ -65,6 +60,12 @@ public class RankingController {
         if (parent instanceof MainController parentC) {
             parentC.getView().setVisible(true);
         }
+    }
+
+    @Override
+    public void launch() {
+        this.view.setVisible(true);
+        setData();
     }
 
 }

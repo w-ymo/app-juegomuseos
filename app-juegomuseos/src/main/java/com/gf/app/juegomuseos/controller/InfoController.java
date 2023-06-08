@@ -16,9 +16,10 @@ public class InfoController implements GameControllers{
 
     public InfoController(GUIInfo view) {
         this.view = view;
-        view.setVisible(true);
     }
-    
-    
-    
+
+    @Override
+    public void launch() {
+       view.setVisible(true);
+    }   
 }
