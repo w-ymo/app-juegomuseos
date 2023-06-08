@@ -110,35 +110,23 @@ public class MapController implements ActionListener {
         view.getMapKit().getMainMap().setOverlayPainter(waypointPainter);
         view.getConfirmButton().addActionListener(this);
         view.getMapKit().getMainMap().addMouseListener(ma);
-        initGame();
+//        initGame();
     }
 
     private void initGame() {
             Collections.sort(repeatedDB);
-//            do {
-//                try {
-//                    retrieveAndAsignArtwork();
-//                    //cosas--
-//                    mSolution = mDAO.selectNum(1).get(0);
-//                    if (Collections.binarySearch(repeatedDB, mSolution.getId_museo()) < 0) {
-//                        repeatedDB.add(mSolution.getId_museo());
-//                    }
-//                } catch (SQLException ex) {
-//                    ex.printStackTrace();
-//                }
-//            } while (Collections.binarySearch(repeatedDB, mSolution.getId_museo()) >= 0);
-//
-//            boolean found;
-//            do {
-//                int index = rndm.nextInt(0, FAKE_MUSEUMS.length);
-//                if (!repeatedFake.contains(index)) {
-//                    mSolution.setNombre_museo(FAKE_MUSEUMS[index]);
-//                    repeatedFake.add(index);
-//                    found = false;
-//                } else {
-//                    found = true;
-//                }
-//            } while (found);
+            do {
+                try {
+                    artwork = awDAO.selectNum(1).get(0);
+                    artwork.getId_obra();
+                    if (Collections.binarySearch(repeatedDB, artwork.getId_obra()) < 0) {
+                        repeatedDB.add(artwork.getId_obra());
+                    }
+                } catch (SQLException ex) {
+                    System.err.println("Error de Base de Datos");
+                }
+
+            } while (Collections.binarySearch(repeatedDB, artwork.getId_museo()) >= 0);
     }
     
     //-----------------------------------------------------------------------------------
@@ -152,20 +140,10 @@ public class MapController implements ActionListener {
 //        };
 //    }
     private void getArtworkCountry() {
-        retrieveAndAsignArtwork();  //coge una obra
         double latitude = artwork.getLatitud();
         double longitude = artwork.getLongitud();
         setArtworkPosition(latitude, longitude); //posicion de obra
         artworkCountry = CountryExtractor.getCountryName(latitude, longitude);  //pone el nombre del pais a su variable
-    }
-
-    private void retrieveAndAsignArtwork() {
-        try {
-            List<Artwork> artworkList = awDAO.selectNum(1);
-            artwork = artworkList.get(0);
-        } catch (SQLException ex) {
-            System.err.println("Error en la Base de Datos");
-        }
     }
 
     private void setArtworkPosition(double latitude, double longitude) {
