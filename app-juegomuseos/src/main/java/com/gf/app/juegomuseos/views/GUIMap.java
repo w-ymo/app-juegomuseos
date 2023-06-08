@@ -7,33 +7,30 @@ package com.gf.app.juegomuseos.views;
 import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import org.jxmapviewer.JXMapKit;
-import org.jxmapviewer.OSMTileFactoryInfo;
 import org.jxmapviewer.VirtualEarthTileFactoryInfo;
 import org.jxmapviewer.viewer.DefaultTileFactory;
-import org.jxmapviewer.viewer.TileFactoryInfo;
+
 
 /**
  *
  * @author Luis
  */
-public class GUIMap extends javax.swing.JFrame {
+public class GUIMap extends javax.swing.JFrame {  
     
     private JXMapKit mapKit = new JXMapKit();
     private VirtualEarthTileFactoryInfo info;
     private DefaultTileFactory tileFactory;
     private JPanel infoPanel;
+    private JPanel chronoPanel;
+    private JLabel textTime;
     private JLabel artworkImage;
     private JLabel artworkLabel;
     private JLabel authorLabel;
@@ -43,14 +40,8 @@ public class GUIMap extends javax.swing.JFrame {
      * Creates new form GUIMap
      */
     public GUIMap() {
-        try {
-            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
             initComponents();
             setFrame();
-            this.setVisible(true);
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     private void setFrame() {
@@ -59,8 +50,16 @@ public class GUIMap extends javax.swing.JFrame {
         this.getContentPane().setLayout(new BorderLayout());
         setMapKit();
         setInfoPanel();
+        setChronoPanel();
         this.getContentPane().add(mapKit, BorderLayout.CENTER);
         this.getContentPane().add(infoPanel, BorderLayout.WEST);
+    }
+    
+    private void setChronoPanel() {
+        chronoPanel = new JPanel(new FlowLayout());
+        textTime = new JLabel();
+        chronoPanel.add(textTime);
+        this.getContentPane().add(chronoPanel, BorderLayout.NORTH);
     }
     
     private void setInfoPanel() {
@@ -108,6 +107,14 @@ public class GUIMap extends javax.swing.JFrame {
     
     public void setInfoPanel(JPanel infoPanel) {
         this.infoPanel = infoPanel;
+    }
+
+    public JLabel getTextTime() {
+        return textTime;
+    }
+
+    public void setTextTime(JLabel textTime) {
+        this.textTime = textTime;
     }
     
     public JLabel getArtworkImage() {

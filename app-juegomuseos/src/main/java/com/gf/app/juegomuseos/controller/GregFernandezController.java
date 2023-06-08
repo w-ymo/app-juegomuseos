@@ -11,6 +11,7 @@ import com.gf.app.juegomuseos.utils.Crono;
 import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.utils.ImagesSize;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
+import com.gf.app.juegomuseos.views.GUIMap;
 import com.gf.app.juegomuseos.views.ResultDialog;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -21,8 +22,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -78,10 +77,9 @@ public class GregFernandezController implements GameControllers {
             if (counter < 5) {
                 initGame();
             } else {
-                setGameData();
                 if (mode == GameConstants.COMP_MODE) {
-                    //map controller
-                    System.out.println("map");
+                    setGameData();
+                    MapController mc = new MapController(new GUIMap(), parent,GameConstants.COMP_MODE);
                 } else {
                     openMenu();
                 }

@@ -41,7 +41,7 @@ public class MuseumsTFController implements ActionListener, GameControllers {
     private Crono timer;
 
     private boolean accessType; //true -> recoge de BD, false -> recoge de array
-    private Museum mSolution;
+    private Museum museumSolution;
 
     private static final String[] FAKE_MUSEUMS = {"Museo de las Pastillas",
         "Museo de los Ladrillos", "Museo de las Vibraciones", "Museo Antropológico de Murcia",
@@ -94,26 +94,26 @@ public class MuseumsTFController implements ActionListener, GameControllers {
 
     private void initGame() {
         accessType = rndm.nextBoolean();
-        mSolution = new Museum();
+        museumSolution = new Museum();
         if (accessType) {
             Collections.sort(repeatedDB);
             do {
                 try {
-                    mSolution = mDAO.selectNum(1).get(0);
-                    if (Collections.binarySearch(repeatedDB, mSolution.getId_museo()) < 0) {
-                        repeatedDB.add(mSolution.getId_museo());
+                    museumSolution = mDAO.selectNum(1).get(0);
+                    if (Collections.binarySearch(repeatedDB, museumSolution.getId_museo()) < 0) {
+                        repeatedDB.add(museumSolution.getId_museo());
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-            } while (Collections.binarySearch(repeatedDB, mSolution.getId_museo()) >= 0);
+            } while (Collections.binarySearch(repeatedDB, museumSolution.getId_museo()) >= 0);
 
         } else {
             boolean found;
             do {
                 int index = rndm.nextInt(0, FAKE_MUSEUMS.length);
                 if (!repeatedFake.contains(index)) {
-                    mSolution.setNombre_museo(FAKE_MUSEUMS[index]);
+                    museumSolution.setNombre_museo(FAKE_MUSEUMS[index]);
                     repeatedFake.add(index);
                     found = false;
                 } else {
@@ -121,7 +121,7 @@ public class MuseumsTFController implements ActionListener, GameControllers {
                 }
             } while (found);
         }
-        view.getMuseumLabel().setText(mSolution.getNombre_museo());
+        view.getMuseumLabel().setText(museumSolution.getNombre_museo());
         setLabelLength();
     }
 
@@ -163,7 +163,7 @@ public class MuseumsTFController implements ActionListener, GameControllers {
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton b = (JButton) e.getSource();
-        boolean gtOne = mSolution.getId_museo() >= 1;
+        boolean gtOne = museumSolution.getId_museo() >= 1;
         if (b.equals(view.getTrueButton())) {
             if (gtOne) {
                 guessedRight(b);

@@ -28,6 +28,8 @@ public class VisualizeImage extends javax.swing.JDialog {
         this.getContentPane().setLayout(new BorderLayout());
         image = new JLabel();
         this.getContentPane().add(image);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
     }
 
     public JLabel getImage() {
