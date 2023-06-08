@@ -21,6 +21,7 @@ import org.jxmapviewer.viewer.DefaultTileFactory;
 
 /**
  *
+ * 
  * @author Luis
  */
 public class GUIMap extends javax.swing.JFrame {  
