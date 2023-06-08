@@ -19,6 +19,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.jxmapviewer.JXMapKit;
 import org.jxmapviewer.OSMTileFactoryInfo;
+import org.jxmapviewer.VirtualEarthTileFactoryInfo;
 import org.jxmapviewer.viewer.DefaultTileFactory;
 import org.jxmapviewer.viewer.TileFactoryInfo;
 
@@ -29,7 +30,7 @@ import org.jxmapviewer.viewer.TileFactoryInfo;
 public class GUIMap extends javax.swing.JFrame {
     
     private JXMapKit mapKit = new JXMapKit();
-    private TileFactoryInfo info;
+    private VirtualEarthTileFactoryInfo info;
     private DefaultTileFactory tileFactory;
     private JPanel infoPanel;
     private JLabel artworkImage;
@@ -80,10 +81,10 @@ public class GUIMap extends javax.swing.JFrame {
     }
     
     private void setMapKit() {
-        info = new OSMTileFactoryInfo();
+        info = new VirtualEarthTileFactoryInfo(VirtualEarthTileFactoryInfo.HYBRID);
         tileFactory = new DefaultTileFactory(info);
         mapKit.setTileFactory(tileFactory);
-        mapKit.setZoom(15);
+        mapKit.setZoom(17);
         mapKit.getMainMap().setOverlayPainter(null);
         mapKit.setBounds(0, -65, GameConstants.SCREEN_SIZE.width, GameConstants.SCREEN_SIZE.height);
     }
@@ -128,6 +129,14 @@ public class GUIMap extends javax.swing.JFrame {
         this.authorLabel = authorLabel;
     }
 
+    public JButton getConfirmButton() {
+        return confirmButton;
+    }
+
+    public void setConfirmButton(JButton confirmButton) {
+        this.confirmButton = confirmButton;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
