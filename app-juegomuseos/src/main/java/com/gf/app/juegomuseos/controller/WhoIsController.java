@@ -16,8 +16,12 @@ import com.gf.app.juegomuseos.views.GUIMuseumsTF;
 import com.gf.app.juegomuseos.views.GUIPrincipal;
 import com.gf.app.juegomuseos.views.GUIWhoIs;
 import com.gf.app.juegomuseos.views.ResultDialog;
+import com.gf.app.juegomuseos.views.VisualizeImage;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -31,6 +35,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
 /**
  *
@@ -86,6 +91,25 @@ public class WhoIsController implements GameControllers {
         }
     };
 
+    private MouseAdapter ma = new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2) {
+                VisualizeImage vi = new VisualizeImage(view, true);
+                ImageIcon i = null;
+                try {
+                    i = new ImageIcon(new URL(imageSelected.getImagen_obra()));
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                vi.getImage().setIcon(new ImageIcon(ImagesSize.getProportionalDimensionImage(i, new Dimension((int) (GameConstants.SCREEN_SIZE.width * 0.9), (int) (GameConstants.SCREEN_SIZE.height * 0.8)))));
+                vi.getContentPane().setPreferredSize(vi.getImage().getPreferredSize());
+                vi.pack();
+                vi.setVisible(true);
+            }
+        }
+    };
+
     public WhoIsController(GUIWhoIs view, GameControllers parent, boolean mode) {
         this.view = view;
         this.parent = parent;
@@ -95,7 +119,7 @@ public class WhoIsController implements GameControllers {
         if (mode == GameConstants.COMP_MODE) {
             this.timer.setTextTime(view.getTextTime());
         }
-        addListenerButtons();
+        addListeners();
         launch();
     }
 
@@ -104,11 +128,11 @@ public class WhoIsController implements GameControllers {
             parentC.getMainController().getView().setVisible(true);
         }
     }
-    
+
     private void closeParentView() {
         if (parent instanceof SelectGameController parentC) {
             parentC.getView().setVisible(false);
-        }else if(parent instanceof MainController parentC){
+        } else if (parent instanceof MainController parentC) {
             parentC.getView().setVisible(false);
         }
     }
@@ -126,10 +150,11 @@ public class WhoIsController implements GameControllers {
         }
     }
 
-    private void addListenerButtons() {
+    private void addListeners() {
         for (JButton option : view.getOptions()) {
             option.addActionListener(listenerButtons);
         }
+        view.getImage().addMouseListener(ma);
     }
 
     private void initGame() {

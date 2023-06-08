@@ -4,121 +4,17 @@
  */
 package com.gf.app.juegomuseos.views;
 
-import com.gf.app.juegomuseos.utils.GameConstants;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 /**
  *
- * @author fercaslu
+ * @author priparno
  */
 public class GUIRanking extends javax.swing.JFrame {
-    
-    private JPanel gameData;
-    private JPanel userData;
-    
-    private JLabel realTime;
-    private JLabel penalties;
-    private JLabel totalTime;
-    
-    private JTextField fieldName;
-    private JButton confirmButton;
 
     /**
      * Creates new form GUIRanking
      */
     public GUIRanking() {
         initComponents();
-        setFrame();
-//        this.setUndecorated(true);
-    }
-    
-    private void setFrame() {
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.getContentPane().setLayout(new BorderLayout());
-        setGameData();
-        setUserData();
-    }
-    
-    private void setGameData() {
-        gameData = new JPanel(new BorderLayout());
-        JPanel extra = new JPanel(new GridLayout(0, 3));
-        gameData.setPreferredSize(new Dimension(GameConstants.SCREEN_SIZE.width, (int) (GameConstants.SCREEN_SIZE.height * 0.4)));
-        realTime = new JLabel("a");
-        realTime.setHorizontalAlignment(SwingConstants.CENTER);
-        penalties = new JLabel("b");
-        penalties.setHorizontalAlignment(SwingConstants.CENTER);
-        totalTime = new JLabel("c");
-        totalTime.setHorizontalAlignment(SwingConstants.CENTER);
-        extra.add(realTime);
-        extra.add(penalties);
-        extra.add(totalTime);
-        gameData.add(extra);
-        this.getContentPane().add(gameData, BorderLayout.NORTH);
-    }
-    
-    private void setUserData() {
-        userData = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        userData.setPreferredSize(new Dimension(GameConstants.SCREEN_SIZE.width, (int) (GameConstants.SCREEN_SIZE.height * 0.4)));
-        fieldName = new JTextField();
-        fieldName.setPreferredSize(new Dimension(400, 40));
-        confirmButton = new JButton("Confirmar");
-        userData.add(fieldName);
-        userData.add(confirmButton);
-        this.getContentPane().add(userData, BorderLayout.CENTER);
-    }
-    
-    public JLabel getRealTime() {
-        return realTime;
-    }
-    
-    public void setRealTime(JLabel realTime) {
-        this.realTime = realTime;
-    }
-    
-    public JLabel getPenalties() {
-        return penalties;
-    }
-    
-    public void setPenalties(JLabel penalties) {
-        this.penalties = penalties;
-    }
-    
-    public JLabel getTotalTime() {
-        return totalTime;
-    }
-    
-    public void setTotalTime(JLabel totalTime) {
-        this.totalTime = totalTime;
-    }
-    
-    public JTextField getFieldName() {
-        return fieldName;
-    }
-    
-    public void setFieldName(JTextField fieldName) {
-        this.fieldName = fieldName;
-    }
-    
-    public JButton getConfirmButton() {
-        return confirmButton;
-    }
-    
-    public void setConfirmButton(JButton confirmButton) {
-        this.confirmButton = confirmButton;
     }
 
     /**
@@ -145,41 +41,41 @@ public class GUIRanking extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new GUIRanking().setVisible(true);
-//            }
-//        });
-//    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GUIRanking().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

@@ -9,33 +9,18 @@ import com.gf.app.juegomuseos.dao.AuthorDAO;
 import com.gf.app.juegomuseos.dao.CountryDAO;
 import com.gf.app.juegomuseos.dao.MuseumDAO;
 import com.gf.app.juegomuseos.models.Country;
-import com.gf.app.juegomuseos.models.Museum;
 import com.gf.app.juegomuseos.utils.Crono;
 import com.gf.app.juegomuseos.views.GUIMap;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Point2D;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import javax.swing.JDialog;
-import javax.swing.Timer;
-import org.jxmapviewer.JXMapKit;
-import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.viewer.DefaultWaypoint;
 import org.jxmapviewer.viewer.GeoPosition;
 import org.jxmapviewer.viewer.Waypoint;
 import org.jxmapviewer.viewer.WaypointPainter;
-import org.jxmapviewer.viewer.WaypointRenderer;
 
 /**
  *

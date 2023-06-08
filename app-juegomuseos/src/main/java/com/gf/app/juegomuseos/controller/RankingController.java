@@ -6,7 +6,7 @@ package com.gf.app.juegomuseos.controller;
 
 import com.gf.app.juegomuseos.dao.RankingDAO;
 import com.gf.app.juegomuseos.models.Ranking;
-import com.gf.app.juegomuseos.views.GUIRanking;
+import com.gf.app.juegomuseos.views.GUIInputRanking;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
@@ -16,7 +16,7 @@ import java.sql.SQLException;
  */
 public class RankingController implements GameControllers{
 
-    private GUIRanking view;
+    private GUIInputRanking view;
     private GameControllers parent;
 
     private RankingDAO rDAO = new RankingDAO();
@@ -37,7 +37,7 @@ public class RankingController implements GameControllers{
         }
     };
 
-    public RankingController(GUIRanking view, GameControllers parent) {
+    public RankingController(GUIInputRanking view, GameControllers parent) {
         this.view = view;
         addActionListener();
         launch();
