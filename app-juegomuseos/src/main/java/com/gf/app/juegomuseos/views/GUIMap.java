@@ -7,6 +7,7 @@ package com.gf.app.juegomuseos.views;
 import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,10 +65,14 @@ public class GUIMap extends javax.swing.JFrame {
     
     private void setInfoPanel() {
         infoPanel = new JPanel(new GridLayout(4, 0));
-        artworkImage = new JLabel("Buenos dias soy una jlabel");
-        artworkLabel = new JLabel("Hola");
-        authorLabel = new JLabel("Jelou mansana");
+        Font font = new Font(infoPanel.getFont().getName(), Font.BOLD, 15);
+        artworkImage = new JLabel();
+        artworkLabel = new JLabel();
+        authorLabel = new JLabel();
         confirmButton = new JButton("Fijar País");
+        artworkLabel.setFont(font);
+        authorLabel.setFont(font);
+        confirmButton.setFont(font);
         
         artworkLabel.setPreferredSize(new Dimension(artworkImage.getSize().width, (int) (GameConstants.SCREEN_SIZE.height * 0.33)));
         authorLabel.setPreferredSize(new Dimension(artworkImage.getSize().width, (int) (GameConstants.SCREEN_SIZE.height * 0.33)));
