@@ -6,6 +6,7 @@ package com.gf.app.juegomuseos.controller;
 
 import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
+import com.gf.app.juegomuseos.views.GUIMap;
 import com.gf.app.juegomuseos.views.GUIMuseumsTF;
 import com.gf.app.juegomuseos.views.GUISelectGame;
 import com.gf.app.juegomuseos.views.GUIWhoIs;
@@ -36,10 +37,10 @@ public class SelectGameController implements GameControllers {
                 GregFernandezController controllerGF = new GregFernandezController(guigf, this, GameConstants.FREE_MODE);
             }
             case GameConstants.MAPGAME_CODE -> {
-                System.out.println("map");
+                MapController controllerMP = new MapController(new GUIMap(), this, GameConstants.FREE_MODE);
             }
             default -> {
-                System.out.println("error");
+                System.out.println("Error");
             }
         }
     };
