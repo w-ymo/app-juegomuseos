@@ -4,82 +4,101 @@
  */
 package com.gf.app.juegomuseos.views;
 
-import com.gf.app.juegomuseos.models.Artwork;
+import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
+ * GUIGregorioFernandez: vista del controlador {@link GregFernandezController}
+ * donde se muestran dos botones y se debe escoger cual es de Gregorio
+ * Fernandez.
  *
- * @author noelp
+ * @see GregFernandezController
+ * 
+ * @author priparno
  */
 public class GUIGregorioFernandez extends javax.swing.JFrame {
 
-    private GUIPrincipal guip;
+    /**
+     * panelTitle: un panel que contiene el titulo.
+     */
+    private JPanel titlePanel;
+    /**
+     * panelImagenes: un panel que contiene los botones con las imagenes.
+     */
+    private JPanel imagesPanel;
 
-    private JPanel panelTitle;
-    private JPanel panelImages;
-
+    /**
+     * images: lista de tipos {@link JButton} que contiene los botones
+     * necesarios para el correcto funcionamiento del juego.
+     */
     private List<JButton> images = new ArrayList<>();
+    /**
+     * textTime: es la {@link JLabel} que contendra el cronometro.
+     */
     private JLabel textTime;
 
     /**
      * Creates new form GUIGregorioFernandez
      */
     public GUIGregorioFernandez() {
-            initComponents();
-            setFrame();
+        initComponents();
+        setFrame();
     }
 
+    /**
+     * setFrame: es el metodo principal que coloca en la vista los botones y el
+     * titulo.
+     */
     private void setFrame() {
         this.setExtendedState(MAXIMIZED_BOTH);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.getContentPane().setSize(screenSize);
+        this.getContentPane().setSize(GameConstants.SCREEN_SIZE);
         this.getContentPane().setLayout(new BorderLayout());
         setTitlePanel();
         setImagePanel();
     }
 
+    /**
+     * setTitlePanel: es el metodo que pone en la ventana el titulo y el
+     * cronometro.
+     */
     private void setTitlePanel() {
-        panelTitle = new JPanel(new BorderLayout());
-        this.getContentPane().add(panelTitle, BorderLayout.NORTH);
+        titlePanel = new JPanel(new BorderLayout());
+        this.getContentPane().add(titlePanel, BorderLayout.NORTH);
         JLabel title = new JLabel("SELECCIONA LA IMAGEN QUE PERTENECE A GREGORIO FERNÁNDEZ");
         textTime = new JLabel();
         textTime.setHorizontalAlignment(SwingConstants.RIGHT);
         title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        panelTitle.add(title, BorderLayout.CENTER);
-        panelTitle.add(textTime, BorderLayout.EAST);        
+        titlePanel.add(title, BorderLayout.CENTER);
+        titlePanel.add(textTime, BorderLayout.EAST);
     }
 
+    /**
+     * setImagePanel: es el metodo que pone en la ventana los botones para
+     * posteriormente seleccionarlo.
+     */
     private void setImagePanel() {
-        panelImages = new JPanel(new GridLayout(0, 2));
-        this.getContentPane().add(panelImages, BorderLayout.CENTER);
-        panelImages.setSize(this.getContentPane().getWidth(), (int) (this.getContentPane().getHeight() * 0.60));
+        imagesPanel = new JPanel(new GridLayout(0, 2));
+        this.getContentPane().add(imagesPanel, BorderLayout.CENTER);
+        imagesPanel.setSize(this.getContentPane().getWidth(), (int) (this.getContentPane().getHeight() * 0.60));
         initButtonImage();
         for (JButton image : images) {
-            panelImages.add(image);
+            imagesPanel.add(image);
         }
     }
 
+    /**
+     * initButtonImage: crea los botones.
+     */
     private void initButtonImage() {
         for (int i = 0; i < 2; i++) {
             JButton but = new JButton();
@@ -87,44 +106,34 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
         }
     }
 
-    public GUIPrincipal getGuip() {
-        return guip;
-    }
-
-    public void setGuip(GUIPrincipal guip) {
-        this.guip = guip;
-    }
-
+    //GETTER/SETTER
+    /**
+     * getImages: devuelve la lista de {@link JButton} donde iran las imagenes.
+     *
+     * @return una lista de {@link JButton}
+     */
     public List<JButton> getImages() {
         return images;
     }
 
-    public void setImages(List<JButton> images) {
-        this.images = images;
-    }
-
-    public JPanel getPanelTitle() {
-        return panelTitle;
-    }
-
-    public void setPanelTitle(JPanel panelTitle) {
-        this.panelTitle = panelTitle;
-    }
-
+    /**
+     * getPanelImages: devuelve el panel {@link JPanel} de los botones.
+     *
+     * @return un {@link JPanel}
+     */
     public JPanel getPanelImages() {
-        return panelImages;
+        return imagesPanel;
     }
 
-    public void setPanelImages(JPanel panelImages) {
-        this.panelImages = panelImages;
-    }
-
+    /**
+     * getTextTime: devuelve el {@link JLabel} del cronometro.
+     *
+     * @see Crono
+     * 
+     * @return un {@link JLabel}
+     */
     public JLabel getTextTime() {
         return textTime;
-    }
-
-    public void setTextTime(JLabel textTime) {
-        this.textTime = textTime;
     }
 
     /**
@@ -151,41 +160,6 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(GUIGregorioFernandez.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(GUIGregorioFernandez.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(GUIGregorioFernandez.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(GUIGregorioFernandez.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new GUIGregorioFernandez().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
