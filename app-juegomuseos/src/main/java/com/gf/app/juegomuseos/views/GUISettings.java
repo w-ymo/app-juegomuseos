@@ -4,6 +4,7 @@
  */
 package com.gf.app.juegomuseos.views;
 
+import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.utils.GameData;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -47,8 +48,7 @@ public class GUISettings extends javax.swing.JDialog {
         //ajustes de sonido
         setVolumePanel();
         this.getContentPane().add(panelOptions);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setPreferredSize(new Dimension((int) (screenSize.width * 0.3), (int) (screenSize.height * 0.5)));
+        this.setPreferredSize(new Dimension((int) (GameConstants.SCREEN_SIZE.width * 0.3), (int) (GameConstants.SCREEN_SIZE.height * 0.5)));
         this.pack();
         this.setLocationRelativeTo(null);
     }
@@ -63,7 +63,7 @@ public class GUISettings extends javax.swing.JDialog {
     }
 
     private void setVolumePanel() {
-        volumeSlider = new JSlider(-80, 6, 0);
+        volumeSlider = new JSlider(-80, 6, (int) Float.parseFloat(GameData.getInfoVolume()[1]));
         volumeSlider.setPaintTrack(true);
         JLabel volumeLabel = new JLabel("AJUSTES DE SONIDO");
         volumeLabel.setFont(this.getFont().deriveFont(Font.BOLD, 22f));
@@ -79,7 +79,7 @@ public class GUISettings extends javax.swing.JDialog {
     public void setVolumeSlider(JSlider volumeSlider) {
         this.volumeSlider = volumeSlider;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -30,6 +30,7 @@ public class Music {
             clip.open(input);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
             clip.start();
+            setGain(GameData.VOLUME);
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
             System.err.println("Problemitas");
         }

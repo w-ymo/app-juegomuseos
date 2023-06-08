@@ -31,6 +31,8 @@ public class GameData {
 
     public final static String STYLE = getInfoStyle()[1];
 
+    public final static float VOLUME = Float.parseFloat(getInfoVolume()[1]);
+
     public static String getInfoHtml() {
         String html = "";
         if (infoHTML == null) {
@@ -58,7 +60,7 @@ public class GameData {
             String sentence;
             while ((sentence = br.readLine()) != null) {
                 if (sentence.startsWith("Modo")) {
-                    settings = sentence.split("-");
+                    settings = sentence.split("%");
                 }
             }
         } catch (FileNotFoundException ex) {
@@ -90,6 +92,63 @@ public class GameData {
                 while ((sentence = br.readLine()) != null) {
                     if (sentence.startsWith("Modo")) {
                         bw.write(newSettings);
+                        bw.newLine();
+                    } else {
+                        bw.write(sentence);
+                        bw.newLine();
+                    }
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tempSettings.delete();
+    }
+
+    public static String[] getInfoVolume() {
+        String[] settings = new String[2];
+        if (infoStyle == null) {
+            System.out.println("NO EXISTE");
+            return null;
+        }
+        try ( BufferedReader br = new BufferedReader(new FileReader(infoStyle))) {
+            String sentence;
+            while ((sentence = br.readLine()) != null) {
+                if (sentence.startsWith("Volume")) {
+                    settings = sentence.split("%");
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return settings;
+    }
+
+    public static void updateInfoVolume(String newVolume) {
+        File tempSettings = new File(".\\src\\main\\java\\com\\gf\\app\\juegomuseos\\resources", "_temp.txt");
+        try ( BufferedReader br = new BufferedReader(new FileReader(infoStyle))) {
+            String sentence;
+            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(tempSettings, false))) {
+                while ((sentence = br.readLine()) != null) {
+                    bw.write(sentence);
+                    bw.newLine();
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try ( BufferedReader br = new BufferedReader(new FileReader(tempSettings))) {
+            String sentence;
+            try ( BufferedWriter bw = new BufferedWriter(new FileWriter(infoStyle, false))) {
+                while ((sentence = br.readLine()) != null) {
+                    if (sentence.startsWith("Volume")) {
+                        bw.write(newVolume);
                         bw.newLine();
                     } else {
                         bw.write(sentence);

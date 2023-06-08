@@ -16,6 +16,7 @@ public class InfoController implements GameControllers{
 
     public InfoController(GUIInfo view) {
         this.view = view;
+        launch();
     }
 
     @Override
