@@ -34,36 +34,32 @@ public class GUISelectGame extends javax.swing.JFrame {
     private JPanel panelTitle;
     private JPanel panelContainer;
 
+    private JButton exitButton;
     private List<JButton> options = new ArrayList<>();
 
     /**
      * Creates new form GUISelectGame
      */
     public GUISelectGame() {
-//        try {
-//            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
-            initComponents();
-            setFrame();
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (UnsupportedLookAndFeelException ex) {
-//            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        initComponents();
+        setFrame();
     }
 
     private void setFrame() {
         this.setExtendedState(MAXIMIZED_BOTH);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.getContentPane().setSize(screenSize);
         this.getContentPane().setLayout(new BorderLayout());
         panelContainer = new JPanel(new GridLayout(2, 0));
         this.getContentPane().add(panelContainer);
+        setExitButton();
         setTitle();
         setButtons();
+    }
+
+    private void setExitButton() {
+        exitButton = new JButton("Volver");
+        JPanel extra = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        extra.add(exitButton);
+        this.getContentPane().add(extra, BorderLayout.NORTH);
     }
 
     private void setTitle() {
@@ -93,6 +89,14 @@ public class GUISelectGame extends javax.swing.JFrame {
 
     public void setOptions(List<JButton> options) {
         this.options = options;
+    }
+
+    public JButton getExitButton() {
+        return exitButton;
+    }
+
+    public void setExitButton(JButton exitButton) {
+        this.exitButton = exitButton;
     }
 
     /**

@@ -6,66 +6,58 @@ package com.gf.app.juegomuseos.controller;
 
 import com.gf.app.juegomuseos.dao.RankingDAO;
 import com.gf.app.juegomuseos.models.Ranking;
-import com.gf.app.juegomuseos.views.GUIInputRanking;
+import com.gf.app.juegomuseos.views.GUIRanking;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author priparno
+ * @author noelp
  */
-public class RankingController implements GameControllers{
+public class RankingController implements GameControllers {
 
-    private GUIInputRanking view;
-    private GameControllers parent;
+    private GUIRanking view;
+    private MainController parent;
 
     private RankingDAO rDAO = new RankingDAO();
 
+    public RankingController(GUIRanking view, MainController parent) {
+        this.view = view;
+        this.parent = parent;
+        addListeners();
+        launch();
+        parent.getView().dispose();
+    }
+
     private ActionListener al = (e) -> {
-        if (!view.getFieldName().getText().isEmpty()) {
-            Ranking r = new Ranking();
-            r.setNombre_usuario(view.getFieldName().getText());
-            r.setPuntuacion(((MainController) parent).getTimer().getFormattedTime());
-            try {
-                if (rDAO.insert(r)) {
-                    view.dispose();
-                    openMenu();
-                }
-            } catch (SQLException ex) {
-                System.err.println("Error al acceder a la base de datos.");
-            }
-        }
+        view.dispose();
+        parent.getView().setVisible(true);
     };
 
-    public RankingController(GUIInputRanking view, GameControllers parent) {
-        this.view = view;
-        addActionListener();
-        launch();
-    }
-
-    private void addActionListener() {
-        view.getConfirmButton().addActionListener(al);
-    }
-
-    private void setData() {
-        if (parent instanceof MainController parentC) {
-            view.getRealTime().setText(parentC.getTimer().getFormattedTime());
-            view.getPenalties().setText("+" + parentC.getFails() + "s.");
-            parentC.getTimer().setTime(parentC.getTimer().getTime() + parentC.getFails());
-            view.getTotalTime().setText("TOTAL: " + parentC.getTimer().getFormattedTime());
-        }
-    }
-
-    private void openMenu() {
-        if (parent instanceof MainController parentC) {
-            parentC.getView().setVisible(true);
-        }
+    public void addListeners() {
+        view.getExitButton().addActionListener(al);
     }
 
     @Override
     public void launch() {
-        this.view.setVisible(true);
-        setData();
+        view.setVisible(true);
+        addData();
+    }
+
+    private void addData() {
+        try {
+            List<Ranking> list = rDAO.selectAll();
+            Collections.sort(list);
+            for (Ranking ranking : list) {
+                view.getModel().addRow(new String[]{ranking.getNombre_usuario(), ranking.getPuntuacion()});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RankingController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

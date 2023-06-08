@@ -67,8 +67,8 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private void setButtons() {
         panelOptions = new JPanel(new FlowLayout());
         panelOptions.setSize((int) (this.getContentPane().getWidth() * 0.7), (int) (this.getContentPane().getHeight() * 0.3));
-        JPanel gridPanel = new JPanel(new GridLayout(5, 0));
-        for (int i = 0; i < 5; i++) {
+        JPanel gridPanel = new JPanel(new GridLayout(GameConstants.MAIN_MENU_OPTIONS.length, 0));
+        for (int i = 0; i < GameConstants.MAIN_MENU_OPTIONS.length; i++) {
             JButton but = new JButton(GameConstants.MAIN_MENU_OPTIONS[i]);
             // but.setPreferredSize(new Dimension(panelOptions.getWidth(), panelOptions.getHeight() / 4));
             options.add(but);

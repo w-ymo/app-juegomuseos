@@ -8,8 +8,8 @@ package com.gf.app.juegomuseos.models;
  *
  * @author noelp
  */
-public class Ranking {
-    
+public class Ranking implements Comparable<Ranking> {
+
     private int id_ranking;
     private String nombre_usuario;
     private String puntuacion;
@@ -42,5 +42,17 @@ public class Ranking {
     public String toString() {
         return "Ranking{" + "id_ranking=" + id_ranking + ", nombre_usuario=" + nombre_usuario + ", puntuacion=" + puntuacion + '}';
     }
-    
+
+    @Override
+    public int compareTo(Ranking o) {
+        return seconds(this.getPuntuacion()) - seconds(o.getPuntuacion());
+    }
+
+    private int seconds(String time) {
+        String parts[] = time.split(":");
+        int min = Integer.parseInt(parts[0]);
+        int sec = Integer.parseInt(parts[1]);
+        return min * 60 + sec;
+    }
+
 }

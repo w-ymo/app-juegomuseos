@@ -44,17 +44,23 @@ public class SelectGameController implements GameControllers {
         }
     };
 
+    private ActionListener exitActionListener = (e) -> {
+        parent.getView().setVisible(true);
+        view.dispose();
+    };
+    
     public SelectGameController(GUISelectGame view, MainController parent) {
         this.view = view;
         this.parent = parent;
-        addActionListener();
+        addListeners();
         launch();
     }
 
-    private void addActionListener() {
+    private void addListeners() {
         for (JButton option : view.getOptions()) {
             option.addActionListener(al);
         }
+        view.getExitButton().addActionListener(exitActionListener);
     }
 
     public MainController getMainController() {
