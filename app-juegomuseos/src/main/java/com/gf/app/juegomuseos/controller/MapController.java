@@ -11,18 +11,22 @@ import com.gf.app.juegomuseos.dao.MuseumDAO;
 import com.gf.app.juegomuseos.models.Country;
 import com.gf.app.juegomuseos.models.Museum;
 import com.gf.app.juegomuseos.views.GUIMap;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.JDialog;
 import javax.swing.Timer;
 import org.jxmapviewer.JXMapKit;
 import org.jxmapviewer.JXMapViewer;
@@ -40,8 +44,8 @@ public class MapController implements ActionListener {
 
     private GameControllers parent;
     private GUIMap view;
-
-//    private List<GeoPosition> gpList;
+    
+    private Set<GeoPosition> positions;
     private Set<Waypoint> waypoints;
     private WaypointPainter<Waypoint> painter;
 
@@ -93,6 +97,10 @@ public class MapController implements ActionListener {
         nose();
         System.out.println("Tu prima");
     }
+
+    private void salchicha() {
+        
+    }
     
     private MouseAdapter ma = new MouseAdapter() {
         @Override
@@ -101,25 +109,47 @@ public class MapController implements ActionListener {
             double lat = clickPosition.getLatitude();
             double lon = clickPosition.getLongitude();
             position = new GeoPosition(lat, lon);
+            positions = new HashSet<>();
+            positions.add(position);
             waypoints = new HashSet<>();
             waypoints.add(new DefaultWaypoint(position));
             painter.setWaypoints(waypoints);
             view.getMapKit().getMainMap().setOverlayPainter(painter);
-            System.out.println(view.getMapKit().getMainMap()    );
+            System.out.println(view.getMapKit().getMainMap());
         }
     };
 
     private void nose() {
+        view.getConfirmButton().addActionListener(this);
         painter = new WaypointPainter<>();
         view.getMapKit().getMainMap().addMouseListener(ma);
+    }
+    
+    public void initTimer() {
+        Thread t = new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        t.start();
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        view.getMapKit().getMainMap().setEnabled(false);
+        view.getMapKit().getMainMap().zoomToBestFit(positions, 0.1);
+        view.getMapKit().getMainMap().setZoom(16);
+        initTimer();
+        view.getMapKit().getMainMap().setEnabled(true);
+        position.getLatitude();
+        position.getLongitude();
     }
 
     public static void main(String[] args) {
         MapController mc = new MapController(new GUIMap(), false);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
-    }
+    
 }
