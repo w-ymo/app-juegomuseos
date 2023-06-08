@@ -67,7 +67,7 @@ public class MapController implements ActionListener {
     //waypoint personalizado
     private Waypoint clickWaypoint;
     //JXMapViewer
-    private Set<GeoPosition> positionSet;
+    private Set<GeoPosition> positionSet = new HashSet<>();
     private Set<Waypoint> waypointSet = new HashSet<>();
     private WaypointPainter<Waypoint> waypointPainter = new WaypointPainter<>();
     private GeoPosition clickPosition;
@@ -107,30 +107,30 @@ public class MapController implements ActionListener {
     }
 
     private void launchGame() {
-        view.getMapKit().getMainMap().setOverlayPainter(waypointPainter);
         view.getConfirmButton().addActionListener(this);
         view.getMapKit().getMainMap().addMouseListener(ma);
-//        initGame();
+        initGame();
     }
 
     private void initGame() {
-            Collections.sort(repeatedDB);
-            do {
-                try {
-                    artwork = awDAO.selectNum(1).get(0);
-                    artwork.getId_obra();
-                    if (Collections.binarySearch(repeatedDB, artwork.getId_obra()) < 0) {
-                        repeatedDB.add(artwork.getId_obra());
-                    }
-                } catch (SQLException ex) {
-                    System.err.println("Error de Base de Datos");
+        Collections.sort(repeatedDB);
+        do {
+            try {
+                artwork = awDAO.selectNum(1).get(0);
+                artwork.getId_obra();
+                if (Collections.binarySearch(repeatedDB, artwork.getId_obra()) < 0) {
+                    repeatedDB.add(artwork.getId_obra());
                 }
+            } catch (SQLException ex) {
+                System.err.println("Error de Base de Datos");
+            }
+        } while (Collections.binarySearch(repeatedDB, artwork.getId_museo()) >= 0);
 
-            } while (Collections.binarySearch(repeatedDB, artwork.getId_museo()) >= 0);
+        artworkPosition = new GeoPosition(artwork.getLatitud(), artwork.getLongitud());
+        artworkCountry = CountryExtractor.getCountryName(artwork.getLatitud(), artwork.getLongitud());
     }
-    
-    //-----------------------------------------------------------------------------------
 
+    //-----------------------------------------------------------------------------------
 //    private void setWaypoint() {
 //        clickWaypoint = new Waypoint() {
 //            @Override
@@ -139,40 +139,27 @@ public class MapController implements ActionListener {
 //            }
 //        };
 //    }
-    private void getArtworkCountry() {
-        double latitude = artwork.getLatitud();
-        double longitude = artwork.getLongitud();
-        setArtworkPosition(latitude, longitude); //posicion de obra
-        artworkCountry = CountryExtractor.getCountryName(latitude, longitude);  //pone el nombre del pais a su variable
-    }
-
-    private void setArtworkPosition(double latitude, double longitude) {
-        artworkPosition = new GeoPosition(latitude, longitude);  //GeoPosition de la obra
+    private void setArtworkPosition() {
         positionSet.add(artworkPosition);   //añade posicion de la obra al set de posiciones
         waypointSet.add(new DefaultWaypoint(artworkPosition));  //nuevo dw con posicion de la obra y se añade al set de waypoints
         waypointPainter.setWaypoints(waypointSet);  //pinta todos los waypoints del set de wp
     }
 
-    private void setClickedPosition(double latitude, double longitude) {
-        clickPosition = new GeoPosition(latitude, longitude);
-        positionSet.add(clickPosition);
-        waypointSet.add(new DefaultWaypoint(clickPosition));
-        waypointPainter.setWaypoints(waypointSet);
-    }
-
     private MouseAdapter ma = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
+            positionSet.clear();
+            waypointSet.clear();
             try {
                 if (e.getButton() == MouseEvent.BUTTON3) {
-                    positionSet = new HashSet<>();
-                    waypointSet = new HashSet<>();
                     clickPosition = view.getMapKit().getMainMap()
                             .convertPointToGeoPosition(view.getMapKit().getMainMap().getMousePosition());
-                    double latitude = clickPosition.getLatitude();
-                    double longitude = clickPosition.getLongitude();
-                    setClickedPosition(latitude, longitude);
-                    clickedPositionCountry = CountryExtractor.getCountryName(latitude, longitude);
+
+                    positionSet.add(clickPosition);
+                    waypointSet.add(new DefaultWaypoint(clickPosition));
+                    waypointPainter.setWaypoints(waypointSet);
+                    view.getMapKit().getMainMap().setOverlayPainter(waypointPainter);
+                    clickedPositionCountry = CountryExtractor.getCountryName(clickPosition.getLatitude(), clickPosition.getLongitude());
                 }
             } catch (NullPointerException ex) {
                 System.out.println("No hay posicion de ratón");
@@ -184,7 +171,7 @@ public class MapController implements ActionListener {
     public void initTimer() {
         Thread t = new Thread(() -> {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(10000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -194,12 +181,14 @@ public class MapController implements ActionListener {
 
     private void guessedRight() {
         ResultDialog rd = new ResultDialog(view, true);
+        rd.setOpacity(0.5f);
         rd.initTimer();
         rd.setVisible(true);
     }
 
     private void guessedWrong() {
         ResultDialog rd = new ResultDialog(view, false);
+        rd.setOpacity(0.5f);
         rd.initTimer();
         rd.setVisible(true);
         fails++;
@@ -207,18 +196,19 @@ public class MapController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //al final el overlay
-
+        setArtworkPosition();
         view.getMapKit().getMainMap().zoomToBestFit(positionSet, 0.7);
-        view.getMapKit().getMainMap().setZoom(17);
-        clickPosition.getLatitude();
-        clickPosition.getLongitude();
+        view.getMapKit().getMainMap().setZoom(15);
 
         if (artworkCountry.equals(clickedPositionCountry)) {
             guessedRight();
         } else {
             guessedWrong();
         }
+        initTimer();
+        positionSet.clear();
+        waypointSet.clear();
+        view.getMapKit().getMainMap().setOverlayPainter(null);
         counter++;
 
         if (counter < 10) {
