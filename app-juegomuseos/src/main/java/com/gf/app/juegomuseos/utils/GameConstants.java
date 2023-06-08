@@ -32,5 +32,7 @@ public interface GameConstants {
     public static final String[] GAMES_CODES = {WHOIS_CODE, TRUEFALSE_CODE, GREGORIO_CODE, MAPGAME_CODE};
 
     public static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
+    
+    public static final String[] RANKING_COLUMNS = {"Nombre", "Puntuación"};
 
 }

@@ -6,35 +6,40 @@ package com.gf.app.juegomuseos.views;
 
 import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 /**
+ * GUISelectGame: vista del controlador {@link SelectGameController} donde se
+ * muestran los juegos por separado en los botones.
  *
- * @author noelp
+ * @see SelectGameController
+ *
+ * @author priparno
+ * @author fercaslu
  */
 public class GUISelectGame extends javax.swing.JFrame {
 
-    private JPanel panelOptions;
-    private JPanel panelTitle;
-    private JPanel panelContainer;
+    /**
+     * containerPanel: un panel que contiene las opciones y la etiqueta.
+     */
+    private JPanel containerPanel;
 
+    /**
+     * exitButton: es un boton de vuelta al menu principal.
+     */
     private JButton exitButton;
+    /**
+     * options: es una lista de botones con las opciones de los juegos.
+     */
     private List<JButton> options = new ArrayList<>();
 
     /**
@@ -45,16 +50,23 @@ public class GUISelectGame extends javax.swing.JFrame {
         setFrame();
     }
 
+    /**
+     * setFrame: es el metodo principal que coloca en la vista la etiqueta y los
+     * botones de las opciones.
+     */
     private void setFrame() {
         this.setExtendedState(MAXIMIZED_BOTH);
         this.getContentPane().setLayout(new BorderLayout());
-        panelContainer = new JPanel(new GridLayout(2, 0));
-        this.getContentPane().add(panelContainer);
+        containerPanel = new JPanel(new GridLayout(2, 0));
+        this.getContentPane().add(containerPanel);
         setExitButton();
         setTitle();
         setButtons();
     }
 
+    /**
+     * setExitButton: crea y coloca el boton de volver.
+     */
     private void setExitButton() {
         exitButton = new JButton("Volver");
         JPanel extra = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -62,41 +74,55 @@ public class GUISelectGame extends javax.swing.JFrame {
         this.getContentPane().add(extra, BorderLayout.NORTH);
     }
 
+    /**
+     * setTitle: crea y coloca una etiqueta para aclarar las instrucciones al
+     * usuario.
+     */
     private void setTitle() {
-        panelTitle = new JPanel(new BorderLayout());
+        JPanel titlePanel = new JPanel(new BorderLayout());
         JLabel title = new JLabel("Seleccione el modo de juego");
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setFont(this.getFont().deriveFont(Font.BOLD, 50f));
-        panelTitle.add(title);
-        panelContainer.add(panelTitle);
+        titlePanel.add(title);
+        containerPanel.add(titlePanel);
     }
 
+    /**
+     * setButtons: crea y coloca los modos de juego almacenados en
+     * {@link GameConstants#GAMES_NAMES} y con el codigo correspondiente de
+     * {@link GameConstants#GAMES_CODES}.
+     */
     private void setButtons() {
-        panelOptions = new JPanel(new GridLayout(0, 4));
+        JPanel optionsPanel = new JPanel(new GridLayout(0, 4));
         for (int i = 0; i < 4; i++) {
             JButton but = new JButton(GameConstants.GAMES_NAMES[i]);
             but.setFont(this.getFont().deriveFont(20f));
             but.setName(GameConstants.GAMES_CODES[i]);
             options.add(but);
-            panelOptions.add(but);
+            optionsPanel.add(but);
         }
-        panelContainer.add(panelOptions);
+        containerPanel.add(optionsPanel);
     }
 
+    //GETTER/SETTER
+    /**
+     * getOptions: devuelve una lista de {@link JButton} que son las opciones de
+     * juegos.
+     *
+     * @return una lista de {@link JButton}
+     */
     public List<JButton> getOptions() {
         return options;
     }
 
-    public void setOptions(List<JButton> options) {
-        this.options = options;
-    }
-
+    /**
+     * getExitButton: devuelve un {@link JButton} que es el boton de vuelta al
+     * menu principal.
+     *
+     * @return un {@link JButton}
+     */
     public JButton getExitButton() {
         return exitButton;
-    }
-
-    public void setExitButton(JButton exitButton) {
-        this.exitButton = exitButton;
     }
 
     /**
@@ -123,41 +149,6 @@ public class GUISelectGame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(GUISelectGame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(GUISelectGame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(GUISelectGame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(GUISelectGame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new GUISelectGame().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
