@@ -9,17 +9,20 @@ import com.gf.app.juegomuseos.dao.AuthorDAO;
 import com.gf.app.juegomuseos.dao.CountryDAO;
 import com.gf.app.juegomuseos.dao.MuseumDAO;
 import com.gf.app.juegomuseos.models.Artwork;
+import com.gf.app.juegomuseos.models.Author;
 import com.gf.app.juegomuseos.models.Country;
 import com.gf.app.juegomuseos.models.Museum;
 import com.gf.app.juegomuseos.utils.CountryExtractor;
 import com.gf.app.juegomuseos.utils.Crono;
 import com.gf.app.juegomuseos.utils.GameConstants;
+import com.gf.app.juegomuseos.utils.ImagesSize;
 import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
 import com.gf.app.juegomuseos.views.GUIMap;
 import com.gf.app.juegomuseos.views.ResultDialog;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.RenderingHints;
@@ -29,6 +32,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,8 +43,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import org.jxmapviewer.JXMapKit;
 import org.jxmapviewer.JXMapViewer;
@@ -63,16 +70,18 @@ public class MapController implements ActionListener {
     private String artworkCountry;
     private String clickedPositionCountry;
     //pojo
-    private Artwork artwork;
+    private Artwork artworkSolution;
+    private Author authorSolution;
     //waypoint personalizado
     private Waypoint clickWaypoint;
     //JXMapViewer
     private Set<GeoPosition> positionSet = new HashSet<>();
     private Set<Waypoint> waypointSet = new HashSet<>();
     private WaypointPainter<Waypoint> waypointPainter = new WaypointPainter<>();
-    private GeoPosition clickPosition;
+    private GeoPosition clickedPosition;
     private GeoPosition artworkPosition;
     private ArtworkDAO awDAO = new ArtworkDAO();
+    private AuthorDAO atDAO = new AuthorDAO();
 
     private boolean mode;
     private int counter;
@@ -114,35 +123,45 @@ public class MapController implements ActionListener {
 
     private void initGame() {
         Collections.sort(repeatedDB);
-        do {
-            try {
-                artwork = awDAO.selectNum(1).get(0);
-                artwork.getId_obra();
-                if (Collections.binarySearch(repeatedDB, artwork.getId_obra()) < 0) {
-                    repeatedDB.add(artwork.getId_obra());
-                }
-            } catch (SQLException ex) {
-                System.err.println("Error de Base de Datos");
-            }
-        } while (Collections.binarySearch(repeatedDB, artwork.getId_museo()) >= 0);
+        try {
+            do {
 
-        artworkPosition = new GeoPosition(artwork.getLatitud(), artwork.getLongitud());
-        artworkCountry = CountryExtractor.getCountryName(artwork.getLatitud(), artwork.getLongitud());
+                artworkSolution = awDAO.selectNum(1).get(0);
+                if (Collections.binarySearch(repeatedDB, artworkSolution.getId_obra()) < 0) {
+                    repeatedDB.add(artworkSolution.getId_obra());
+                }
+
+            } while (Collections.binarySearch(repeatedDB, artworkSolution.getId_obra()) >= 0);
+
+            view.getArtworkLabel().setText(artworkSolution.getNombre_obra());
+
+            authorSolution = atDAO.selectId(artworkSolution.getId_autor());
+            view.getAuthorLabel().setText(authorSolution.getNombre_autor());
+
+        } catch (SQLException ex) {
+            System.err.println("Error de Base de Datos");
+        }
+        setIcon();
+
+        artworkPosition = new GeoPosition(artworkSolution.getLatitud(), artworkSolution.getLongitud());
+        artworkCountry = CountryExtractor.getCountryName(artworkSolution.getLatitud(), artworkSolution.getLongitud());
     }
 
-    //-----------------------------------------------------------------------------------
-//    private void setWaypoint() {
-//        clickWaypoint = new Waypoint() {
-//            @Override
-//            public GeoPosition getPosition() {
-//
-//            }
-//        };
-//    }
     private void setArtworkPosition() {
         positionSet.add(artworkPosition);   //añade posicion de la obra al set de posiciones
         waypointSet.add(new DefaultWaypoint(artworkPosition));  //nuevo dw con posicion de la obra y se añade al set de waypoints
         waypointPainter.setWaypoints(waypointSet);  //pinta todos los waypoints del set de wp
+    }
+
+    public void setIcon() {
+        ImageIcon imageIcon = null;
+        try {
+            imageIcon = new ImageIcon(new URL(artworkSolution.getImagen_obra()));
+        } catch (MalformedURLException ex) {
+            System.err.println("Imagen mal formada.");
+        }
+        Image proportionalImage = ImagesSize.getProportionalDimensionImage(imageIcon, view.getArtworkImage().getSize());
+        view.getArtworkImage().setIcon(new ImageIcon(proportionalImage));
     }
 
     private MouseAdapter ma = new MouseAdapter() {
@@ -152,14 +171,14 @@ public class MapController implements ActionListener {
             waypointSet.clear();
             try {
                 if (e.getButton() == MouseEvent.BUTTON3) {
-                    clickPosition = view.getMapKit().getMainMap()
+                    clickedPosition = view.getMapKit().getMainMap()
                             .convertPointToGeoPosition(view.getMapKit().getMainMap().getMousePosition());
-
-                    positionSet.add(clickPosition);
-                    waypointSet.add(new DefaultWaypoint(clickPosition));
+                    positionSet.add(clickedPosition);
+                    waypointSet.add(new DefaultWaypoint(clickedPosition));
                     waypointPainter.setWaypoints(waypointSet);
                     view.getMapKit().getMainMap().setOverlayPainter(waypointPainter);
-                    clickedPositionCountry = CountryExtractor.getCountryName(clickPosition.getLatitude(), clickPosition.getLongitude());
+                    clickedPositionCountry = CountryExtractor
+                            .getCountryName(clickedPosition.getLatitude(), clickedPosition.getLongitude());
                 }
             } catch (NullPointerException ex) {
                 System.out.println("No hay posicion de ratón");
@@ -169,14 +188,16 @@ public class MapController implements ActionListener {
     };
 
     public void initTimer() {
-        Thread t = new Thread(() -> {
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        Timer t = new Timer(2000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                positionSet.clear();
+                waypointSet.clear();
+                view.getMapKit().getMainMap().setOverlayPainter(null);
             }
         });
         t.start();
+        t.setRepeats(false);
     }
 
     private void guessedRight() {
@@ -196,33 +217,35 @@ public class MapController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        setArtworkPosition();
-        view.getMapKit().getMainMap().zoomToBestFit(positionSet, 0.7);
-        view.getMapKit().getMainMap().setZoom(15);
-
-        if (artworkCountry.equals(clickedPositionCountry)) {
-            guessedRight();
+        if (artworkCountry == null || clickedPositionCountry == null) {
+            JOptionPane.showMessageDialog(view, "Debes seleccionar una posicion", "Error", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            guessedWrong();
-        }
-        initTimer();
-        positionSet.clear();
-        waypointSet.clear();
-        view.getMapKit().getMainMap().setOverlayPainter(null);
-        counter++;
-
-        if (counter < 10) {
-            initGame();
-        } else {
-            if (mode == GameConstants.COMP_MODE) {
-                setGameData();
-                GregFernandezController nextGame = new GregFernandezController(new GUIGregorioFernandez(), parent, mode);
+            setArtworkPosition();
+            view.getMapKit().getMainMap().zoomToBestFit(positionSet, 0.7);
+            view.getMapKit().getMainMap().setZoom(15);
+            if (artworkCountry.equals(clickedPositionCountry)) {
+                guessedRight();
             } else {
-                openMenu();
+                guessedWrong();
             }
-            view.dispose();
+            counter++;
+
+            artworkCountry = null;
+            clickedPositionCountry = null;
+
+            if (counter < 10) {
+                initGame();
+            } else {
+                if (mode == GameConstants.COMP_MODE) {
+                    setGameData();
+                    GregFernandezController nextGame = new GregFernandezController(new GUIGregorioFernandez(), parent, mode);
+                } else {
+                    openMenu();
+                }
+                view.dispose();
+            }
+            waypointSet.remove(artworkSolution);
         }
-        waypointSet.remove(artwork);
     }
 
     public static void main(String[] args) {
