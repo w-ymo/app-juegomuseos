@@ -86,12 +86,14 @@ CREATE TABLE `obras` (
   `disciplina` varchar(100) NOT NULL,
   `imagen_obra` varchar(500) NOT NULL,
   `id_museo` int(11) COMMENT 'FK -> museos',
-  `id_autor` int(11) NOT NULL COMMENT 'FK -> autores'
+  `id_autor` int(11) NOT NULL COMMENT 'FK -> autores',
+  `latitud` double(10),
+  `longitud` double(10)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 /*
-INSERT INTO `obras` (`nombre_obra`, `descripcion_obra`, `clave_obra`, `disciplina`, `imagen_obra`,`id_museo`, `id_autor`)
+INSERT INTO `obras` (`nombre_obra`, `descripcion_obra`, `clave_obra`, `disciplina`, `imagen_obra`,`id_museo`, `id_autor`,`latitud`,`longitud`)
 VALUES ('Los Girasoles', 'Óleo sobre lienzo de 93 x 72 cm realizado en 1888', 'girasoles', 'Pintura', 'http://4.bp.blogspot.com/-vnKoUZlLuSQ/VPevhmY4FKI/AAAAAAAAADg/Paj7GQf2o5c/s1600/Vincent_Willem_van_Gogh_128.jpg', 1, 1),
 ('Las Meninas', 'Óleo sobre lienzo de 320,5 x 281,5 cm realizado en 1656', 'meninas', 'Pintura', 'https://4.bp.blogspot.com/-Og960_owCP4/WNv0JgvSivI/AAAAAAAAAn4/NsalJJ63tBk0JGd1P3nINYo2WBS_BG6VwCEw/w1200-h630-p-k-no-nu/Las_Meninas_01.jpg', 2, 2),
 ('La Gran Ola de Kanagawa', 'Impresión xilográfica de 25 x 37 cm realizado entre 1830 y 1833', 'ola', 'Ukiyo-e', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Great_Wave_off_Kanagawa2.jpg/1024px-Great_Wave_off_Kanagawa2.jpg', 3, 3),
