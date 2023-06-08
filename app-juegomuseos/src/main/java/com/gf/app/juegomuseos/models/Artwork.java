@@ -18,6 +18,8 @@ public class Artwork {
     private String imagen_obra;
     private int id_museo;
     private int id_autor;
+    private double longitud;
+    private double latitud;
 
     public int getId_obra() {
         return id_obra;
@@ -83,6 +85,24 @@ public class Artwork {
         this.id_autor = id_autor;
     }
 
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    
+    
     @Override
     public String toString() {
         return "Artwork{" + "id_obra=" + id_obra + ", nombre_obra=" + nombre_obra + ", descripcion_obra=" + descripcion_obra + ", disciplina=" + disciplina + ", id_museo=" + id_museo + ", id_autor=" + id_autor + '}';
