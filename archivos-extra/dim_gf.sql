@@ -280,7 +280,7 @@ VALUES ('Vincent van Gogh', 10), ('Diego Velázquez', 2),
 ('Miguel Ángel', 7), ('Rafael Sanzio', 7), ('Frida Kahlo', 11),
 ('Eugène Delacroix', 4), ('Auguste Rodin', 4), ('Antoni Gaudí', 2),
 ('Alexandre Gustave', 4), ('Cecilia Giménez Zueco', 2), ('Kotagawa Utamuro', 8),
-('Otani Oniji III', 8), ('Cildo Mireies', 12), ('Pablo Picasso', 2),
+('Toshusai Sharaku', 8), ('Cildo Mireies', 12), ('Pablo Picasso', 2),
 ('Louise Bourgeois', 4), ('Gregorio Fernández', 2), ('Kuai Xiang', 1),
 ('Gian Lorenzo Bernini', 7), ('José Luján Pérez', 2), ('Pedro Millán', 2),
 ('Juan de Mesa', 2), ('Giuseppe Sanmartino', 7);
