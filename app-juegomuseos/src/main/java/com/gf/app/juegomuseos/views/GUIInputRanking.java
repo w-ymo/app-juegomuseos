@@ -4,6 +4,7 @@
  */
 package com.gf.app.juegomuseos.views;
 
+import com.gf.app.juegomuseos.controller.MainController;
 import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -19,18 +20,51 @@ import javax.swing.SwingConstants;
 
 /**
  *
+ * GUIInputRanking: vista del controlador {@link InputRankingController} donde
+ * se muestra la informacion de la partida y los componentes para introducir al
+ * ranking. 
+ * 
+ * @see InputRankingController
+ *
  * @author fercaslu
+ * @author priparno
  */
 public class GUIInputRanking extends javax.swing.JFrame {
-    
+
+    /**
+     * gameData: un panel para la informacion de la partida.
+     */
     private JPanel gameData;
+    /**
+     * userData: un panel para la introduccion del usuario.
+     */
     private JPanel userData;
-    
+
+    /**
+     * realTime: una etiqueta que muestra el tiempo que se ha tardado.
+     */
     private JLabel realTime;
+    /**
+     * penalties: una etiqueta que muestra el tiempo aniadido por
+     * penalizaciones.
+     *
+     * @see MainController
+     */
     private JLabel penalties;
+    /**
+     * totalTime: una etiqueta que muestra el total del tiempo real y el
+     * aniadido.
+     */
     private JLabel totalTime;
-    
+
+    /**
+     * fieldName: una caja de texto para introducir el nombre del usuario.
+     */
     private JTextField fieldName;
+    /**
+     * confirmButton: un boton que permite guardar el ranking en la base de
+     * datos.
+     */
     private JButton confirmButton;
 
     /**
@@ -39,9 +73,12 @@ public class GUIInputRanking extends javax.swing.JFrame {
     public GUIInputRanking() {
         initComponents();
         setFrame();
-//        this.setUndecorated(true);
     }
-    
+
+    /**
+     * setFrame: es el metodo principal que coloca en la vista la informacion de
+     * la partida y para introducir la informacion del usuario.
+     */
     private void setFrame() {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -49,7 +86,11 @@ public class GUIInputRanking extends javax.swing.JFrame {
         setGameData();
         setUserData();
     }
-    
+
+    /**
+     * setGameData: crea y coloca en la vista las etiquetas para mostrar los
+     * tiempos.
+     */
     private void setGameData() {
         gameData = new JPanel(new BorderLayout());
         JPanel extra = new JPanel(new GridLayout(0, 3));
@@ -69,7 +110,11 @@ public class GUIInputRanking extends javax.swing.JFrame {
         gameData.add(extra);
         this.getContentPane().add(gameData, BorderLayout.NORTH);
     }
-    
+
+    /**
+     * setUserData: crea y coloca en la vista los componentes para introducir el
+     * nombre de usuario e insertar.
+     */
     private void setUserData() {
         userData = new JPanel(new FlowLayout(FlowLayout.CENTER));
         userData.setPreferredSize(new Dimension(GameConstants.SCREEN_SIZE.width, (int) (GameConstants.SCREEN_SIZE.height * 0.4)));
@@ -80,45 +125,53 @@ public class GUIInputRanking extends javax.swing.JFrame {
         userData.add(confirmButton);
         this.getContentPane().add(userData, BorderLayout.CENTER);
     }
-    
+
+    //GETTER/SETTER
+    /**
+     * getRealTime: devuelve un {@link JLabel} que tendra el tiempo real.
+     *
+     * @return un {@link JLabel}
+     */
     public JLabel getRealTime() {
         return realTime;
     }
-    
-    public void setRealTime(JLabel realTime) {
-        this.realTime = realTime;
-    }
-    
+
+    /**
+     * getPenalties: devuelve un {@link JLabel} que tendra el tiempo a aniadir.
+     *
+     * @return un {@link JLabel}
+     */
     public JLabel getPenalties() {
         return penalties;
     }
-    
-    public void setPenalties(JLabel penalties) {
-        this.penalties = penalties;
-    }
-    
+
+    /**
+     * getTotalTime: devuelve un {@link JLabel} que tendra el tiempo total.
+     *
+     * @return un {@link JLabel}
+     */
     public JLabel getTotalTime() {
         return totalTime;
     }
-    
-    public void setTotalTime(JLabel totalTime) {
-        this.totalTime = totalTime;
-    }
-    
+
+    /**
+     * getFieldName: devuelve un {@link JTextField} que contendra el nombre de
+     * usuario introducido por el jugador.
+     *
+     * @return un {@link JTextField}
+     */
     public JTextField getFieldName() {
         return fieldName;
     }
-    
-    public void setFieldName(JTextField fieldName) {
-        this.fieldName = fieldName;
-    }
-    
+
+    /**
+     * getConfirmButton: devuelve un {@link JButton} para confirmar la
+     * insercion.
+     *
+     * @return un {@link JButton}
+     */
     public JButton getConfirmButton() {
         return confirmButton;
-    }
-    
-    public void setConfirmButton(JButton confirmButton) {
-        this.confirmButton = confirmButton;
     }
 
     /**
@@ -145,41 +198,6 @@ public class GUIInputRanking extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(GUIRanking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new GUIRanking().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

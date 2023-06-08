@@ -4,10 +4,10 @@
  */
 package com.gf.app.juegomuseos.views;
 
+import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.utils.GameData;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 
@@ -19,20 +19,25 @@ import javax.swing.JScrollPane;
  * @see GameData
  *
  * @author priparno
+ * @author fercaslu
  */
 public class GUIInfo extends javax.swing.JDialog {
 
     /**
-     * 
+     * textArea: un panel que muestra la informacion.
      */
     private JEditorPane textArea;
     /**
-     * 
+     * scrollPanel: para poder desplazar el panel.
      */
     private JScrollPane scrollPanel;
 
     /**
      * Creates new form GUIInfo
+     *
+     * @param parent una vista de tipo {@link GUIPrincipal}
+     * @param modal true -> no puede perder el foco, false -> puede perder el
+     * foco
      */
     public GUIInfo(GUIPrincipal parent, boolean modal) {
         super(parent, modal);
@@ -41,7 +46,11 @@ public class GUIInfo extends javax.swing.JDialog {
     }
 
     /**
-     * 
+     * setFrame: es el metodo principal que coloca en la vista el panel y la
+     * informacion de AppInfo.html.
+     *
+     * @see GameData
+     * @see GameConstants
      */
     private void setFrame() {
         textArea = new JEditorPane();
@@ -52,8 +61,7 @@ public class GUIInfo extends javax.swing.JDialog {
         this.setResizable(false);
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(scrollPanel);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setPreferredSize(new Dimension((int) (screenSize.width * 0.6), (int) (screenSize.height * 0.7)));
+        this.setPreferredSize(new Dimension((int) (GameConstants.SCREEN_SIZE.width * 0.6), (int) (GameConstants.SCREEN_SIZE.height * 0.7)));
         this.pack();
         this.setLocationRelativeTo(null);
     }
