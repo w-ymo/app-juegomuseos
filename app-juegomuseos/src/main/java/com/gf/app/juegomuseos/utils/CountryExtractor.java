@@ -35,14 +35,14 @@ public class CountryExtractor {
 
             // Leer la respuesta JSON
             InputStream inputStream = conn.getInputStream();
-            Scanner scanner = new Scanner(inputStream).useDelimiter("");
+            Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
                String response = scanner.hasNext() ? scanner.next() : "";
 
             // Analizar la respuesta JSON y obtener el nombre del país
             String countryName = response.contains("\"country\":\"") ? response.split("\"country\":\"")[1].split("\"")[0] : "";
 
-               // Cerrar las conexiones y devolver el nombre del país
-               scanner.close();
+            // Cerrar las conexiones y devolver el nombre del país
+            scanner.close();
             inputStream.close();
             conn.disconnect();
             return countryName;
