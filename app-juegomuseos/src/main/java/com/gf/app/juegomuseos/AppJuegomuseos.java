@@ -16,4 +16,4 @@ public class AppJuegomuseos {
     public static void main(String[] args) {
         MainController mc = new MainController(new GUIPrincipal());
     }
-}
+}   
