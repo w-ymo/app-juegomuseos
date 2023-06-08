@@ -43,18 +43,11 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
      * Creates new form GUIVFMuseos
      */
     public GUIMuseumsTF() {
-        try {
-            this.setUndecorated(true);
-            UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme");
-            initComponents();
-            setFrame();
-            setTimePanel();
-            setMuseumPanel();
-            setButtonsPanel();
-
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        initComponents();
+        setFrame();
+        setTimePanel();
+        setMuseumPanel();
+        setButtonsPanel();
     }
 
     private void setFrame() {
