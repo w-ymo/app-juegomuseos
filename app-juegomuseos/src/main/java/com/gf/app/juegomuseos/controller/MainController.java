@@ -18,18 +18,48 @@ import java.util.List;
 import javax.swing.JButton;
 
 /**
+ * MainController: es el controlador que contiene el menu principal, de la
+ * ventana {@link GUIPrincipal}. Desde esta clase se lanzan los modos de juego,
+ * el ranking, la informacion y los ajustes. Implementa de
+ * {@link GameControllers}.
  *
  * @author priparno
+ * @author fercaslu
  */
 public class MainController implements GameControllers {
 
+    /**
+     * view: es la vista del menu.
+     */
     private GUIPrincipal view;
 
+    /**
+     * fails: es el contador de fallos que posteriormente se aniadira al tiempo.
+     */
     private int fails = 0;
-
+    /**
+     * timer: de tipo {@link Crono}, es el cronometro que nos marcará el tiempo.
+     */
     private Crono timer;
 
-    private ActionListener al = (e) -> {
+    /**
+     * listenerButtons: es el escuchador de accion de los botones. Dependiendo
+     * del texto del boton se lanzara una vista u otra.
+     * <ul>
+     * <li>MODO YINCANA: es el modo competitivo de juego. Se muestran todos los
+     * juegos seguidos, se cuentan los fallos y el tiempo.</li>
+     * <li>MODO LIBRE: es el modo libre de juego. Lanza
+     * {@link SelectGameController} con la vista {@link GUISelectGame}.</li>
+     * <li>RANKING: muestra el ranking de juego. Lanza {@link RankingController}
+     * con la vista {@link GUIRanking}.</li>
+     * <li>INFORMACION: muestra la informacion del juego. Lanza
+     * {@link InfoController} con la vista {@link GUIInfo}.</li>
+     * <li>AJUSTES: muestra los ajustes del juego. Lanza
+     * {@link SettingsController} con la vista {@link GUISettings}</li>
+     * <li>SALIR: cierra la ventana y termina la aplicacion.</li>
+     * </ul>
+     */
+    private ActionListener listenerButtons = (e) -> {
         List<JButton> list = view.getOptions();
         JButton selected = (JButton) e.getSource();
         switch (selected.getText()) {
@@ -60,43 +90,88 @@ public class MainController implements GameControllers {
         }
     };
 
+    /**
+     * MainController: es el constructor del controlador. Para que funcione
+     * correctamente, necesita la vista principal. En el controlador además se
+     * lanza la vista, es decir, se muestra la vista automaticamente.
+     *
+     * @see GUIPrincipal
+     *
+     * @param view la vista del menu principal {@link GUIPrincipal}
+     */
     public MainController(GUIPrincipal view) {
         this.view = view;
-        addActionListener();
+        addListeners();
         launch();
         Music.start();
     }
 
-    private void addActionListener() {
+    /**
+     * addListeners: aniade a los elementos de la ventana los escuchadores para
+     * manejar las acciones del usuario.
+     *
+     * @see ActionListener
+     */
+    private void addListeners() {
         for (JButton option : view.getOptions()) {
-            option.addActionListener(al);
+            option.addActionListener(listenerButtons);
         }
     }
 
+    //GETTER/SETTER
+    /**
+     * getTimer: devuelve el cronometro en el modo competitivo.
+     *
+     * @see Crono
+     *
+     * @return timer de tipo {@link Crono} que representa el cronometro
+     */
     public Crono getTimer() {
         return timer;
     }
 
+    /**
+     * setTimer: actualiza {@link #timer} al pasado como parametro.
+     * 
+     * @see Crono
+     *
+     * @param timer el cronometro {@link Crono}
+     */
     public void setTimer(Crono timer) {
         this.timer = timer;
     }
 
+    /**
+     * getFails: devuelve el numero de fallos.
+     * 
+     * @return un entero que representa el numero de fallos
+     */
     public int getFails() {
         return fails;
     }
 
+    /**
+     * setFails: actualiza el valor de los fallos.
+     * 
+     * @param fails entero que representa el numero de fallos
+     */
     public void setFails(int fails) {
         this.fails = fails;
     }
 
+    /**
+     * getView: devuelve la vista de tipo {@link GUIPrincipal}.
+     * 
+     * @return una vista de tipo {@link GUIPrincipal}
+     */    
     public GUIPrincipal getView() {
         return view;
     }
 
-    public void setView(GUIPrincipal view) {
-        this.view = view;
-    }
-
+    /**
+     * launch: metodo que se implementa de {@link GameControllers}. En este
+     * metodo se pone visible la ventana.
+     */
     @Override
     public void launch() {
         view.setVisible(true);

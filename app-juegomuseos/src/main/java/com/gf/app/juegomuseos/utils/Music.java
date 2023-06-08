@@ -14,40 +14,60 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
+ * Music: en esta clase se dan las herramientas necesarias para introducir
+ * música al juego.
  *
- * @author noelp
+ * @author priparno
  */
 public class Music {
 
+    /**
+     * MUSIC: es el archivo donde esta song1.wav
+     */
     private static final File MUSIC = new File(".\\src\\main\\java\\com\\gf\\app\\juegomuseos\\resources\\song1.wav");
+    /**
+     * input: el flujo de sonido
+     */
     private static AudioInputStream input;
+    /**
+     * clip: representa el archivo
+     */
     private static Clip clip;
 
+    /**
+     * start: inicia la musica.
+     */
     public static void start() {
         try {
+            //creo un nuevo flujo de datos
             input = AudioSystem.getAudioInputStream(MUSIC);
+            //recojo el flujo para poder manipularlo
             clip = AudioSystem.getClip();
             clip.open(input);
+            //va estar en bucle de manera indefinida
             clip.loop(Clip.LOOP_CONTINUOUSLY);
+            //inicia la cancion
             clip.start();
-            setGain(GameData.VOLUME);
+            setVolume(GameData.VOLUME);
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
             System.err.println("Problemitas");
         }
     }
 
-    private static void setGain(float value) {
+    /**
+     * setVolume: metodo que da volumen al {@link #clip}
+     *
+     * @param value un float que representa el volumen (min -80f, max 6f)
+     */
+    public static void setVolume(float value) {
         FloatControl gainControl
                 = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(value); // Reduce volume by 10 decibels.
+        gainControl.setValue(value);
     }
 
-    public static void setVolume(int value) {
-        float min = -80;
-        float max = 6;
-        setGain(value);
-    }
-
+    /**
+     * stop: para el flujo de musica.
+     */
     public static void stop() {
         try {
             clip.stop();

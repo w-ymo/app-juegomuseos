@@ -7,15 +7,12 @@ package com.gf.app.juegomuseos.utils;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.text.FieldPosition;
-import java.text.NumberFormat;
-import java.text.ParsePosition;
 import javax.swing.Timer;
 import javax.swing.JLabel;
-import javax.swing.text.NumberFormatter;
 
 /**
- *
+ * Crono: 
+ * 
  * @author priparno
  */
 public class Crono {

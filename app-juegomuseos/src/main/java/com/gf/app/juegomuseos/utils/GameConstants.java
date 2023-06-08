@@ -27,7 +27,7 @@ public interface GameConstants {
 
     public static final String[] MAIN_MENU_OPTIONS = {"MODO YINCANA", "MODO LIBRE", "RANKING", "INFORMACION", "AJUSTES", "SALIR"};
 
-    public static final String[] GAMES_NAMES = {"¿De quién es?", "¿Cuál existe?", "¿Cuál es de Gregorio?", "Coloca en país"};
+    public static final String[] GAMES_NAMES = {"¿Quién lo hizo?", "Verdadero/Falso de museos", "Gregorio Fernández", "Coloca en el mapa"};
 
     public static final String[] GAMES_CODES = {WHOIS_CODE, TRUEFALSE_CODE, GREGORIO_CODE, MAPGAME_CODE};
 

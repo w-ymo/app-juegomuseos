@@ -14,15 +14,33 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
+ * SelectGameController: es el controlador de la ventana
+ * {@link SelectGameController}. Desde esta se lanza una vista con un menu donde
+ * escoger los modos de juego que se recogen en {@link GameConstants}.
  *
- * @author noelp
+ * @author priparno
+ * @author fercaslu
  */
 public class SelectGameController implements GameControllers {
 
-    private MainController parent;
+    /**
+     * view: es la vista de la ventana.
+     */
     private GUISelectGame view;
+    /**
+     * parent: es el controlador padre, el que le llama. En este caso
+     * {@link MainController}.
+     */
+    private MainController parent;
 
-    private ActionListener al = (e) -> {
+    /**
+     * listenerButtons: es el escuchador de accion de los botones de seleccion.
+     * Dependiendo del nombre del boton, que corresponde a uno de
+     * {@link GameConstants#GAMES_CODES}, lanza un juego u otro.
+     *
+     * @see GameConstants
+     */
+    private ActionListener listenerButtons = (e) -> {
         JButton selected = (JButton) e.getSource();
         parent.getView().dispose();
         switch (selected.getName()) {
@@ -45,11 +63,27 @@ public class SelectGameController implements GameControllers {
         }
     };
 
-    private ActionListener exitActionListener = (e) -> {
+    /**
+     * exitListener: es el escuchador de accion del botón de vuelta. Si se
+     * activa muestra el menu principal.
+     */
+    private ActionListener exitListener = (e) -> {
         parent.getView().setVisible(true);
         view.dispose();
     };
-    
+
+    /**
+     * SelectGameController: es el constructor del controlador. Para que
+     * funcione correctamente, necesita la vista del seleccion de juego y el
+     * controlador padre. En el controlador además se lanza la vista, es decir,
+     * se muestra la vista automaticamente.s
+     *
+     * @see GUISelectGame
+     * @see MainController
+     *
+     * @param view la vista de seleccion {@link GUISelectGame}
+     * @param parent el controlador padre de tipo {@link MainController}
+     */
     public SelectGameController(GUISelectGame view, MainController parent) {
         this.view = view;
         this.parent = parent;
@@ -57,25 +91,43 @@ public class SelectGameController implements GameControllers {
         launch();
     }
 
+    /**
+     * addListeners: aniade a los elementos de la ventana los escuchadores para
+     * manejar las acciones del usuario.
+     *
+     * @see ActionListener
+     */
     private void addListeners() {
         for (JButton option : view.getOptions()) {
-            option.addActionListener(al);
+            option.addActionListener(listenerButtons);
         }
-        view.getExitButton().addActionListener(exitActionListener);
+        view.getExitButton().addActionListener(exitListener);
     }
 
+    //GETTER/SETTER
+    /**
+     * getMainController: devuelve el controlador padre de tipo
+     * {@link MainController}.
+     *
+     * @return el controlador tipo {@link MainController}
+     */
     public MainController getMainController() {
         return (MainController) parent;
     }
 
+    /**
+     * getView: devuelve la vista de tipo {@link GUISelectGame}.
+     * 
+     * @return la vista tipo {@link GUISelectGame}
+     */
     public GUISelectGame getView() {
         return view;
     }
 
-    public void setView(GUISelectGame view) {
-        this.view = view;
-    }
-    
+    /**
+     * launch: metodo que se implementa de {@link GameControllers}. En este
+     * metodo se pone visible la ventana.
+     */
     @Override
     public void launch() {
         view.setVisible(true);

@@ -27,42 +27,80 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
+ * GregFernandezController: es el controlador de la ventana
+ * {@link GUIGregorioFernandez}. Desde este se lanza el juego y se controlan los
+ * fallos y aciertos. Implementa de {@link GameControllers}. Se muestra una
+ * ventana con dos botones donde hay una imagen en cada uno. El objetivo es
+ * seleccionar la imagen de la obra perteneciente a Gregorio Fernandez.
+ *
+ * @see GUIGregorioFernandez
+ * @see GameControllers
  *
  * @author priparno
  */
 public class GregFernandezController implements GameControllers {
 
+    /**
+     * view: es la vista del juego.
+     */
     private GUIGregorioFernandez view;
+    /**
+     * parent: es el controlador padre, el que le llama.
+     */
     private GameControllers parent;
 
+    /**
+     * awDAO: es la clase de acceso a la base de datos para obtener las obras de
+     * arte.
+     *
+     * @see ArtworkDAO
+     */
     private ArtworkDAO awDAO = new ArtworkDAO();
+    /**
+     * atDAO: es la clase de acceso a la base de datos para obtener los autores.
+     *
+     * @see AuthorDAO
+     */
     private AuthorDAO atDAO = new AuthorDAO();
 
+    /**
+     * counter: es el contador de las veces que se repetira el juego.
+     */
+    private int counter;
+    /**
+     * fails: es el contador de fallos que posteriormente se aniadira al tiempo.
+     */
+    private int fails;
+    /**
+     * timer: de tipo {@link Crono}, es el cronometro que nos marcará el tiempo.
+     */
+    private Crono timer;
+    /**
+     * mode: es un booleano que indica cual es el modo de juego.
+     * {@link GameConstants#COMP_MODE} si es el modo competitivo y
+     * {@link GameConstants#FREE_MODE} si es el modo libre.
+     */
     private boolean mode;
 
-    private int counter;
-    private int fails;
-    private Crono timer;
-
+    /**
+     * solution: es la solucion, es decir, la obra de Gregorio Fernandez.
+     */
     private Artwork solution;
+    /**
+     * gregorioArtwork: recoge todas las obras de Gregorio Fernandez para no
+     * repetir.
+     */
     private List<Artwork> gregorioArtwork;
 
-    public GregFernandezController(GUIGregorioFernandez view, GameControllers parent, boolean mode) {
-        this.view = view;
-        this.parent = parent;
-        this.mode = mode;
-        this.counter = 0;
-        getGameData();
-        if (mode == GameConstants.COMP_MODE) {
-            this.timer.setTextTime(view.getTextTime());
-        }
-        addListenerButtons();
-        launch();
-    }
-
+    /**
+     * listenerButtons: es el escuchador de accion de los botones. De estos se
+     * coge el nombre del botón y si coincide con {@link #solution} da por bueno
+     * el intento y lanza otro.
+     */
     private ActionListener listenerButtons = (e) -> {
         JButton but = (JButton) e.getSource();
         try {
+            //dependiendo de si la solucion es correcta o no, muestra un JDialog por 1 segundo que indica correcto o incorrecto.
             if (but.getName().equals(String.valueOf(atDAO.getIdGregorioFernandez()))) {
                 ResultDialog rd = new ResultDialog(view, true);
                 rd.initTimer();
@@ -74,13 +112,16 @@ public class GregFernandezController implements GameControllers {
                 fails++;
             }
             counter++;
+            //se repite el juego hasta que pasen 5 rondas.
             if (counter < 5) {
                 initGame();
             } else {
+                //se actualiza los valores globales del intento si es modo competitivo y pasa al siguiente juego, en este caso MapController.
                 if (mode == GameConstants.COMP_MODE) {
                     setGameData();
-                    MapController mc = new MapController(new GUIMap(), parent,GameConstants.COMP_MODE);
+                    MapController mc = new MapController(new GUIMap(), parent, GameConstants.COMP_MODE);
                 } else {
+                    //si no es modo competitivo vuelve a mostrar el menu.
                     openMenu();
                 }
                 view.dispose();
@@ -90,31 +131,51 @@ public class GregFernandezController implements GameControllers {
         }
     };
 
+    //CONSTRUCTOR
+    /**
+     * GregFernandezController: es el constructor del controlador. Para que
+     * funcione correctamente, necesita la vista del juego, el controlador padre
+     * y a que modo corresponde. En el controlador además se lanza la vista, es
+     * decir, se muestra la vista automáticamente.
+     *
+     * @see GUIGregorioFernandez
+     * @see GameControllers
+     * @see MainController
+     * @see SelectGameController
+     * @see GameConstants
+     *
+     * @param view la vista del juego {@link GUIGregorioFernandez}
+     * @param parent el controlador padre {@link GameControllers}, que siempre
+     * sera {@link MainController} o {@link SelectGameController}
+     * @param mode un booleano que indica en que modo de juego estamos:
+     * {@link GameConstants#COMP_MODE} para el modo competitivo y
+     * {@link GameConstants#FREE_MODE}
+     */
+    public GregFernandezController(GUIGregorioFernandez view, GameControllers parent, boolean mode) {
+        this.view = view;
+        this.parent = parent;
+        this.mode = mode;
+        this.counter = 0;
+        getGameData();
+        if (mode == GameConstants.COMP_MODE) {
+            this.timer.setTextTime(view.getTextTime());
+        }
+        addListeners();
+        launch();
+    }
+
+    /**
+     * openMenu: muestra el menu inicial de la aplicacion.
+     */
     private void openMenu() {
         if (parent instanceof SelectGameController parentC) {
             parentC.getMainController().getView().setVisible(true);
         }
     }
 
-    private void getGameData() {
-        if (parent instanceof MainController parentC) {
-            this.fails = parentC.getFails();
-            this.timer = parentC.getTimer();
-        }
-    }
-
-    private void setGameData() {
-        if (parent instanceof MainController parentC) {
-            parentC.setFails(fails);
-        }
-    }
-
-    private void addListenerButtons() {
-        for (JButton option : view.getImages()) {
-            option.addActionListener(listenerButtons);
-        }
-    }
-
+    /**
+     * closeParentView: cierro la ventana del controlador padre.
+     */
     private void closeParentView() {
         if (parent instanceof SelectGameController parentC) {
             parentC.getView().setVisible(false);
@@ -123,13 +184,50 @@ public class GregFernandezController implements GameControllers {
         }
     }
 
+    /**
+     * getGameData: recoge los datos del controlador padre, que son los datos de
+     * la partida.
+     */
+    private void getGameData() {
+        if (parent instanceof MainController parentC) {
+            this.fails = parentC.getFails();
+            this.timer = parentC.getTimer();
+        }
+    }
+
+    /**
+     * setGameData: actualiza los datos del controlador padre para que los
+     * siguientes juegos puedan acceder a ellos.
+     */
+    private void setGameData() {
+        if (parent instanceof MainController parentC) {
+            parentC.setFails(fails);
+        }
+    }
+
+    /**
+     * addListeners: aniade a los elementos de la ventana los escuchadores para
+     * manejar las acciones del usuario.
+     *
+     * @see ActionListener
+     */
+    private void addListeners() {
+        for (JButton option : view.getImages()) {
+            option.addActionListener(listenerButtons);
+        }
+    }
+
+    /**
+     * initGame: aniade datos a la ventana y permitir el juego.
+     */
     private void initGame() {
         try {
             solution = gregorioArtwork.get(0);
+            //elimina de la lista con todas las obras para no repetir.
             gregorioArtwork.remove(0);
             List<Artwork> artworksNames = new ArrayList<>();
             artworksNames.add(solution);
-            //el campo clave sera el de la solucion
+            //el campo clave sera el de la solucion.
             List<Artwork> fakeArtwork = awDAO.selectSimilar(solution.getClave_obra(), atDAO.getIdGregorioFernandez());
             Collections.shuffle(fakeArtwork);
             artworksNames.add(fakeArtwork.get(0));
@@ -143,27 +241,32 @@ public class GregFernandezController implements GameControllers {
         }
     }
 
+    /**
+     * setIcon: metodo que coloca una imagen proporcional que consigue de la url
+     * pasada como parametro. Utilizo la utilidad de 
+     * {@link ImagesSize#getProportionalDimensionImage(javax.swing.ImageIcon, java.awt.Dimension)}
+     * 
+     * @see ImagesSize
+     *
+     * @param url la url de la imagen.
+     * @param image el boton donde se situa la imagen.
+     */
     public void setIcon(String url, JButton image) {
         ImageIcon i = null;
         try {
             i = new ImageIcon(new URL(url));
         } catch (MalformedURLException ex) {
-            JOptionPane.showMessageDialog(null, "URL MALISIMA");
+            JOptionPane.showMessageDialog(null, "Error");
         }
         Image proportionalImage = ImagesSize.getProportionalDimensionImage(i,
-                new Dimension(view.getPanelImages().getSize().width / 2, view.getPanelImages().getSize().height));
+                new Dimension(GameConstants.SCREEN_SIZE.width / 2, view.getPanelImages().getSize().height));
         image.setIcon(new ImageIcon(proportionalImage));
     }
 
-    //setIcons (busco una imagen y luego cojo otra random (una de gregorio y otra no))
-    //se me ocurre coger todas las imagenes de gregorio fernandez
-    //caparlo a 5 porque asi salen a veces distintas
-    //pillar una random de la tabla para poner al otro lado (no hace falta que sean similares)
-    //o
-    //pillar por nombre, si coge rollo una piedad random, que busque en las obras una que ponga
-    //piedad para que sea similar
-    //o
-    //random tambien, pero que pille las obras que sean escultura y que no sean de gregorio fernandez
+    /**
+     * launch: metodo que se implementa de {@link GameControllers}. En este
+     * metodo se lanza el juego y se pone visible la ventana.
+     */
     @Override
     public void launch() {
         try {
