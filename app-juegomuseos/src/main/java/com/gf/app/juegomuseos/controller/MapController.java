@@ -10,6 +10,7 @@ import com.gf.app.juegomuseos.dao.CountryDAO;
 import com.gf.app.juegomuseos.dao.MuseumDAO;
 import com.gf.app.juegomuseos.models.Country;
 import com.gf.app.juegomuseos.models.Museum;
+import com.gf.app.juegomuseos.utils.Crono;
 import com.gf.app.juegomuseos.views.GUIMap;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -56,7 +57,7 @@ public class MapController implements ActionListener {
     private boolean mode;
     private int counter;
     private int fails;
-    private Timer timer;
+    private Crono timer;
 
     public MapController(GUIMap view, boolean mode) {
         this.view = view;
