@@ -62,7 +62,7 @@ public class VisualizeImage extends javax.swing.JDialog {
         info.add(artwork);
         author = new JLabel();
         author.setHorizontalAlignment(SwingConstants.CENTER);
-        author.setFont(this.getFont().deriveFont(Font.BOLD, 25f));
+        author.setFont(this.getFont().deriveFont(Font.BOLD, 15f));
         info.add(author);
         this.getContentPane().add(info, BorderLayout.SOUTH);
     }

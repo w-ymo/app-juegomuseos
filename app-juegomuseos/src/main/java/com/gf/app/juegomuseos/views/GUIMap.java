@@ -124,14 +124,15 @@ public class GUIMap extends javax.swing.JFrame {
      */
     private void setInfoPanel() {
         infoPanel = new JPanel(new GridLayout(4, 0));
-        Font font = new Font(infoPanel.getFont().getName(), Font.BOLD, 25);
+        Font font1 = new Font(infoPanel.getFont().getName(), Font.BOLD, 10);
+        Font font2 = new Font(infoPanel.getFont().getName(), Font.BOLD, 18);
         artworkImage = new JLabel();
         artworkLabel = new JLabel();
         authorLabel = new JLabel();
         confirmButton = new JButton("Fijar País");
-        artworkLabel.setFont(font);
-        authorLabel.setFont(font);
-        confirmButton.setFont(font);
+        artworkLabel.setFont(font1);
+        authorLabel.setFont(font1);
+        confirmButton.setFont(font2);
   
         artworkLabel.setPreferredSize(new Dimension(artworkImage.getSize().width, (int) (GameConstants.SCREEN_SIZE.height * 0.33)));
         authorLabel.setPreferredSize(new Dimension(artworkImage.getSize().width, (int) (GameConstants.SCREEN_SIZE.height * 0.33)));

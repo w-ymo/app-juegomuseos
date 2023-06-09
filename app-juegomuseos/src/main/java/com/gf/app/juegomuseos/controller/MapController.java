@@ -424,7 +424,7 @@ public class MapController implements ActionListener, GameControllers {
      * pais de la posicion del click son el mismo y muestra si es correcto o
      * incorrecto.
      *
-     * @param ActionEvent
+     * @param e un {@link ActionEvent}
      */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -476,7 +476,7 @@ public class MapController implements ActionListener, GameControllers {
          * @see WaypointPainter
          * @see CountryExtractor
          *
-         * @param MouseEvent
+         * @param e un {@link MouseEvent}
          */
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -507,9 +507,9 @@ public class MapController implements ActionListener, GameControllers {
         /**
          * mouseClicked: al hacer doble click sobre la imagen de la obra se crea
          * una {@link VisualizeImage} que contiene la imagen en un tamanyo
-         * ampliado.
+         * ampliado el nombre de la obra y el autor.
          *
-         * @param MouseEvent
+         * @param e un {@link MouseEvent}
          */
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -523,6 +523,8 @@ public class MapController implements ActionListener, GameControllers {
                 }
                 vi.getImage().setIcon(new ImageIcon(ImagesSize.getProportionalDimensionImage(i,
                         new Dimension((int) (GameConstants.SCREEN_SIZE.width * 0.9), (int) (GameConstants.SCREEN_SIZE.height * 0.8)), false)));
+                vi.getAuthor().setText(authorSolution.getNombre_autor());
+                vi.getArtwork().setText(artworkSolution.getNombre_obra());
                 vi.getContentPane().setPreferredSize(vi.getImage().getPreferredSize());
                 vi.pack();
                 vi.setVisible(true);
