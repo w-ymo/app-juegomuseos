@@ -33,7 +33,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import org.jxmapviewer.JXMapViewer;
@@ -47,11 +46,12 @@ import org.jxmapviewer.viewer.WaypointPainter;
 /**
  * MapController: es el controlador de la ventana {@link GUIMap}. Desde ella se
  * lanza el juego y se controlan los fallos y aciertos. Implementa
- * de{@link GameControllers}. Se muestra una ventana con un mapa politico y una
+ * de {@link GameControllers} y {@link ActionListener}. Se muestra una ventana con un mapa politico y una
  * obra y su autor. El objetivo seleccionar el pais que expone dicha obra.
  *
  * @see GUIMap
  * @see GameControllers
+ * @see ActionListener
  *
  * @author fercaslu
  */
