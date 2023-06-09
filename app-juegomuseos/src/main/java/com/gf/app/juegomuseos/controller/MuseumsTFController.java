@@ -23,14 +23,15 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
- * MuseumsTFController: es el controlador de la ventana {@link MuseumsTFController}.
- * Desde ella se lanza el juego y se controlan los fallos y aciertos. Implementa de
- * {@link GameControllers}. Se muestra una ventana con 2 botones y el nombre del museo. 
- * El objetivo adivinar si existe o no el museo.
- * 
+ * MuseumsTFController: es el controlador de la ventana
+ * {@link MuseumsTFController}. Desde ella se lanza el juego y se controlan los
+ * fallos y aciertos. Implementa de {@link GameControllers}. Se muestra una
+ * ventana con 2 botones y el nombre del museo. El objetivo adivinar si existe o
+ * no el museo.
+ *
  * @see GUIMuseumsTF
  * @see GameControllers
- * 
+ *
  * @author fercaslu
  */
 public class MuseumsTFController implements ActionListener, GameControllers {
@@ -39,28 +40,29 @@ public class MuseumsTFController implements ActionListener, GameControllers {
      * view: es la vista del juego
      */
     private GUIMuseumsTF view;
-    
+
     /**
      * parent: es el controlador padre, el que le llama.
      */
     private GameControllers parent;
-    
+
     /**
      * mDAO: es la clase de acceso a la base de datos para obtener los museos.
      */
     private MuseumDAO mDAO = new MuseumDAO();
 
     /**
-     * rndm: sirve para elegir de donde se obtiene el museo. Si elige la obtención
-     * desde el array de los museos falsos también indicará la posición en dicho array.
+     * rndm: sirve para elegir de donde se obtiene el museo. Si elige la
+     * obtención desde el array de los museos falsos también indicará la
+     * posición en dicho array.
      */
     private Random rndm = new Random();
-    
+
     /**
      * mode: es un booleano que indica cual es el modo de juego.
      * {@link GameConstants#COMP_MODE} si es el modo competitivo y
      * {@link GameConstants#FREE_MODE} si es el modo libre.
-     * 
+     *
      * @see GameConstants
      */
     private boolean mode;
@@ -69,12 +71,13 @@ public class MuseumsTFController implements ActionListener, GameControllers {
      * counter: las veces que se repetira el juego.
      */
     private int counter;
-    
+
     /**
-     * fails: es el contrador de fallos que posteriormente se anyadira al tiempo.
+     * fails: es el contrador de fallos que posteriormente se anyadira al
+     * tiempo.
      */
     private int fails;
-    
+
     /**
      * timer: de tipo {@link Crono}, es el cronometro que marcara el tiempo.
      */
@@ -88,11 +91,11 @@ public class MuseumsTFController implements ActionListener, GameControllers {
      * false -> recoge el museo del array de museos falsos.
      */
     private boolean accessType;
-    
+
     /**
-     * museumSolution: de tipo {@link Museum}, museo recogido con el que se 
+     * museumSolution: de tipo {@link Museum}, museo recogido con el que se
      * comprobara si existe o no.
-     * 
+     *
      * @see Museum
      */
     private Museum museumSolution;
@@ -107,36 +110,35 @@ public class MuseumsTFController implements ActionListener, GameControllers {
         "Museo de Escultura Samuel de Luque", "Museo de las Patas de Mueble"};
 
     /**
-     * repeatedDB: lista de enteros que almacena el id del museo recogido de la 
+     * repeatedDB: lista de enteros que almacena el id del museo recogido de la
      * base de datos.
      */
     private ArrayList<Integer> repeatedDB = new ArrayList<>();
-    
+
     /**
-     * repeatedFake: lista de enteros que almacena la posicion en el array de 
+     * repeatedFake: lista de enteros que almacena la posicion en el array de
      * museos falsos.
      */
     private ArrayList<Integer> repeatedFake = new ArrayList<>();
 
     //CONSTRUCTOR
     /**
-     * MuseumsTFController: es el constructor del controlador. Para que funcione 
-     * correctamente necesita, la vista del juego, el controlador padre 
-     * y a que modo corresponde.
-     * 
+     * MuseumsTFController: es el constructor del controlador. Para que funcione
+     * correctamente necesita, la vista del juego, el controlador padre y a que
+     * modo corresponde.
+     *
      * @see GUIMuseumsTF
      * @see GameControllers
      * @see MainController
      * @see SelectGameController
      * @see GameConstants
-     * 
+     *
      * @param view la vista del juego {@link GUIMuseumsTF}
      * @param parent el controlador padre {@link GameControllers}, que siempre
      * sera {@link MainController} o {@link SelectGameController}
-     * @param mode un booleano que indica el modo de juego en el que se esta 
-     * llamando al controlador:
-     * {@link GameConstants#COMP_MODE} para el modo competitivo y
-     * {@link GameConstants#FREE_MODE} para el modo libre.
+     * @param mode un booleano que indica el modo de juego en el que se esta
+     * llamando al controlador: {@link GameConstants#COMP_MODE} para el modo
+     * competitivo y {@link GameConstants#FREE_MODE} para el modo libre.
      */
     public MuseumsTFController(GUIMuseumsTF view, GameControllers parent, boolean mode) {
         this.view = view;
@@ -166,11 +168,11 @@ public class MuseumsTFController implements ActionListener, GameControllers {
     private void closeParentView() {
         if (parent instanceof SelectGameController parentC) {
             parentC.getView().setVisible(false);
-        }else if(parent instanceof MainController parentC){
+        } else if (parent instanceof MainController parentC) {
             parentC.getView().setVisible(false);
         }
     }
-    
+
     /**
      * getGameData: recoge los datos del controlador padre, que son los datos de
      * la partida
@@ -181,9 +183,9 @@ public class MuseumsTFController implements ActionListener, GameControllers {
             this.timer = parentC.getTimer();
         }
     }
-    
+
     /**
-     * setGameData: actualiza los datos del controlador padre para que los 
+     * setGameData: actualiza los datos del controlador padre para que los
      * siguientes juegos puedan acceder a ellos
      */
     private void setGameData() {
@@ -191,11 +193,11 @@ public class MuseumsTFController implements ActionListener, GameControllers {
             parentC.setFails(fails);
         }
     }
-    
+
     /**
-     * addListenerButtons: anyade a los botones de la ventana los escuchadores 
+     * addListenerButtons: anyade a los botones de la ventana los escuchadores
      * para manejar las acciones del usuario.
-     * 
+     *
      * @see ActionListener
      */
     private void addListenerButtons() {
@@ -207,6 +209,7 @@ public class MuseumsTFController implements ActionListener, GameControllers {
      * initGame: anyade datos a la ventana y permite el juego.
      */
     private void initGame() {
+        updateRound();
         //asigna un nuevo booleano
         accessType = rndm.nextBoolean();
         museumSolution = new Museum();
@@ -244,7 +247,8 @@ public class MuseumsTFController implements ActionListener, GameControllers {
     }
 
     /**
-     * setLabelLength: cambia el tamanyo del JLabel nombre del museo dependiendo de su longitud.
+     * setLabelLength: cambia el tamanyo del JLabel nombre del museo dependiendo
+     * de su longitud.
      */
     private void setLabelLength() {
         FontMetrics fm = view.getMuseumLabel()
@@ -256,11 +260,11 @@ public class MuseumsTFController implements ActionListener, GameControllers {
                 new Dimension(labelWidth, view.getMuseumLabel().getPreferredSize().height));
         view.getMuseumLabel().revalidate();
     }
-    
+
     /**
-     * guessedRight: si el boton pulsado es el correcto aparecera un 
+     * guessedRight: si el boton pulsado es el correcto aparecera un
      * {@link ResultDialog} con el texto "Correcto".
-     * 
+     *
      * @see ResultDialog
      */
     private void guessedRight(JButton button) {
@@ -268,11 +272,11 @@ public class MuseumsTFController implements ActionListener, GameControllers {
         rd.initTimer();
         rd.setVisible(true);
     }
-    
+
     /**
-     * guessedWrong: si el boton pulsado es el incorrecto aparecera un 
-     * {@link ResultDialog}  con el texto "Incorrecto".
-     * 
+     * guessedWrong: si el boton pulsado es el incorrecto aparecera un
+     * {@link ResultDialog} con el texto "Incorrecto".
+     *
      * @see ResultDialog
      */
     private void guessedWrong(JButton button) {
@@ -289,11 +293,11 @@ public class MuseumsTFController implements ActionListener, GameControllers {
     }
 
     /**
-     * actionPerformed: cuando se presiona uno de los botones, si coincide con 
+     * actionPerformed: cuando se presiona uno de los botones, si coincide con
      * la solucion mostrara un mensaje correcto y si no mostrara uno incorrecto.
-     * El metodo para deducir cual es ccrrecto es comprobar si ese museo existe 
+     * El metodo para deducir cual es ccrrecto es comprobar si ese museo existe
      * en la base de datos, es decir, que su id sea mayor o igual que 1.
-     * 
+     *
      * @param ActionEvent
      */
     @Override
@@ -314,6 +318,7 @@ public class MuseumsTFController implements ActionListener, GameControllers {
             }
         }
         counter++;
+        updateRound();
         //llama a initGame si no se ha llegado a 10 intentos, si se ha llegado dependiendo del modo se llamara al siguiente juego o al menu
         if (counter < 10) {
             initGame();
@@ -329,7 +334,14 @@ public class MuseumsTFController implements ActionListener, GameControllers {
     }
 
     /**
-     * launch: metodo que se implemente de {@link GameControllers}. En este 
+     * updateRound: actualiza en la ventana el contador de rondas.
+     */
+    private void updateRound() {
+        view.getRoundText().setText("RONDAS: " + (counter + 1) + "/10");
+    }
+
+    /**
+     * launch: metodo que se implemente de {@link GameControllers}. En este
      * metodo se lanza el juego y se pone visible la ventana
      */
     @Override
