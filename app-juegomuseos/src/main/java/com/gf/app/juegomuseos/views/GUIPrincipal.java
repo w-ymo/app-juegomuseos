@@ -16,8 +16,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -87,9 +87,8 @@ public class GUIPrincipal extends javax.swing.JFrame {
      */
     private void setLogo() {
         logoPanel = new JPanel(new BorderLayout());
-        logoPanel.setPreferredSize(new Dimension(300, 300));
-        labelLogo = new JLabel("Juego de los Museos");
-        labelLogo.setFont(this.getFont().deriveFont(Font.BOLD, 75f));
+        labelLogo = new JLabel(new ImageIcon(".\\src\\main\\java\\com\\gf\\app\\juegomuseos\\resources\\GameLogo.png"));
+        logoPanel.setPreferredSize(new Dimension(600, 500));
         labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
         logoPanel.add(labelLogo, BorderLayout.CENTER);
         this.getContentPane().add(logoPanel, BorderLayout.NORTH);

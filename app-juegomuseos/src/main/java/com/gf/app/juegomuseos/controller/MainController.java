@@ -108,6 +108,8 @@ public class MainController implements GameControllers {
         if (GameData.isValid() && Music.isValid() && ConnectionDB.isValid()) {
             launch();
             Music.start();
+        } else {
+            System.exit(0);
         }
     }
 
