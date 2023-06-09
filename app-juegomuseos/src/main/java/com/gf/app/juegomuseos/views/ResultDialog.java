@@ -105,7 +105,7 @@ public class ResultDialog extends javax.swing.JDialog {
      */
     private void setLabelStyle() {
         Font parentFont = parent.getFont();
-        solutionText.setFont(parentFont.deriveFont(Font.BOLD, 25f));
+        solutionText.setFont(parentFont.deriveFont(Font.BOLD, 35f));
         msgText.setFont(parentFont.deriveFont(Font.BOLD, 50f));
         solutionText.setHorizontalAlignment(SwingConstants.CENTER);
         msgText.setHorizontalAlignment(SwingConstants.CENTER);
