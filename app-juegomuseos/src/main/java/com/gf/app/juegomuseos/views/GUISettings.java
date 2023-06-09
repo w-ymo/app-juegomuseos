@@ -17,23 +17,33 @@ import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 
 /**
- * GUISettings:
+ * GUISettings: es la ventana del controlador {@link SettingsController} donde
+ * se permite al usuario modificar los ajustes para una experiencia optima.
  *
  * @author priparno
+ * @author fercaslu
  */
 public class GUISettings extends javax.swing.JDialog {
 
+    /**
+     * panelOptions: panel que muestra las distintas opciones.
+     */
     private JPanel panelOptions;
-
+    /**
+     * styleButton: boton que cambiara el estilo.
+     */
     private JButton styleButton;
-
+    /**
+     * volumeSlider: barra de volumen.
+     */
     private JSlider volumeSlider;
 
     /**
      * Creates new form GUISettings
      *
-     * @param parent
-     * @param modal
+     * @param parent la vista padre de tipo {@link GUIPrincipal}
+     * @param modal true -> no puede perder el foco, false -> puede perder el
+     * foco
      */
     public GUISettings(GUIPrincipal parent, boolean modal) {
         super(parent, modal);
@@ -41,6 +51,10 @@ public class GUISettings extends javax.swing.JDialog {
         setFrame();
     }
 
+    /**
+     * setFrame: metodo principal de creacion y colocacion de los componentes
+     * para los ajustes de estilo y volumen.
+     */
     private void setFrame() {
         this.setResizable(false);
         this.getContentPane().setLayout(new BorderLayout());
@@ -55,6 +69,10 @@ public class GUISettings extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
     }
 
+    /**
+     * setStylePanel: coloca y crea los componentes necesarios para los ajustes
+     * de estilo.
+     */
     private void setStylePanel() {
         styleButton = new JButton(GameData.getInfoStyle()[0]);
         JLabel styleLabel = new JLabel("AJUSTES DE ESTILO");
@@ -64,6 +82,10 @@ public class GUISettings extends javax.swing.JDialog {
         panelOptions.add(styleButton);
     }
 
+    /**
+     * setVolumePanel: coloca y crea los componentes necesarios para los ajustes
+     * de volumen.
+     */
     private void setVolumePanel() {
         volumeSlider = new JSlider(-80, 6, (int) Float.parseFloat(GameData.getInfoVolume()[1]));
         volumeSlider.setPaintTrack(true);
@@ -74,10 +96,22 @@ public class GUISettings extends javax.swing.JDialog {
         panelOptions.add(volumeSlider);
     }
 
+    /**
+     * getVolumeSlider: devuelve un {@link JSlider} que sera la barra de
+     * volumen.
+     *
+     * @return un {@link JSlider}
+     */
     public JSlider getVolumeSlider() {
         return volumeSlider;
     }
-    
+
+    /**
+     * getStyleButton: devuelve un {@link JButton} que modificara el estilo de
+     * la ventana.
+     *
+     * @return un {@link JButton}
+     */
     public JButton getStyleButton() {
         return styleButton;
     }

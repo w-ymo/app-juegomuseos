@@ -5,27 +5,40 @@
 package com.gf.app.juegomuseos.views;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
+ * VisualizeImage: permite ver en una pantalla separada la imagen y la
+ * informacion de la misma.
  *
  * @author priparno
  * @author fercaslu
  */
 public class VisualizeImage extends javax.swing.JDialog {
 
+    /**
+     * image: etiqueta donde se mostrara la imagen.
+     */
     private JLabel image;
-    private JLabel name;
+    /**
+     * artwork: etiqueta donde se mostrara el nombre de la obra. 
+     */
+    private JLabel artwork;
+    /**
+     * author: etiqueta donde se mostrara el nombre del autor.
+     */
     private JLabel author;
 
     /**
      * Creates new form VisualizeImage
      *
-     * @param parent
-     * @param modal
+     * @param parent una vista
+     * @param modal true -> no puede perder el foco, false -> puede perder el
+     * foco
      */
     public VisualizeImage(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -33,6 +46,9 @@ public class VisualizeImage extends javax.swing.JDialog {
         setFrame();
     }
 
+    /**
+     * setFrame: es el metodo principal que coloca las etiquetas.
+     */
     private void setFrame() {
         this.getContentPane().setLayout(new BorderLayout());
         image = new JLabel();
@@ -40,17 +56,45 @@ public class VisualizeImage extends javax.swing.JDialog {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         JPanel info = new JPanel(new GridLayout(2, 0));
-        name = new JLabel();
-        name.setHorizontalAlignment(SwingConstants.CENTER);
-        info.add(name);
+        artwork = new JLabel();
+        artwork.setHorizontalAlignment(SwingConstants.CENTER);
+        artwork.setFont(this.getFont().deriveFont(Font.BOLD, 25f));
+        info.add(artwork);
         author = new JLabel();
         author.setHorizontalAlignment(SwingConstants.CENTER);
+        author.setFont(this.getFont().deriveFont(Font.BOLD, 25f));
         info.add(author);
         this.getContentPane().add(info, BorderLayout.SOUTH);
     }
 
+    //GETTER/SETTER
+    /**
+     * getImage: devuelve un {@link JLabel} que es donde se colocara la imagen.
+     *
+     * @return un {@link JLabel}
+     */
     public JLabel getImage() {
         return image;
+    }
+
+    /**
+     * getArtwork: devuelve un {@link JLabel} que es donde se colocara el nombre
+     * de la obra.
+     *
+     * @return un {@link JLabel}
+     */
+    public JLabel getArtwork() {
+        return artwork;
+    }
+
+    /**
+     * getAuthor: devuelve un {@link JLabel} que es donde se colocara el nombre
+     * del autor.
+     *
+     * @return un {@link JLabel}
+     */
+    public JLabel getAuthor() {
+        return author;
     }
 
     /**

@@ -1,4 +1,4 @@
 #AppSettings
 Modo claro%com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme
 #Volume
-Volume%-15
+Volume%-20

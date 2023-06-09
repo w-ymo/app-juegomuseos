@@ -5,30 +5,43 @@
 package com.gf.app.juegomuseos.views;
 
 import com.gf.app.juegomuseos.utils.Colors;
+import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Toolkit;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 /**
+ * ResultDialog: es una ventana que muestra un mensaje de "CORRECTO" o
+ * "INCORRECTO" dependiendo de si acierta o falla la pregunta. Este aparece
+ * durante 1 segundo.
  *
  * @author priparno
  */
 public class ResultDialog extends javax.swing.JDialog {
 
+    /**
+     * msgText: es la etiqueta que contendra el texto dependiendo de si es
+     * correcto o no.
+     */
     private JLabel msgText;
+    /**
+     * parent: es la vista padre, desde donde se llama.
+     */
     private JFrame parent;
+    /**
+     * windowSize: el tamanio de la ventana, relativo al tamanio de la pantalla.
+     */
     private Dimension windowSize;
 
     /**
      * Creates new form ResultDialog
-     * 
-     * @param parent
-     * @param correct
+     *
+     * @param parent una vista
+     * @param correct true -> imprime correcto, false -> imprime incorrecto
      */
     public ResultDialog(JFrame parent, boolean correct) {
         this.setUndecorated(true);
@@ -45,10 +58,13 @@ public class ResultDialog extends javax.swing.JDialog {
         }
     }
 
+    /**
+     * setFrame: es el metodo principal que coloca en la vista la etiqueta con
+     * el texto.
+     */
     private void setFrame() {
         this.setResizable(false);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        windowSize = new Dimension((int) (screenSize.width * 0.5), (int) (screenSize.height * 0.3));
+        windowSize = new Dimension((int) (GameConstants.SCREEN_SIZE.width * 0.5), (int) (GameConstants.SCREEN_SIZE.height * 0.3));
         this.setSize(windowSize);
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(msgText, BorderLayout.CENTER);
@@ -56,21 +72,34 @@ public class ResultDialog extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
     }
 
+    /**
+     * setCorrect: da valor a la etiqueta y color al fondo. Texto: CORRECTO.
+     */
     private void setCorrect() {
         msgText.setText("Correcto");
         this.getContentPane().setBackground(Colors.GREEN);
     }
 
+    /**
+     * setIncorrect: da valor a la etiqueta y color al fondo. Texto: INCORRECTO.
+     */
     private void setIncorrect() {
-        msgText.setText("Incorrecto");
+        msgText.setText("Incorrecto (+ 5s)");
         this.getContentPane().setBackground(Colors.RED);
     }
 
+    /**
+     * setLabelStyle: da estilo a las etiquetas.
+     */
     private void setLabelStyle() {
         Font parentFont = parent.getFont();
         msgText.setFont(parentFont.deriveFont(Font.BOLD, 50f));
     }
 
+    /**
+     * initTimer: inicia un cronometro en el que en 1 segundo despues de que se
+     * inicie se cierra el dialogo.
+     */
     public void initTimer() {
         JDialog pane = this;
         Thread t = new Thread(() -> {
