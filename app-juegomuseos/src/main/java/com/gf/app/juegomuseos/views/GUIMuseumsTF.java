@@ -30,7 +30,7 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
     /**
      * museumPanel: panel que contiene la etiqueta con el nombre del museo.
      */
-    private JPanel museumPanel;W
+    private JPanel museumPanel;
     
     /**
      * buttonsPanel: panel que contiene los dos botones con "Existe" y "No Existe"
