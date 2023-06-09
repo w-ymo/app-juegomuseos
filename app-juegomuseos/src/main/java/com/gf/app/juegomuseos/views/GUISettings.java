@@ -75,6 +75,7 @@ public class GUISettings extends javax.swing.JDialog {
      */
     private void setStylePanel() {
         styleButton = new JButton(GameData.getInfoStyle()[0]);
+        styleButton.setFont(this.getFont().deriveFont(Font.BOLD, 15f));
         JLabel styleLabel = new JLabel("AJUSTES DE ESTILO");
         styleLabel.setFont(this.getFont().deriveFont(Font.BOLD, 22f));
         styleLabel.setHorizontalAlignment(SwingConstants.CENTER);
