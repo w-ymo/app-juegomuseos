@@ -8,16 +8,18 @@ import com.gf.app.juegomuseos.utils.Colors;
 import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
  * ResultDialog: es una ventana que muestra un mensaje de "CORRECTO" o
  * "INCORRECTO" dependiendo de si acierta o falla la pregunta. Este aparece
- * durante 1 segundo.
+ * durante 3 segundos.
  *
  * @author priparno
  */
@@ -28,6 +30,12 @@ public class ResultDialog extends javax.swing.JDialog {
      * correcto o no.
      */
     private JLabel msgText;
+    
+    /**
+     * solutionText: es la etiqueta que contendra el texto con la solucion si es
+     * incorrecto.
+     */
+    private JLabel solutionText;
     /**
      * parent: es la vista padre, desde donde se llama.
      */
@@ -43,12 +51,14 @@ public class ResultDialog extends javax.swing.JDialog {
      * @param parent una vista
      * @param correct true -> imprime correcto, false -> imprime incorrecto
      */
-    public ResultDialog(JFrame parent, boolean correct) {
+    public ResultDialog(JFrame parent, boolean correct, String solution) {
         this.setUndecorated(true);
         this.setModal(true);
         this.parent = parent;
         initComponents();
         msgText = new JLabel();
+        solutionText = new JLabel();
+        solutionText.setText(solution);
         setFrame();
         setLabelStyle();
         if (correct) {
@@ -68,7 +78,6 @@ public class ResultDialog extends javax.swing.JDialog {
         this.setSize(windowSize);
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(msgText, BorderLayout.CENTER);
-        msgText.setHorizontalAlignment(SwingConstants.CENTER);
         this.setLocationRelativeTo(null);
     }
 
@@ -85,6 +94,9 @@ public class ResultDialog extends javax.swing.JDialog {
      */
     private void setIncorrect() {
         msgText.setText("Incorrecto (+ 5s)");
+        JPanel tempPanel = new JPanel(new FlowLayout());
+        tempPanel.add(solutionText);
+        this.getContentPane().add(tempPanel, BorderLayout.SOUTH);
         this.getContentPane().setBackground(Colors.RED);
     }
 
@@ -93,18 +105,21 @@ public class ResultDialog extends javax.swing.JDialog {
      */
     private void setLabelStyle() {
         Font parentFont = parent.getFont();
+        solutionText.setFont(parentFont.deriveFont(Font.BOLD, 25f));
         msgText.setFont(parentFont.deriveFont(Font.BOLD, 50f));
+        solutionText.setHorizontalAlignment(SwingConstants.CENTER);
+        msgText.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
     /**
-     * initTimer: inicia un cronometro en el que en 1 segundo despues de que se
+     * initTimer: inicia un cronometro en el que en 3 segundos despues de que se
      * inicie se cierra el dialogo.
      */
     public void initTimer() {
         JDialog pane = this;
         Thread t = new Thread(() -> {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 System.err.println("Se ha interrumpido la operacion.");
             }

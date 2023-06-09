@@ -62,6 +62,10 @@ public class GUIMap extends javax.swing.JFrame {
      * textTime: es la {@link JLabel} que contendra el cronometro.
      */
     private JLabel textTime;
+    /**
+     * roundText: es la {@link JLabel} que contendra el numero de rondas.
+     */
+    private JLabel roundText;
 
     /**
      * artworkImage: es la etiqueta que contendra la imagen de la obra.
@@ -113,6 +117,9 @@ public class GUIMap extends javax.swing.JFrame {
     private void setTimePanel() {
         chronoPanel = new JPanel(new FlowLayout());
         textTime = new JLabel();
+        roundText = new JLabel();
+        roundText.setFont(textTime.getFont().deriveFont(Font.BOLD, 20f));
+        chronoPanel.add(roundText);
         chronoPanel.add(textTime);
         this.getContentPane().add(chronoPanel, BorderLayout.NORTH);
     }
@@ -133,7 +140,7 @@ public class GUIMap extends javax.swing.JFrame {
         artworkLabel.setFont(font1);
         authorLabel.setFont(font1);
         confirmButton.setFont(font2);
-  
+
         artworkLabel.setPreferredSize(new Dimension(artworkImage.getSize().width, (int) (GameConstants.SCREEN_SIZE.height * 0.33)));
         authorLabel.setPreferredSize(new Dimension(artworkImage.getSize().width, (int) (GameConstants.SCREEN_SIZE.height * 0.33)));
         artworkLabel.setHorizontalAlignment((int) CENTER_ALIGNMENT);
@@ -177,6 +184,15 @@ public class GUIMap extends javax.swing.JFrame {
      */
     public JLabel getTextTime() {
         return textTime;
+    }
+
+    /**
+     * getRoundText: devuelve el {@link JLabel} de las rondas.
+     *
+     * @return un {@link JLabel}
+     */
+    public JLabel getRoundText() {
+        return roundText;
     }
 
     /**

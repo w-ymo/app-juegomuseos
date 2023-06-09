@@ -54,6 +54,10 @@ public class GUIWhoIs extends javax.swing.JFrame {
      * textTime: es la {@link JLabel} que contendra el cronometro.
      */
     private JLabel textTime;
+    /**
+     * roundText: es la {@link JLabel} que contendra el numero de rondas.
+     */
+    private JLabel roundText;
 
     /**
      * Creates new form GUIWhoIs
@@ -80,8 +84,11 @@ public class GUIWhoIs extends javax.swing.JFrame {
      * setTimePanel: panel que situa el cronometro.
      */
     private void setTimePanel() {
-        JPanel extra = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel extra = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 0));
         textTime = new JLabel();
+        roundText = new JLabel();
+        roundText.setFont(textTime.getFont().deriveFont(Font.BOLD, 20f));
+        extra.add(roundText);
         extra.add(textTime);
         this.getContentPane().add(extra, BorderLayout.NORTH);
     }
@@ -179,6 +186,15 @@ public class GUIWhoIs extends javax.swing.JFrame {
      */
     public JLabel getTextTime() {
         return textTime;
+    }
+
+    /**
+     * getRoundText: devuelve el {@link JLabel} de las rondas.
+     *
+     * @return un {@link JLabel}
+     */
+    public JLabel getRoundText() {
+        return roundText;
     }
 
     /**

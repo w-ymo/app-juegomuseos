@@ -6,6 +6,7 @@ package com.gf.app.juegomuseos.views;
 
 import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.GridLayout;
@@ -45,7 +46,11 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
      * textTime: es la {@link JLabel} que contendra el cronometro.
      */
     private JLabel textTime;
-
+    /**
+     * roundText: es la {@link JLabel} que contendra el numero de rondas.
+     */
+    private JLabel roundText;
+    
     /**
      * Creates new form GUIGregorioFernandez
      */
@@ -75,11 +80,16 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
         this.getContentPane().add(titlePanel, BorderLayout.NORTH);
         JLabel title = new JLabel("SELECCIONA LA IMAGEN QUE PERTENECE A GREGORIO FERNÁNDEZ");
         textTime = new JLabel();
+        roundText = new JLabel();
+        roundText.setFont(textTime.getFont().deriveFont(Font.BOLD, 20f));
         textTime.setHorizontalAlignment(SwingConstants.RIGHT);
-        title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+        title.setFont(this.getFont().deriveFont(Font.BOLD, 24f));
         title.setHorizontalAlignment(SwingConstants.CENTER);
         titlePanel.add(title, BorderLayout.CENTER);
-        titlePanel.add(textTime, BorderLayout.EAST);
+        JPanel extra = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
+        extra.add(roundText);
+        extra.add(textTime);
+        titlePanel.add(extra, BorderLayout.EAST);
     }
 
     /**
@@ -136,6 +146,15 @@ public class GUIGregorioFernandez extends javax.swing.JFrame {
         return textTime;
     }
 
+    /**
+     * getRoundText: devuelve el {@link JLabel} de las rondas.
+     * 
+     * @return un {@link JLabel}
+     */ 
+    public JLabel getRoundText() {
+        return roundText;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

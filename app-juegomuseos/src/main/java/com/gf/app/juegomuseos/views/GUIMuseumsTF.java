@@ -17,12 +17,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
- * GUIMuseumsTF: vista del controlador {@link MuseumsTFController}
- * donde se muestra un museo y dos botones. El objetivo es acertar que museo
- * existe y cual no existe.
+ * GUIMuseumsTF: vista del controlador {@link MuseumsTFController} donde se
+ * muestra un museo y dos botones. El objetivo es acertar que museo existe y
+ * cual no existe.
  *
  * @see MuseumsTFController
- * 
+ *
  * @author fercaslu
  */
 public class GUIMuseumsTF extends javax.swing.JFrame {
@@ -31,9 +31,10 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
      * museumPanel: panel que contiene la etiqueta con el nombre del museo.
      */
     private JPanel museumPanel;
-    
+
     /**
-     * buttonsPanel: panel que contiene los dos botones con "Existe" y "No Existe"
+     * buttonsPanel: panel que contiene los dos botones con "Existe" y "No
+     * Existe"
      */
     private JPanel buttonsPanel;
 
@@ -46,7 +47,7 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
      * existButton: es el {@link JButton} que sacara que el museo existe.
      */
     private JButton existButton;
-    
+
     /**
      * notExistButton: es el {@link JButton} que sacara que el museo no existe.
      */
@@ -56,6 +57,10 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
      * textTime: es la {@link JLabel} que contendra el cronometro.
      */
     private JLabel textTime;
+    /**
+     * roundText: es la {@link JLabel} que contendra el numero de rondas.
+     */
+    private JLabel roundText;
 
     /**
      * Creates new form GUIVFMuseos
@@ -85,11 +90,14 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
         JPanel extra = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         this.getContentPane().add(extra, BorderLayout.NORTH);
         textTime = new JLabel();
+        roundText = new JLabel();
+        roundText.setFont(textTime.getFont().deriveFont(Font.BOLD, 20f));
+        extra.add(roundText);
         extra.add(textTime);
     }
 
     /**
-     * setMuseumPanel: coloca la etiqueta donde estara el nombre del museo y la 
+     * setMuseumPanel: coloca la etiqueta donde estara el nombre del museo y la
      * formatea.
      */
     private void setMuseumPanel() {
@@ -126,7 +134,7 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
 
     //GETTER/SETTER
     /**
-     * getMuseumLabel: devuelve un {@link JLabel} donde se situa el nombre del 
+     * getMuseumLabel: devuelve un {@link JLabel} donde se situa el nombre del
      * museo.
      *
      * @return un {@link JLabel}
@@ -159,11 +167,20 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
      * getTextTime: devuelve el {@link JLabel} del cronometro.
      *
      * @see Crono
-     * 
+     *
      * @return un {@link JLabel}
      */
     public JLabel getTextTime() {
         return textTime;
+    }
+
+    /**
+     * getRoundText: devuelve el {@link JLabel} de las rondas.
+     *
+     * @return un {@link JLabel}
+     */
+    public JLabel getRoundText() {
+        return roundText;
     }
 
     /**
