@@ -16,8 +16,6 @@ import com.gf.app.juegomuseos.views.GUISelectGame;
 import com.gf.app.juegomuseos.views.GUISettings;
 import com.gf.app.juegomuseos.views.GUIWhoIs;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -95,13 +93,6 @@ public class MainController implements GameControllers {
         }
     };
 
-    private KeyAdapter listenerKeyboard = new KeyAdapter() {
-        @Override
-        public void keyPressed(KeyEvent e) {
-            System.out.println(e.getKeyCode());
-        }
-    };
-
     /**
      * MainController: es el constructor del controlador. Para que funcione
      * correctamente, necesita la vista principal. En el controlador además se
@@ -130,7 +121,6 @@ public class MainController implements GameControllers {
         for (JButton option : view.getOptions()) {
             option.addActionListener(listenerButtons);
         }
-        this.getView().addKeyListener(listenerKeyboard);
     }
 
     //GETTER/SETTER

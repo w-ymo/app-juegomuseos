@@ -97,6 +97,7 @@ public class ResultDialog extends javax.swing.JDialog {
         JPanel tempPanel = new JPanel(new FlowLayout());
         tempPanel.add(solutionText);
         this.getContentPane().add(tempPanel, BorderLayout.SOUTH);
+        tempPanel.setBackground(Colors.RED);
         this.getContentPane().setBackground(Colors.RED);
     }
 

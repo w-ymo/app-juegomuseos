@@ -115,7 +115,7 @@ public class GUIMap extends javax.swing.JFrame {
      * setTimePanel: panel que situa el cronometro.
      */
     private void setTimePanel() {
-        chronoPanel = new JPanel(new FlowLayout());
+        chronoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
         textTime = new JLabel();
         roundText = new JLabel();
         roundText.setFont(textTime.getFont().deriveFont(Font.BOLD, 20f));

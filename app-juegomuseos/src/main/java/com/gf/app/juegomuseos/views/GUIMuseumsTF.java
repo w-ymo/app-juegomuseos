@@ -87,7 +87,7 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
      * setTimePanel: panel que situa el cronometro.
      */
     private void setTimePanel() {
-        JPanel extra = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel extra = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 0));
         this.getContentPane().add(extra, BorderLayout.NORTH);
         textTime = new JLabel();
         roundText = new JLabel();

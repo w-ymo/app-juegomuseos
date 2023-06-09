@@ -8,6 +8,8 @@ import com.gf.app.juegomuseos.dao.RankingDAO;
 import com.gf.app.juegomuseos.models.Ranking;
 import com.gf.app.juegomuseos.views.GUIInputRanking;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -65,6 +67,16 @@ public class InputRankingController implements GameControllers {
         }
     };
 
+    private KeyAdapter listenerConfirmKey = new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                view.getConfirmButton().doClick();
+            }
+        }
+
+    };
+
     //CONSTRUCTOR
     /**
      * InputRankingController: es el constructor del controlador. Para que
@@ -95,6 +107,7 @@ public class InputRankingController implements GameControllers {
      */
     private void addListeners() {
         view.getConfirmButton().addActionListener(listenerButtons);
+        view.getFieldName().addKeyListener(listenerConfirmKey);
     }
 
     /**
