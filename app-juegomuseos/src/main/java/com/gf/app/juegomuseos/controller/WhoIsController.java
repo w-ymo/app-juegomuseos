@@ -120,6 +120,7 @@ public class WhoIsController implements GameControllers {
                 fails++;
             }
             counter++;
+            updateRound();
             //se repite el juego hasta que pasen 10 rondas.
             if (counter < 10) {
                 initGame();
@@ -233,6 +234,7 @@ public class WhoIsController implements GameControllers {
      */
     private void initGame() {
         try {
+            updateRound();
             //ordena la lista
             Collections.sort(repeatedDB);
             //busca en la base de datos hasta que consiga uno que no haya salido.
@@ -285,6 +287,13 @@ public class WhoIsController implements GameControllers {
         //consigue una imagen que mantiene la relacion de aspecto que la original pero ocupa el mayor espacio posible
         Image proportionalImage = ImagesSize.getProportionalDimensionImage(i, view.getPanelImages().getSize(), false);
         view.getImage().setIcon(new ImageIcon(proportionalImage));
+    }
+
+    /**
+     * updateRound: actualiza en la ventana el contador de rondas.
+     */
+    private void updateRound() {
+        view.getRoundText().setText("RONDAS: " + (counter + 1) + "/10");
     }
 
     /**
