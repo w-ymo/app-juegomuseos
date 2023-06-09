@@ -264,7 +264,7 @@ public class MuseumsTFController implements ActionListener, GameControllers {
      * @see ResultDialog
      */
     private void guessedRight(JButton button) {
-        ResultDialog rd = new ResultDialog(view, true);
+        ResultDialog rd = new ResultDialog(view, true, null);
         rd.initTimer();
         rd.setVisible(true);
     }
@@ -282,7 +282,7 @@ public class MuseumsTFController implements ActionListener, GameControllers {
         } else if (button.equals(view.getNotExistButton())) {
             correctButton = view.getExistButton();
         }
-        ResultDialog rd = new ResultDialog(view, false);
+        ResultDialog rd = new ResultDialog(view, false, null);
         rd.initTimer();
         rd.setVisible(true);
         fails++;

@@ -371,7 +371,7 @@ public class MapController implements ActionListener, GameControllers {
      * @see ResultDialog
      */
     private void guessedRight() {
-        ResultDialog rd = new ResultDialog(view, true);
+        ResultDialog rd = new ResultDialog(view, true, null);
         rd.initTimer();
         rd.setVisible(true);
     }
@@ -383,7 +383,7 @@ public class MapController implements ActionListener, GameControllers {
      * @see ResultDialog
      */
     private void guessedWrong() {
-        ResultDialog rd = new ResultDialog(view, false);
+        ResultDialog rd = new ResultDialog(view, false, null);
         rd.initTimer();
         rd.setVisible(true);
         fails++;

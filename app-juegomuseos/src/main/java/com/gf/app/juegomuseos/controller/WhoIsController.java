@@ -110,11 +110,11 @@ public class WhoIsController implements GameControllers {
             Author at = atDAO.selectId(atId);
             //dependiendo de si la solucion es correcta o no, muestra un JDialog por 1 segundo que indica correcto o incorrecto.
             if (but.getText().equals(at.getNombre_autor())) {
-                ResultDialog rd = new ResultDialog(view, true);
+                ResultDialog rd = new ResultDialog(view, true, null);
                 rd.initTimer();
                 rd.setVisible(true);
             } else {
-                ResultDialog rd = new ResultDialog(view, false);
+                ResultDialog rd = new ResultDialog(view, false, solution.getNombre_autor());
                 rd.initTimer();
                 rd.setVisible(true);
                 fails++;

@@ -102,11 +102,11 @@ public class GregFernandezController implements GameControllers {
         try {
             //dependiendo de si la solucion es correcta o no, muestra un JDialog por 1 segundo que indica correcto o incorrecto.
             if (but.getName().equals(String.valueOf(atDAO.getIdGregorioFernandez()))) {
-                ResultDialog rd = new ResultDialog(view, true);
+                ResultDialog rd = new ResultDialog(view, true, null);
                 rd.initTimer();
                 rd.setVisible(true);
             } else {
-                ResultDialog rd = new ResultDialog(view, false);
+                ResultDialog rd = new ResultDialog(view, false, null);
                 rd.initTimer();
                 rd.setVisible(true);
                 fails++;
