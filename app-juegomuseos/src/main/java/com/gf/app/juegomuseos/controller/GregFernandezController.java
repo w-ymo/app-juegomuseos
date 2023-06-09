@@ -112,6 +112,7 @@ public class GregFernandezController implements GameControllers {
                 fails++;
             }
             counter++;
+            updateRound();
             //se repite el juego hasta que pasen 5 rondas.
             if (counter < 5) {
                 initGame();
@@ -222,6 +223,7 @@ public class GregFernandezController implements GameControllers {
      */
     private void initGame() {
         try {
+            updateRound();
             solution = gregorioArtwork.get(0);
             //elimina de la lista con todas las obras para no repetir.
             gregorioArtwork.remove(0);
@@ -261,6 +263,13 @@ public class GregFernandezController implements GameControllers {
         Image proportionalImage = ImagesSize.getProportionalDimensionImage(i,
                 new Dimension(GameConstants.SCREEN_SIZE.width / 2, view.getPanelImages().getSize().height), true);
         image.setIcon(new ImageIcon(proportionalImage));
+    }
+    
+    /**
+     * updateRound: actualiza en la ventana el contador de rondas.
+     */
+    private void updateRound() {
+        view.getRoundText().setText("RONDAS: " + (counter + 1) + "/5");
     }
 
     /**
