@@ -78,6 +78,11 @@ public class Music {
         }
     }
 
+    /**
+     * isValid: si 
+     * 
+     * @return 
+     */
     public static boolean isValid() {
         if (MUSIC.exists()) {
             return MUSIC.length() > 0;
