@@ -26,8 +26,8 @@ public class CountryExtractor {
      * longitud de forma decimal y utilizando Nominatim de OpenStreetMap se extrae
      * el nombre del pais al que pertenecen dichas coordenadas.
      * 
-     * @param latitude 
-     * @param longitude  
+     * @param latitude un decimal
+     * @param longitude un decimal
      */
     public static String getCountryName(double latitude, double longitude) {
         if (longitude > 180) {

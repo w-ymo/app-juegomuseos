@@ -8,8 +8,10 @@ import com.gf.app.juegomuseos.controller.MainController;
 import com.gf.app.juegomuseos.views.GUIPrincipal;
 
 /**
- *
+ * AppJuegomuseos: clase que contiene el main y lanza la aplicacion.
+ * 
  * @author priparno
+ * @author fercaslu
  */
 public class AppJuegomuseos {
 
