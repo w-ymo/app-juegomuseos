@@ -79,9 +79,10 @@ public class Music {
     }
 
     /**
-     * isValid: si 
-     * 
-     * @return 
+     * isValid: si no existe el archivo o esta corrupto no deja correr la
+     * aplicacion.
+     *
+     * @return true -> el archivo es valido, false -> el archivo no es valido
      */
     public static boolean isValid() {
         if (MUSIC.exists()) {
