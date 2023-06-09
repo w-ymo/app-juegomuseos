@@ -98,6 +98,7 @@ public class InputRankingController implements GameControllers {
      */
     private void setData() {
         if (parent instanceof MainController parentC) {
+            parentC.getTimer().stop();
             view.getRealTime().setText(parentC.getTimer().getFormattedTime());
             view.getPenalties().setText("+" + (parentC.getFails() * 5) + "s.");
             parentC.getTimer().setTime(parentC.getTimer().getTime() + parentC.getFails());

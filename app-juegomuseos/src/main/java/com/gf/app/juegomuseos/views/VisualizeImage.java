@@ -5,18 +5,27 @@
 package com.gf.app.juegomuseos.views;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  *
- * @author noelp
+ * @author priparno
+ * @author fercaslu
  */
 public class VisualizeImage extends javax.swing.JDialog {
 
     private JLabel image;
+    private JLabel name;
+    private JLabel author;
 
     /**
      * Creates new form VisualizeImage
+     *
+     * @param parent
+     * @param modal
      */
     public VisualizeImage(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -30,14 +39,18 @@ public class VisualizeImage extends javax.swing.JDialog {
         this.getContentPane().add(image);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        JPanel info = new JPanel(new GridLayout(2, 0));
+        name = new JLabel();
+        name.setHorizontalAlignment(SwingConstants.CENTER);
+        info.add(name);
+        author = new JLabel();
+        author.setHorizontalAlignment(SwingConstants.CENTER);
+        info.add(author);
+        this.getContentPane().add(info, BorderLayout.SOUTH);
     }
 
     public JLabel getImage() {
         return image;
-    }
-
-    public void setImage(JLabel image) {
-        this.image = image;
     }
 
     /**
@@ -64,48 +77,6 @@ public class VisualizeImage extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(VisualizeImage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(VisualizeImage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(VisualizeImage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(VisualizeImage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the dialog */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                VisualizeImage dialog = new VisualizeImage(new javax.swing.JFrame(), true);
-//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
-//                dialog.setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

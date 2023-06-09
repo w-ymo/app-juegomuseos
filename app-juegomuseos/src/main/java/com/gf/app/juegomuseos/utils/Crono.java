@@ -63,6 +63,13 @@ public class Crono {
         DecimalFormat df = new DecimalFormat("00");
         return df.format(min) + ":" + df.format(sec);
     }
+    
+    /**
+     * stop: para el timer.
+     */
+    public void stop(){
+        timer.stop();
+    }
 
     //GETTER/SETTER
     /**
