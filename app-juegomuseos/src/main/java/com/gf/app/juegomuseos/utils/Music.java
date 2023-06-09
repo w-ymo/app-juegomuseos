@@ -51,7 +51,7 @@ public class Music {
             clip.start();
             setVolume(GameData.VOLUME);
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-            System.err.println("Error de archivo de audio. Revise 'resources'");
+            JOptionPane.showMessageDialog(null, "Error de archivo de audio. Revise 'resources'", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
