@@ -32,44 +32,44 @@ public class Artwork {
     private String descripcion_obra;
 
     /**
-     * id_obra: entero que representa el atributo del id de la tabla obras de la
-     * base de datos.
+     * clave_obra: cadena de caracteres que representa el atributo de la
+     * clave de la obra en la tabla obras de la base de datos.
      */
     private String clave_obra;
 
     /**
-     * id_obra: entero que representa el atributo del id de la tabla obras de la
-     * base de datos.
+     * disciplina: cadena de caracteres que representa el atributo de la
+     * disciplina de la obra en la tabla obras de la base de datos.
      */
     private String disciplina;
 
     /**
-     * id_obra: entero que representa el atributo del id de la tabla obras de la
-     * base de datos.
+     * imagen_obra: cadena de caracteres que representa la url de la imagen de
+     * la obra en la tabla obras de la base de datos.
      */
     private String imagen_obra;
 
     /**
-     * id_obra: entero que representa el atributo del id de la tabla obras de la
-     * base de datos.
+     * id_museo: entero que representa el atributo del id del museo al que 
+     * pertenece la obra de la tabla obras de la base de datos.
      */
     private int id_museo;
 
     /**
-     * id_obra: entero que representa el atributo del id de la tabla obras de la
-     * base de datos.
+     * id_autor: entero que representa el atributo del id del autor que ha creado
+     * la obra de la tabla obras de la base de datos.
      */
     private int id_autor;
 
     /**
-     * id_obra: entero que representa el atributo del id de la tabla obras de la
-     * base de datos.
+     * longitud: decimal que representa el atributo de la longitud de la coordenadas
+     * de la obra de la tabla obras de la base de datos.
      */
     private double longitud;
 
     /**
-     * id_obra: entero que representa el atributo del id de la tabla obras de la
-     * base de datos.
+     * latitud: decimal que representa el atributo de la latitud de la coordenadas
+     * de la obra de la tabla obras de la base de datos.
      */
     private double latitud;
 
@@ -77,17 +77,17 @@ public class Artwork {
     /**
      * getId_obra: devuelve un entero que representa el id de la obra.
      *
-     * @return id_obra
+     * @return id_obra un entero
      */
     public int getId_obra() {
         return id_obra;
     }
 
     /**
-     * setId_obra: actualiza el entero que representa id de la obra con el
+     * setId_obra: actualiza el entero que representa el id de la obra con el
      * pasado como parameto.
      *
-     * @param id_obra
+     * @param id_obra un entero
      */
     public void setId_obra(int id_obra) {
         this.id_obra = id_obra;
@@ -197,7 +197,8 @@ public class Artwork {
     }
 
     /**
-     * getId_museo: devuelve un entero que representa el entero
+     * getId_museo: devuelve un entero que representa el museo en el que esta 
+     * ubicada la obra.
      *
      * @return id_museo un entero
      */
@@ -215,6 +216,11 @@ public class Artwork {
         this.id_museo = id_museo;
     }
 
+    /**
+     * getId_museo: devuelve un entero que representa el id del autor de la obra.
+     * 
+     * @return id_autor un entero
+     */
     public int getId_autor() {
         return id_autor;
     }
@@ -269,6 +275,11 @@ public class Artwork {
         this.latitud = latitud;
     }
 
+    /**
+     * toString
+     * 
+     * @return toString una cadena de caracteres
+     */
     @Override
     public String toString() {
         return "Artwork{" + "id_obra=" + id_obra + ", nombre_obra=" + nombre_obra + ", descripcion_obra=" + descripcion_obra + ", disciplina=" + disciplina + ", id_museo=" + id_museo + ", id_autor=" + id_autor + '}';
