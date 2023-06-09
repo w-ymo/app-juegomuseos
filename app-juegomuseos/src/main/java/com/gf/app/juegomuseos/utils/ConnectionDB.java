@@ -7,6 +7,7 @@ package com.gf.app.juegomuseos.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  * ConnectionDB: clase que permite la conexion con la base de datos.
@@ -46,5 +47,22 @@ public class ConnectionDB {
     public static Connection getConnection() throws SQLException {
         con = DriverManager.getConnection(URL, USER, PASSWD);
         return con;
+    }
+
+    /**
+     * isValid:
+     * 
+     * @return 
+     */
+    public static boolean isValid() {
+        try {
+            getConnection();
+            if (con != null) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
     }
 }

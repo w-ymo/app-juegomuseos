@@ -106,7 +106,7 @@ public class ResultDialog extends javax.swing.JDialog {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                System.out.println("Error");
+                System.err.println("Se ha interrumpido la operacion.");
             }
             pane.dispose();
         });

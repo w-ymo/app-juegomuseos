@@ -57,10 +57,8 @@ public class CountryExtractor {
             inputStream.close();
             conn.disconnect();
             return countryName;
-            
         } catch (IOException e) {
-            e.printStackTrace();
-
+            System.err.println("Error de entrada salida.");
         }
         return null;
     }
