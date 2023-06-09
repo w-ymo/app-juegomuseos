@@ -26,12 +26,16 @@ public class ImagesSize {
      * colocara la imagen
      * @return una imagen reescalada de tipo {@link Image}
      */
-    public static Image getProportionalDimensionImage(ImageIcon i, Dimension gapSize) {
+    public static Image getProportionalDimensionImage(ImageIcon i, Dimension gapSize, boolean isGregorio) {
         int x = i.getIconWidth();
         int y = i.getIconHeight();
         Dimension newDimension = new Dimension();
-        if (x > y) {
-            newDimension.setSize(gapSize.getWidth(), (int) (gapSize.getWidth() * y / x));
+        if (isGregorio) {
+            if (x > y) {
+                newDimension.setSize(gapSize.getWidth(), (int) (gapSize.getWidth() * y / x));
+            } else {
+                newDimension.setSize((int) (gapSize.getHeight() * x / y), gapSize.getHeight());
+            }
         } else {
             newDimension.setSize((int) (gapSize.getHeight() * x / y), gapSize.getHeight());
         }

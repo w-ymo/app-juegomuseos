@@ -11,24 +11,18 @@ import com.gf.app.juegomuseos.models.Author;
 import com.gf.app.juegomuseos.utils.Crono;
 import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.utils.ImagesSize;
-import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
 import com.gf.app.juegomuseos.views.GUIMuseumsTF;
 import com.gf.app.juegomuseos.views.GUIWhoIs;
 import com.gf.app.juegomuseos.views.ResultDialog;
-import com.gf.app.juegomuseos.views.VisualizeImage;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -145,32 +139,6 @@ public class WhoIsController implements GameControllers {
         }
     };
 
-    /**
-     * mouseAdapter: es el escuchador de ratón. En este caso muestra en una
-     * ventana separada la imagen que se puede ver la imagen mostrada.
-     */
-    private MouseAdapter mouseAdapter = new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() == 2) {
-                //creo la ventana.
-                VisualizeImage vi = new VisualizeImage(view, true);
-                ImageIcon i = null;
-                try {
-                    i = new ImageIcon(new URL(imageSelected.getImagen_obra()));
-                } catch (MalformedURLException ex) {
-                    Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                //le pongo la imagen escalada proporcionalmente.
-                vi.getImage().setIcon(new ImageIcon(ImagesSize.getProportionalDimensionImage(i, new Dimension((int) (GameConstants.SCREEN_SIZE.width * 0.9), (int) (GameConstants.SCREEN_SIZE.height * 0.8)))));
-                vi.getContentPane().setPreferredSize(vi.getImage().getPreferredSize());
-                vi.pack();
-                //muestro la ventana.
-                vi.setVisible(true);
-            }
-        }
-    };
-
     //CONSTRUCTOR
     /**
      * WhoIsController: es el constructor del controlador. Para que funcione
@@ -258,7 +226,6 @@ public class WhoIsController implements GameControllers {
         for (JButton option : view.getOptions()) {
             option.addActionListener(listenerButtons);
         }
-        view.getImage().addMouseListener(mouseAdapter);
     }
 
     /**
@@ -276,7 +243,7 @@ public class WhoIsController implements GameControllers {
                         repeatedDB.add(imageSelected.getId_obra());
                     }
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    System.out.println("Error al acceder a la base de datos");
                 }
             } while (Collections.binarySearch(repeatedDB, imageSelected.getId_obra()) >= 0);
             //actualiza en la vista los datos de la obra.
@@ -316,7 +283,7 @@ public class WhoIsController implements GameControllers {
             System.out.println("Error");
         }
         //consigue una imagen que mantiene la relacion de aspecto que la original pero ocupa el mayor espacio posible
-        Image proportionalImage = ImagesSize.getProportionalDimensionImage(i, view.getPanelImages().getSize());
+        Image proportionalImage = ImagesSize.getProportionalDimensionImage(i, view.getPanelImages().getSize(), false);
         view.getImage().setIcon(new ImageIcon(proportionalImage));
     }
 

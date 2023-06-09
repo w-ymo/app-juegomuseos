@@ -45,9 +45,10 @@ import org.jxmapviewer.viewer.WaypointPainter;
 
 /**
  * MapController: es el controlador de la ventana {@link GUIMap}. Desde ella se
- * lanza el juego y se controlan los fallos y aciertos. Implementa
- * de {@link GameControllers} y {@link ActionListener}. Se muestra una ventana con un mapa politico y una
- * obra y su autor. El objetivo seleccionar el pais que expone dicha obra.
+ * lanza el juego y se controlan los fallos y aciertos. Implementa de
+ * {@link GameControllers} y {@link ActionListener}. Se muestra una ventana con
+ * un mapa politico y una obra y su autor. El objetivo seleccionar el pais que
+ * expone dicha obra.
  *
  * @see GUIMap
  * @see GameControllers
@@ -318,7 +319,7 @@ public class MapController implements ActionListener, GameControllers {
         } catch (MalformedURLException ex) {
             System.err.println("Imagen mal formada.");
         }
-        Image proportionalImage = ImagesSize.getProportionalDimensionImage(imageIcon, view.getArtworkImage().getSize());
+        Image proportionalImage = ImagesSize.getProportionalDimensionImage(imageIcon, view.getArtworkImage().getSize(), false);
         view.getArtworkImage().setIcon(new ImageIcon(proportionalImage));
     }
 
@@ -459,17 +460,17 @@ public class MapController implements ActionListener, GameControllers {
     /**
      * mouseAdapterOne: crea un {@link DefaultWaypoint} en la posicion del raton
      * sobre la que se ha realizado click derecho.
-     * 
+     *
      * @see DefaultWaypoint
      */
     private MouseAdapter mouseAdapterOne = new MouseAdapter() {
         /**
          * mouseClicked: al realizar click derecho limpia los conjuntos de
-         * posiciones de tipo {@link GeoPosition}, anyade la posicion del raton 
-         * a las colecciones de {@link GeoPosition} y de {@link Waypoint}, utiliza 
-         * {@link WaypointPainter} para pintarla y {@link CountryExtractor} para
-         * recuperar el pais.
-         * 
+         * posiciones de tipo {@link GeoPosition}, anyade la posicion del raton
+         * a las colecciones de {@link GeoPosition} y de {@link Waypoint},
+         * utiliza {@link WaypointPainter} para pintarla y
+         * {@link CountryExtractor} para recuperar el pais.
+         *
          * @see GeoPosition
          * @see Waypoint
          * @see WaypointPainter
@@ -499,14 +500,15 @@ public class MapController implements ActionListener, GameControllers {
     };
 
     /**
-     * mouseAdapterTwo: visualiza la imagen de la obra de forma ampliada en
-     * una ventana de tipo {@link VisualizeImage}.
+     * mouseAdapterTwo: visualiza la imagen de la obra de forma ampliada en una
+     * ventana de tipo {@link VisualizeImage}.
      */
     private MouseAdapter mouseAdapterTwo = new MouseAdapter() {
         /**
          * mouseClicked: al hacer doble click sobre la imagen de la obra se crea
-         * una {@link VisualizeImage} que contiene la imagen en un tamanyo ampliado.
-         * 
+         * una {@link VisualizeImage} que contiene la imagen en un tamanyo
+         * ampliado.
+         *
          * @param MouseEvent
          */
         @Override
@@ -519,7 +521,8 @@ public class MapController implements ActionListener, GameControllers {
                 } catch (MalformedURLException ex) {
                     System.err.println("Imagen mal formada.");
                 }
-                vi.getImage().setIcon(new ImageIcon(ImagesSize.getProportionalDimensionImage(i, new Dimension((int) (GameConstants.SCREEN_SIZE.width * 0.9), (int) (GameConstants.SCREEN_SIZE.height * 0.8)))));
+                vi.getImage().setIcon(new ImageIcon(ImagesSize.getProportionalDimensionImage(i,
+                        new Dimension((int) (GameConstants.SCREEN_SIZE.width * 0.9), (int) (GameConstants.SCREEN_SIZE.height * 0.8)), false)));
                 vi.getContentPane().setPreferredSize(vi.getImage().getPreferredSize());
                 vi.pack();
                 vi.setVisible(true);

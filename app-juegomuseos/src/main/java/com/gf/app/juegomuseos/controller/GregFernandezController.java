@@ -243,9 +243,9 @@ public class GregFernandezController implements GameControllers {
 
     /**
      * setIcon: metodo que coloca una imagen proporcional que consigue de la url
-     * pasada como parametro. Utilizo la utilidad de 
+     * pasada como parametro. Utilizo la utilidad de
      * {@link ImagesSize#getProportionalDimensionImage(javax.swing.ImageIcon, java.awt.Dimension)}
-     * 
+     *
      * @see ImagesSize
      *
      * @param url la url de la imagen.
@@ -259,7 +259,7 @@ public class GregFernandezController implements GameControllers {
             JOptionPane.showMessageDialog(null, "Error");
         }
         Image proportionalImage = ImagesSize.getProportionalDimensionImage(i,
-                new Dimension(GameConstants.SCREEN_SIZE.width / 2, view.getPanelImages().getSize().height));
+                new Dimension(GameConstants.SCREEN_SIZE.width / 2, view.getPanelImages().getSize().height), true);
         image.setIcon(new ImageIcon(proportionalImage));
     }
 
