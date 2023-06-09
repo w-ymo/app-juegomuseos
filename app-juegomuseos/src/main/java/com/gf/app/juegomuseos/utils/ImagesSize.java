@@ -9,11 +9,22 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 /**
+ * ImagesSize: es una clase que permite operar con las imagenes.
  *
- * @author noelp
+ * @author priparno
+ * @author fercaslu
  */
 public class ImagesSize {
 
+    /**
+     * getProportionalDimensionImage: devuelve una imagen que mantenga la
+     * relacion de aspecto dependiendo de la dimension pasada por parametro.
+     *
+     * @param i objeto de tipo {@link ImageIcon} con la imagen
+     * @param gapSize objeto de tipo {@link Dimension} con las medidas donde se
+     * colocara la imagen
+     * @return una imagen reescalada de tipo {@link Image}
+     */
     public static Image getProportionalDimensionImage(ImageIcon i, Dimension gapSize) {
         int x = i.getIconWidth();
         int y = i.getIconHeight();

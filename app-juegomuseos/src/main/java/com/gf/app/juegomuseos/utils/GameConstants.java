@@ -8,8 +8,11 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 /**
+ * GameConstants: es una interfaz que contiene diversas constantes para el
+ * funcionamiento del juego.
  *
  * @author priparno
+ * @author fercaslu
  */
 public interface GameConstants {
 
@@ -32,7 +35,7 @@ public interface GameConstants {
     public static final String[] GAMES_CODES = {WHOIS_CODE, TRUEFALSE_CODE, GREGORIO_CODE, MAPGAME_CODE};
 
     public static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
-    
+
     public static final String[] RANKING_COLUMNS = {"Nombre", "Puntuación"};
 
 }

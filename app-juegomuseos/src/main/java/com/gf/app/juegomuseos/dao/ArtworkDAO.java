@@ -89,11 +89,14 @@ public class ArtworkDAO {
     }
 
     /**
-     * selectNum: devuelve una lista de 
+     * selectNum: devuelve una lista de {@link Artwork} aleatoria dependiendo
+     * del numero introducido por parametro. La lista contendra tantos elementos
+     * como el numero pasado por parametro.
      *
-     * @param num
-     * @return
-     * @throws SQLException
+     * @param num un entero para el numero de obras que tiene la lista
+     * @return una lista de {@link Artwork}
+     * @throws SQLException si no consigue acceder a la base de datos (error
+     * sintactico o base de datos no encontrada)
      */
     public List<Artwork> selectNum(int num) throws SQLException {
         List<Artwork> fullList = selectAll();
@@ -106,11 +109,13 @@ public class ArtworkDAO {
     }
 
     /**
+     * selectIdAuthor: devuelve una lista de {@link Artwork} cuando el id del
+     * autor sea el pasado por parametro.
      *
-     *
-     * @param id
-     * @return
-     * @throws SQLException
+     * @param id un entero que representa el id del autor
+     * @return una lista de {@link Artwork}
+     * @throws SQLException si no consigue acceder a la base de datos (error
+     * sintactico o base de datos no encontrada)
      */
     public List<Artwork> selectIdAuthor(int id) throws SQLException {
         String sql = "SELECT * FROM obras WHERE id_autor=" + id;
@@ -138,10 +143,15 @@ public class ArtworkDAO {
     }
 
     /**
+     * selectSimilar: devuelve una lista de {@link Artwork} que contiene las
+     * obras similares segun el parametro key. En la base de datos se almacena
+     * un campo 'clave' que refleja la palabra o palabras clave de la obra en
+     * cuestion.
      *
-     * @param key
-     * @return
-     * @throws SQLException
+     * @param key una cadena que representa el valor clave a comparar
+     * @return una lista de {@link Artwork}
+     * @throws SQLException si no consigue acceder a la base de datos (error
+     * sintactico o base de datos no encontrada)
      */
     public List<Artwork> selectSimilar(String key) throws SQLException {
         String sql = "SELECT * FROM obras WHERE clave_obra='" + key + "'";
@@ -169,11 +179,18 @@ public class ArtworkDAO {
     }
 
     /**
+     * selectSimilar: devuelve una lista de {@link Artwork} que contiene las
+     * obras similares segun el parametro key y que no coinciden con el autor
+     * que se ve reflejado en el entero pasado como parametro. En la base de
+     * datos se almacena un campo 'clave' que refleja la palabra o palabras
+     * clave de la obra en cuestion.
      *
-     * @param key
-     * @param id_author
-     * @return
-     * @throws SQLException
+     * @param key una cadena que representa el valor clave a comparar
+     * @param id_author un entero que representa el id de autor, el cual no
+     * tiene que coincidir.
+     * @return una lista de {@link Artwork}
+     * @throws SQLException si no consigue acceder a la base de datos (error
+     * sintactico o base de datos no encontrada)
      */
     public List<Artwork> selectSimilar(String key, int id_author) throws SQLException {
         String sql = "SELECT * FROM obras WHERE clave_obra='" + key + "' and id_autor<>" + id_author;
