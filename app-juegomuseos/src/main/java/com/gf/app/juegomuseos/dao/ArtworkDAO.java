@@ -15,11 +15,22 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * ArtworkDAO: es la clase que permite el acceso a la base de datos. En
+ * especifico a la tabla 'obras'.
  *
- * @author noelp
+ * @author priparno
+ * @author fercaslu
  */
 public class ArtworkDAO {
 
+    /**
+     * selectAll: devuelve una lista de todos los elementos de obras de la base
+     * de datos.
+     *
+     * @return una lista de objeto {@link Artwork}
+     * @throws SQLException si no consigue acceder a la base de datos (error
+     * sintactico o base de datos no encontrada)
+     */
     public List<Artwork> selectAll() throws SQLException {
         String sql = "SELECT * FROM obras";
         List<Artwork> list = new ArrayList<>();
@@ -45,6 +56,15 @@ public class ArtworkDAO {
         return list;
     }
 
+    /**
+     * selectId: devuelve un objeto {@link Artwork} que tenga el mismo
+     * identificador que el pasado por parametro.
+     *
+     * @param id un entero que representa el id de la obra
+     * @return un objeto {@link Artwork}
+     * @throws SQLException si no consigue acceder a la base de datos (error
+     * sintactico o base de datos no encontrada)
+     */
     public Artwork selectId(int id) throws SQLException {
         String sql = "SELECT * FROM obras WHERE id_obra=" + id;
         Artwork a = new Artwork();
@@ -68,6 +88,13 @@ public class ArtworkDAO {
         return a;
     }
 
+    /**
+     * selectNum: devuelve una lista de 
+     *
+     * @param num
+     * @return
+     * @throws SQLException
+     */
     public List<Artwork> selectNum(int num) throws SQLException {
         List<Artwork> fullList = selectAll();
         Collections.shuffle(fullList);
@@ -78,6 +105,13 @@ public class ArtworkDAO {
         return partialList;
     }
 
+    /**
+     *
+     *
+     * @param id
+     * @return
+     * @throws SQLException
+     */
     public List<Artwork> selectIdAuthor(int id) throws SQLException {
         String sql = "SELECT * FROM obras WHERE id_autor=" + id;
         List<Artwork> list = new ArrayList<>();
@@ -103,6 +137,12 @@ public class ArtworkDAO {
         return list;
     }
 
+    /**
+     *
+     * @param key
+     * @return
+     * @throws SQLException
+     */
     public List<Artwork> selectSimilar(String key) throws SQLException {
         String sql = "SELECT * FROM obras WHERE clave_obra='" + key + "'";
         List<Artwork> list = new ArrayList<>();
@@ -128,6 +168,13 @@ public class ArtworkDAO {
         return list;
     }
 
+    /**
+     *
+     * @param key
+     * @param id_author
+     * @return
+     * @throws SQLException
+     */
     public List<Artwork> selectSimilar(String key, int id_author) throws SQLException {
         String sql = "SELECT * FROM obras WHERE clave_obra='" + key + "' and id_autor<>" + id_author;
         List<Artwork> list = new ArrayList<>();
@@ -151,6 +198,5 @@ public class ArtworkDAO {
             }
         }
         return list;
-
     }
 }

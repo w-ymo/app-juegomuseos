@@ -5,77 +5,78 @@
 package com.gf.app.juegomuseos.models;
 
 /**
- * Artwork: clase que refleja la entidad de la obra obtenida de la base de datos.
- * 
+ * Artwork: clase que refleja la entidad de la obra obtenida de la base de
+ * datos.
+ *
  * @author priparno
  * @author fercaslu
  */
 public class Artwork {
 
     /**
-     * id_obra: entero que representa el atributo del id de la obra en la tabla 
+     * id_obra: entero que representa el atributo del id de la obra en la tabla
      * obras de la base de datos.
      */
     private int id_obra;
-    
+
     /**
-     * nombre_obra: cadena de caracteres que representa el atributo del nombre 
+     * nombre_obra: cadena de caracteres que representa el atributo del nombre
      * de la obra en la tabla obras de la base de datos.
      */
     private String nombre_obra;
-    
+
     /**
-     * descripcion_obra: cadena de caracteres que representa el atributo del nombre 
-     * de la obra en la tabla obras de la base de datos.
+     * descripcion_obra: cadena de caracteres que representa el atributo del
+     * nombre de la obra en la tabla obras de la base de datos.
      */
     private String descripcion_obra;
-    
+
     /**
-     * id_obra: entero que representa el atributo del id de la tabla obras de 
-     * la base de datos.
+     * id_obra: entero que representa el atributo del id de la tabla obras de la
+     * base de datos.
      */
     private String clave_obra;
-    
+
     /**
-     * id_obra: entero que representa el atributo del id de la tabla obras de 
-     * la base de datos.
+     * id_obra: entero que representa el atributo del id de la tabla obras de la
+     * base de datos.
      */
     private String disciplina;
-    
+
     /**
-     * id_obra: entero que representa el atributo del id de la tabla obras de 
-     * la base de datos.
+     * id_obra: entero que representa el atributo del id de la tabla obras de la
+     * base de datos.
      */
     private String imagen_obra;
-    
+
     /**
-     * id_obra: entero que representa el atributo del id de la tabla obras de 
-     * la base de datos.
+     * id_obra: entero que representa el atributo del id de la tabla obras de la
+     * base de datos.
      */
     private int id_museo;
-    
+
     /**
-     * id_obra: entero que representa el atributo del id de la tabla obras de 
-     * la base de datos.
+     * id_obra: entero que representa el atributo del id de la tabla obras de la
+     * base de datos.
      */
     private int id_autor;
-    
+
     /**
-     * id_obra: entero que representa el atributo del id de la tabla obras de 
-     * la base de datos.
+     * id_obra: entero que representa el atributo del id de la tabla obras de la
+     * base de datos.
      */
     private double longitud;
-    
+
     /**
-     * id_obra: entero que representa el atributo del id de la tabla obras de 
-     * la base de datos.
+     * id_obra: entero que representa el atributo del id de la tabla obras de la
+     * base de datos.
      */
     private double latitud;
 
     //GETTER/SETTER
     /**
      * getId_obra: devuelve un entero que representa el id de la obra.
-     * 
+     *
      * @return id_obra
      */
     public int getId_obra() {
@@ -83,30 +84,30 @@ public class Artwork {
     }
 
     /**
-     * setId_obra: actualiza el entero que representa id de la obra con el pasado como 
-     * parameto.
-     * 
-     * @param id_obra 
+     * setId_obra: actualiza el entero que representa id de la obra con el
+     * pasado como parameto.
+     *
+     * @param id_obra
      */
     public void setId_obra(int id_obra) {
         this.id_obra = id_obra;
     }
 
     /**
-     * getClave_obra: devuelve una cadena de caracteres que representa la palabra 
-     * clave de la obra.
-     * 
-     * @return clave_obra una cadena de caracteres que representa la palabra clave
-     * de la obra
+     * getClave_obra: devuelve una cadena de caracteres que representa la
+     * palabra clave de la obra.
+     *
+     * @return clave_obra una cadena de caracteres que representa la palabra
+     * clave de la obra
      */
     public String getClave_obra() {
         return clave_obra;
     }
 
     /**
-     * setClave_obra: actualiza la cadena de caracteres que representa la palabra 
-     * clave de la obra con la pasada como parameto.
-     * 
+     * setClave_obra: actualiza la cadena de caracteres que representa la
+     * palabra clave de la obra con la pasada como parameto.
+     *
      * @param clave_obra una cadena de caracteres
      */
     public void setClave_obra(String clave_obra) {
@@ -114,9 +115,9 @@ public class Artwork {
     }
 
     /**
-     * geNombre_obra: devuelve una cadena de caracteres que representa el nombre 
+     * geNombre_obra: devuelve una cadena de caracteres que representa el nombre
      * de la obra.
-     * 
+     *
      * @return nombre_obra una cadena de caracteres
      */
     public String getNombre_obra() {
@@ -124,9 +125,9 @@ public class Artwork {
     }
 
     /**
-     * setNombre_obra: actualiza la cadena de caracteres que representa el 
+     * setNombre_obra: actualiza la cadena de caracteres que representa el
      * nombre de la obra con el pasado como parameto.
-     * 
+     *
      * @param nombre_obra una cadena de caracteres
      */
     public void setNombre_obra(String nombre_obra) {
@@ -134,9 +135,9 @@ public class Artwork {
     }
 
     /**
-     * getDescripcion_obra: devuelve una cadena de caracteres que representa la 
+     * getDescripcion_obra: devuelve una cadena de caracteres que representa la
      * descripcion de la obra.
-     * 
+     *
      * @return descripcion_obra una cadena de caracteres
      */
     public String getDescripcion_obra() {
@@ -144,9 +145,9 @@ public class Artwork {
     }
 
     /**
-     * setDescipcion_obra: actualiza la cadena de caracteres que representa la 
+     * setDescipcion_obra: actualiza la cadena de caracteres que representa la
      * descripcion de la obra con la pasada como parameto.
-     * 
+     *
      * @param descripcion_obra una cadena de caracteres
      */
     public void setDescripcion_obra(String descripcion_obra) {
@@ -154,9 +155,9 @@ public class Artwork {
     }
 
     /**
-     * getDisciplina: devuelve una cadena de caracteres que representa la 
+     * getDisciplina: devuelve una cadena de caracteres que representa la
      * disciplina de la obra.
-     * 
+     *
      * @return disciplina una cadena de caracteres
      */
     public String getDisciplina() {
@@ -164,9 +165,9 @@ public class Artwork {
     }
 
     /**
-     * setDisciplina: actualiza la cadena de caracteres que representa la 
+     * setDisciplina: actualiza la cadena de caracteres que representa la
      * disciplina de la obra con la pasada como parameto.
-     * 
+     *
      * @param disciplina una cadena de caracteres
      */
     public void setDisciplina(String disciplina) {
@@ -176,8 +177,8 @@ public class Artwork {
     /**
      * getImagen_obra: devuelve una cadena de caracteres que representa la url
      * de la imagen de la obra.
-     * 
-     * @return imagen_obra una cadena de caracteres que representa la url de la 
+     *
+     * @return imagen_obra una cadena de caracteres que representa la url de la
      * imagen
      */
     public String getImagen_obra() {
@@ -185,10 +186,10 @@ public class Artwork {
     }
 
     /**
-     * setImagen_obra: actualiza la cadena de caracteres que representa la 
-     * url de la obra con la pasada como parameto.
-     * 
-     * @param imagen_obra una cadena de caracteres que representa la url de la 
+     * setImagen_obra: actualiza la cadena de caracteres que representa la url
+     * de la obra con la pasada como parameto.
+     *
+     * @param imagen_obra una cadena de caracteres que representa la url de la
      * imagen
      */
     public void setImagen_obra(String imagen_obra) {
@@ -197,7 +198,7 @@ public class Artwork {
 
     /**
      * getId_museo: devuelve un entero que representa el entero
-     * 
+     *
      * @return id_museo un entero
      */
     public int getId_museo() {
@@ -207,7 +208,7 @@ public class Artwork {
     /**
      * setId_museo: actualiza el entero que representa el id del museo en el que
      * se encuentra la obra con el pasado como parameto.
-     * 
+     *
      * @param id_museo un entero
      */
     public void setId_museo(int id_museo) {
@@ -219,9 +220,9 @@ public class Artwork {
     }
 
     /**
-     * setId_museo: actualiza el entero que representa el id del autor que ha 
+     * setId_museo: actualiza el entero que representa el id del autor que ha
      * realizado la obra con el pasado como parameto.
-     * 
+     *
      * @param id_autor un entero
      */
     public void setId_autor(int id_autor) {
@@ -229,9 +230,9 @@ public class Artwork {
     }
 
     /**
-     * getLongitud: devuelve una decimal que representa la longitud de la posicion 
-     * en la que se encuentra la obra.
-     * 
+     * getLongitud: devuelve un decimal que representa la longitud de la
+     * posicion en la que se encuentra la obra.
+     *
      * @return longitud un numero decimal
      */
     public double getLongitud() {
@@ -239,9 +240,9 @@ public class Artwork {
     }
 
     /**
-     * setLongitud: actualiza el decimal que representa la longitud de la posicion
-     * en la que se encuentra la obra
-     * 
+     * setLongitud: actualiza el decimal que representa la longitud de la
+     * posicion en la que se encuentra la obra
+     *
      * @param longitud un numero decimal
      */
     public void setLongitud(double longitud) {
@@ -249,8 +250,9 @@ public class Artwork {
     }
 
     /**
-     * 
-     * 
+     * getLatitud: devuelve un decimal que representa la latitud de la posicion
+     * en la que se encuentra la obra.
+     *
      * @return latitud un numero decimal
      */
     public double getLatitud() {
@@ -260,15 +262,13 @@ public class Artwork {
     /**
      * setLatitud: actualiza el decimal que representa la latitud de la posicion
      * en la que se encuentra la obra
-     * 
-     * @param longitud un numero decimal
+     *
+     * @param latitud un numero decimal
      */
     public void setLatitud(double latitud) {
         this.latitud = latitud;
     }
 
-    
-    
     @Override
     public String toString() {
         return "Artwork{" + "id_obra=" + id_obra + ", nombre_obra=" + nombre_obra + ", descripcion_obra=" + descripcion_obra + ", disciplina=" + disciplina + ", id_museo=" + id_museo + ", id_autor=" + id_autor + '}';
