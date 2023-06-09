@@ -16,8 +16,14 @@ import java.awt.Toolkit;
  */
 public interface GameConstants {
 
+    /**
+     * FREE_MODE: es un booleano que indica el modo libre.
+     */
     public static final boolean FREE_MODE = false;
 
+    /**
+     * COMP_MODE: es un booleano que indica el modo competitivo.
+     */
     public static final boolean COMP_MODE = true;
 
     public static final String WHOIS_CODE = "WH";
@@ -28,10 +34,21 @@ public interface GameConstants {
 
     public static final String MAPGAME_CODE = "MP";
 
+    /**
+     * MAIN_MENU_OPTIONS: es un array de cadenas de caracteres que indica las 
+     * opciones presentadas en la ventana principal de la aplicacion.
+     */
     public static final String[] MAIN_MENU_OPTIONS = {"MODO YINCANA", "MODO LIBRE", "RANKING", "INFORMACION", "AJUSTES", "SALIR"};
 
+    /**
+     * GAMES_NAMES: es un array de cadenas de caracteres que indica los juegos 
+     * disponibles en la ventana del modo libre de la aplicacion.
+     */
     public static final String[] GAMES_NAMES = {"¿Quién lo hizo?", "Verdadero/Falso de museos", "Gregorio Fernández", "Coloca en el mapa"};
 
+    /**
+     * GAMES_CODES
+     */
     public static final String[] GAMES_CODES = {WHOIS_CODE, TRUEFALSE_CODE, GREGORIO_CODE, MAPGAME_CODE};
 
     public static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
