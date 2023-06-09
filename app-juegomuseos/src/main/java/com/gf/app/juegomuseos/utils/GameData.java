@@ -228,8 +228,10 @@ public class GameData {
     }
 
     /**
+     * isValid: si no existen los archivos o estan corruptos no deja correr la
+     * aplicacion.
      *
-     * @return
+     * @return true -> el archivo es valido, false -> el archivo no es valido
      */
     public static boolean isValid() {
         if (infoHTML.exists() && infoSettings.exists()) {
