@@ -1,4 +1,4 @@
 #AppSettings
-Modo oscuro%com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme
+Modo claro%com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme
 #Volume
-Volume%-39
+Volume%-15
