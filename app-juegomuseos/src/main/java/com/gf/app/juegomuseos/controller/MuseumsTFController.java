@@ -198,8 +198,8 @@ public class MuseumsTFController implements ActionListener, GameControllers {
      * @see ActionListener
      */
     private void addListenerButtons() {
-        view.getTrueButton().addActionListener(this);
-        view.getFalseButton().addActionListener(this);
+        view.getExistButton().addActionListener(this);
+        view.getNotExistButton().addActionListener(this);
     }
 
     /**
@@ -276,10 +276,10 @@ public class MuseumsTFController implements ActionListener, GameControllers {
      */
     private void guessedWrong(JButton button) {
         JButton correctButton = null;
-        if (button.equals(view.getTrueButton())) {
-            correctButton = view.getFalseButton();
-        } else if (button.equals(view.getFalseButton())) {
-            correctButton = view.getTrueButton();
+        if (button.equals(view.getExistButton())) {
+            correctButton = view.getNotExistButton();
+        } else if (button.equals(view.getNotExistButton())) {
+            correctButton = view.getExistButton();
         }
         ResultDialog rd = new ResultDialog(view, false);
         rd.initTimer();
@@ -299,7 +299,7 @@ public class MuseumsTFController implements ActionListener, GameControllers {
     public void actionPerformed(ActionEvent e) {
         JButton b = (JButton) e.getSource();
         boolean greaterThanOne = museumSolution.getId_museo() >= 1;
-        if (b.equals(view.getTrueButton())) {
+        if (b.equals(view.getExistButton())) {
             if (greaterThanOne) {
                 guessedRight(b);
             } else {

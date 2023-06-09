@@ -15,26 +15,75 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.jxmapviewer.JXMapKit;
+import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.VirtualEarthTileFactoryInfo;
 import org.jxmapviewer.viewer.DefaultTileFactory;
 
 
 /**
- *
+ * GUIMap: vista del controlador {@link MapController} donde se muestra un mapa 
+ * y una obra de arte. El objetivo es colocar la obra de arte en el mapa.
  * 
- * @author Luis
+ * @see MapController
+ * 
+ * @author fercaslu
  */
 public class GUIMap extends javax.swing.JFrame {  
     
+    /**
+     * mapKit: es un mapa de tipo {@link JXMapKit} preconfigurado que muestra 
+     * un mapa con una barra y dos botones de zoom.
+     * 
+     * @see JXMapKit
+     */
     private JXMapKit mapKit = new JXMapKit();
+    
+    /**
+     * info: informacion detallada del mapa.
+     */
     private VirtualEarthTileFactoryInfo info;
+    
+    /**
+     * tileFactory: fabrica de las baldosas por defecto que utiliza Google Maps
+     * como proyeccion de Mercator.
+     */
     private DefaultTileFactory tileFactory;
+    
+    /**
+     * infoPanel: panel que contiene la imagen, el nombre, el autor de la obra
+     * y el boton para fijar la posicion del marcador.
+     */
     private JPanel infoPanel;
+    
+    /**
+     * chronoPanel: panel que contiene la {@link JLabel} del cronometro.
+     */
     private JPanel chronoPanel;
+    
+    /**
+     * textTime: es la {@link JLabel} que contendra el cronometro.
+     */
     private JLabel textTime;
+    
+    /**
+     * artworkImage: es la etiqueta que contendra la imagen de la obra.
+     */
     private JLabel artworkImage;
+    
+    /**
+     * artworkLabel: es la etiqueta que contendra el nombre de la obra.
+     */
     private JLabel artworkLabel;
+    
+    /**
+     * authorLabel: es la etiqueta que contendra el nombre del autor de la obra.
+     */
     private JLabel authorLabel;
+    
+    /**
+     * confirmButton: es el boton que bloqueara la posicion que se ha elegido
+     * para la obra.
+     */
     private JButton confirmButton;
 
     /**
@@ -45,24 +94,35 @@ public class GUIMap extends javax.swing.JFrame {
             setFrame();
     }
     
+    /**
+     * setFrame: es el metodo principal que coloca en la vista los componentes 
+     * y el titulo.
+     */
     private void setFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.getContentPane().setLayout(new BorderLayout());
         setMapKit();
         setInfoPanel();
-        setChronoPanel();
+        setTimePanel();
         this.getContentPane().add(mapKit, BorderLayout.CENTER);
         this.getContentPane().add(infoPanel, BorderLayout.WEST);
     }
     
-    private void setChronoPanel() {
+    /**
+     * setTimePanel: panel que situa el cronometro.
+     */
+    private void setTimePanel() {
         chronoPanel = new JPanel(new FlowLayout());
         textTime = new JLabel();
         chronoPanel.add(textTime);
         this.getContentPane().add(chronoPanel, BorderLayout.NORTH);
     }
     
+    /**
+     * setInfoPanel: coloca la etiqueta donde estara la imagen, las etiquetas
+     * donde se situaran el nombre de la obra y el autor y el boton de confirmar.
+     */
     private void setInfoPanel() {
         infoPanel = new JPanel(new GridLayout(4, 0));
         Font font = new Font(infoPanel.getFont().getName(), Font.BOLD, 15);
@@ -85,6 +145,11 @@ public class GUIMap extends javax.swing.JFrame {
         infoPanel.add(confirmButton);
     }
     
+    /**
+     * setMapKit: anyade la informacion sobre el mapa recogido, crea las baldosas
+     * y ajusta el mapa a la pantalla.
+     * 
+     */
     private void setMapKit() {
         info = new VirtualEarthTileFactoryInfo(VirtualEarthTileFactoryInfo.HYBRID);
         tileFactory = new DefaultTileFactory(info);
@@ -94,60 +159,65 @@ public class GUIMap extends javax.swing.JFrame {
         mapKit.setBounds(0, -65, GameConstants.SCREEN_SIZE.width, GameConstants.SCREEN_SIZE.height);
     }
     
+    //GETTER/SETTER
+    /**
+     * getMapKit: devuelve un {@link JMapKit} donde se crea el mapa.
+     * 
+     * @return un {@link JMapKit}
+     */
     public JXMapKit getMapKit() {
         return mapKit;
     }
-    
-    public void setMapKit(JXMapKit mapKit) {
-        this.mapKit = mapKit;
-    }
-    
-    public JPanel getInfoPanel() {
-        return infoPanel;
-    }
-    
-    public void setInfoPanel(JPanel infoPanel) {
-        this.infoPanel = infoPanel;
-    }
 
+    /**
+     * getTextTime: devuelve el {@link JLabel} del cronometro.
+     *
+     * @see Crono
+     *
+     * @return un {@link JLabel}
+     */
     public JLabel getTextTime() {
         return textTime;
     }
-
-    public void setTextTime(JLabel textTime) {
-        this.textTime = textTime;
-    }
     
+    /**
+     * getArtworkImage: devuelve un {@link JLabel} donde se situa la imagen de la
+     * obra.
+     *
+     * @return un {@link JLabel}
+     */
     public JLabel getArtworkImage() {
         return artworkImage;
     }
     
-    public void setArtworkImage(JLabel artworkImage) {
-        this.artworkImage = artworkImage;
-    }
-    
+    /**
+     * getImageText: devuelve un {@link JLabel} donde se situa el nombre de la
+     * obra.
+     *
+     * @return un {@link JLabel}
+     */
     public JLabel getArtworkLabel() {
         return artworkLabel;
     }
     
-    public void setArtworkLabel(JLabel artworkLabel) {
-        this.artworkLabel = artworkLabel;
-    }
-    
+    /**
+     * getImageText: devuelve un {@link JLabel} donde se situa el nombre del 
+     * autor de la obra.
+     *
+     * @return un {@link JLabel}
+     */
     public JLabel getAuthorLabel() {
         return authorLabel;
     }
-    
-    public void setAuthorLabel(JLabel authorLabel) {
-        this.authorLabel = authorLabel;
-    }
 
+    /**
+     * getConfirmButton: devuelve un {@link JButton} que al ser accionado 
+     * bloquea la posicion que se ha seleccionado sobre el mapa.
+     * 
+     * @return un {@link JButton}
+     */
     public JButton getConfirmButton() {
         return confirmButton;
-    }
-
-    public void setConfirmButton(JButton confirmButton) {
-        this.confirmButton = confirmButton;
     }
     
     /**
