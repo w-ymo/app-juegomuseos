@@ -47,16 +47,21 @@ public class InputRankingController implements GameControllers {
         if (!view.getFieldName().getText().isEmpty()) {
             Ranking r = new Ranking();
             r.setNombre_usuario(view.getFieldName().getText());
-            //pone el tiempo en String formateado
-            r.setPuntuacion(((MainController) parent).getTimer().getFormattedTime());
-            try {
-                if (rDAO.insert(r)) {
-                    view.dispose();
-                    openMenu();
+            if (r.getNombre_usuario().length() < 50) {
+                //pone el tiempo en String formateado
+                r.setPuntuacion(((MainController) parent).getTimer().getFormattedTime());
+                try {
+                    if (rDAO.insert(r)) {
+                        view.dispose();
+                        openMenu();
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(view, "El nombre no puede superar los 50 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
             }
+
         }
     };
 
@@ -102,7 +107,7 @@ public class InputRankingController implements GameControllers {
             parentC.getTimer().stop();
             view.getRealTime().setText(parentC.getTimer().getFormattedTime());
             view.getPenalties().setText("+" + (parentC.getFails() * 5) + "s.");
-            parentC.getTimer().setTime(parentC.getTimer().getTime() + parentC.getFails());
+            parentC.getTimer().setTime(parentC.getTimer().getTime() + (parentC.getFails() * 5));
             view.getTotalTime().setText("TOTAL: " + parentC.getTimer().getFormattedTime());
         }
     }

@@ -50,7 +50,7 @@ public class Music {
             //inicia la cancion
             clip.start();
             setVolume(GameData.VOLUME);
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(null, "Error de archivo de audio. Revise 'resources'", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
