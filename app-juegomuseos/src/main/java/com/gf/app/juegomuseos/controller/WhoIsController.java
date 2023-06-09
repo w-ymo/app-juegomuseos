@@ -135,7 +135,7 @@ public class WhoIsController implements GameControllers {
                 view.dispose();
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error");
+            JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
         }
     };
 
@@ -243,7 +243,7 @@ public class WhoIsController implements GameControllers {
                         repeatedDB.add(imageSelected.getId_obra());
                     }
                 } catch (SQLException ex) {
-                    System.out.println("Error al acceder a la base de datos");
+                    JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } while (Collections.binarySearch(repeatedDB, imageSelected.getId_obra()) >= 0);
             //actualiza en la vista los datos de la obra.
@@ -261,7 +261,7 @@ public class WhoIsController implements GameControllers {
             }
             setIcon();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
+            JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
             counter = 15;
         }
     }
@@ -280,7 +280,7 @@ public class WhoIsController implements GameControllers {
             //pone url de imageSelected
             i = new ImageIcon(new URL(imageSelected.getImagen_obra()));
         } catch (MalformedURLException ex) {
-            System.out.println("Error");
+            JOptionPane.showMessageDialog(view, "URL no encontrada", "Error", JOptionPane.ERROR_MESSAGE);
         }
         //consigue una imagen que mantiene la relacion de aspecto que la original pero ocupa el mayor espacio posible
         Image proportionalImage = ImagesSize.getProportionalDimensionImage(i, view.getPanelImages().getSize(), false);

@@ -9,6 +9,7 @@ import com.gf.app.juegomuseos.models.Ranking;
 import com.gf.app.juegomuseos.views.GUIInputRanking;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  * InputRankingController: es el controlador de la ventana
@@ -54,7 +55,7 @@ public class InputRankingController implements GameControllers {
                     openMenu();
                 }
             } catch (SQLException ex) {
-                System.err.println("Error al acceder a la base de datos.");
+                JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     };

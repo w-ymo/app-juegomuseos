@@ -127,7 +127,7 @@ public class GregFernandezController implements GameControllers {
                 view.dispose();
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "error garrafal");
+            JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
         }
     };
 
@@ -237,7 +237,7 @@ public class GregFernandezController implements GameControllers {
                 view.getImages().get(i).setName(String.valueOf(artworksNames.get(i).getId_autor()));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
+            JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -256,7 +256,7 @@ public class GregFernandezController implements GameControllers {
         try {
             i = new ImageIcon(new URL(url));
         } catch (MalformedURLException ex) {
-            JOptionPane.showMessageDialog(null, "Error");
+            JOptionPane.showMessageDialog(view, "URL no encontrada", "Error", JOptionPane.ERROR_MESSAGE);
         }
         Image proportionalImage = ImagesSize.getProportionalDimensionImage(i,
                 new Dimension(GameConstants.SCREEN_SIZE.width / 2, view.getPanelImages().getSize().height), true);
@@ -273,7 +273,7 @@ public class GregFernandezController implements GameControllers {
             gregorioArtwork = awDAO.selectIdAuthor(atDAO.getIdGregorioFernandez());
             Collections.shuffle(gregorioArtwork);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
+            JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
         }
         initGame();
         closeParentView();

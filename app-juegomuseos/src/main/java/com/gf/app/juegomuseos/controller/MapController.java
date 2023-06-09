@@ -298,7 +298,7 @@ public class MapController implements ActionListener, GameControllers {
             view.getAuthorLabel().setText(authorSolution.getNombre_autor());
             setIcon();
         } catch (SQLException ex) {
-            System.err.println("Error de Base de Datos");
+            JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);;
         }
         //asignacion de posicion y de pais de la obra
         artworkPosition = new GeoPosition(artworkSolution.getLatitud(), artworkSolution.getLongitud());
@@ -317,7 +317,7 @@ public class MapController implements ActionListener, GameControllers {
         try {
             imageIcon = new ImageIcon(new URL(artworkSolution.getImagen_obra()));
         } catch (MalformedURLException ex) {
-            System.err.println("Imagen mal formada.");
+            JOptionPane.showMessageDialog(view, "URL no encontrada", "Error", JOptionPane.ERROR_MESSAGE);
         }
         Image proportionalImage = ImagesSize.getProportionalDimensionImage(imageIcon, view.getArtworkImage().getSize(), false);
         view.getArtworkImage().setIcon(new ImageIcon(proportionalImage));
@@ -519,7 +519,7 @@ public class MapController implements ActionListener, GameControllers {
                 try {
                     i = new ImageIcon(new URL(artworkSolution.getImagen_obra()));
                 } catch (MalformedURLException ex) {
-                    System.err.println("Imagen mal formada.");
+                    JOptionPane.showMessageDialog(view, "URL no encontrada", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 vi.getImage().setIcon(new ImageIcon(ImagesSize.getProportionalDimensionImage(i,
                         new Dimension((int) (GameConstants.SCREEN_SIZE.width * 0.9), (int) (GameConstants.SCREEN_SIZE.height * 0.8)), false)));

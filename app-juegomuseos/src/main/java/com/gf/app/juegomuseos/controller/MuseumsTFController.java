@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  * MuseumsTFController: es el controlador de la ventana {@link MuseumsTFController}.
@@ -219,7 +220,7 @@ public class MuseumsTFController implements ActionListener, GameControllers {
                         repeatedDB.add(museumSolution.getId_museo());
                     }
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } while (Collections.binarySearch(repeatedDB, museumSolution.getId_museo()) >= 0);
 
