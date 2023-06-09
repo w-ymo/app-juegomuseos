@@ -5,13 +5,30 @@
 package com.gf.app.juegomuseos.models;
 
 /**
- *
- * @author noelp
+ * Ranking: clase que refleja la entidad del ranking obtenida de la base de
+ * datos.
+ * 
+ * @author priparno
+ * @author fercaslu
  */
 public class Ranking implements Comparable<Ranking> {
 
+    /**
+     * id_ranking: entero que representa el atributo del id del ranking en la tabla
+     * ranking de la base de datos.
+     */
     private int id_ranking;
+    
+    /**
+     * nombre_usuario: cadena de caracteres que representa el atributo del nombre
+     * del usuario en la tabla ranking de la base de datos.
+     */
     private String nombre_usuario;
+    
+    /**
+     * puntuacion: cadena de caracteres que representa el attriburo de la puntuacion 
+     * en minutos y segundos en la tabla ranking de la base de datos.
+     */
     private String puntuacion;
 
     public int getId_ranking() {

@@ -12,8 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  * GameData: clase que proporciona la informacion necesaria para el
@@ -75,7 +74,7 @@ public class GameData {
                 html += sentence + "\n";
             }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.err.println("Error de entrada salida.");
         }
         return html;
     }
@@ -102,9 +101,9 @@ public class GameData {
                 }
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Archivo no encontrado.");
         } catch (IOException ex) {
-            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error de entrada salida.");
         }
         return settings;
     }
@@ -128,9 +127,9 @@ public class GameData {
                 }
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Archivo no encontrado.");
         } catch (IOException ex) {
-            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error de entrada salida.");
         }
         //modifico la linea del estilo (empieza por Modo)
         try ( BufferedReader br = new BufferedReader(new FileReader(tempSettings))) {
@@ -147,9 +146,9 @@ public class GameData {
                 }
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Archivo no encontrado.");
         } catch (IOException ex) {
-            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error de entrada salida.");
         }
         tempSettings.delete();
     }
@@ -176,9 +175,9 @@ public class GameData {
                 }
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Archivo no encontrado.");
         } catch (IOException ex) {
-            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error de entrada salida.");
         }
         return settings;
     }
@@ -202,9 +201,9 @@ public class GameData {
                 }
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Archivo no encontrado.");
         } catch (IOException ex) {
-            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error de entrada salida.");
         }
         //modifico la linea del estilo (empieza por Volume)
         try ( BufferedReader br = new BufferedReader(new FileReader(tempSettings))) {
@@ -221,10 +220,26 @@ public class GameData {
                 }
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Archivo no encontrado.");
         } catch (IOException ex) {
-            Logger.getLogger(GameData.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error de entrada salida.");
         }
         tempSettings.delete();
     }
+
+    /**
+     * isValid: si no existen los archivos o estan corruptos no deja correr la
+     * aplicacion.
+     *
+     * @return true -> el archivo es valido, false -> el archivo no es valido
+     */
+    public static boolean isValid() {
+        if (infoHTML.exists() && infoSettings.exists()) {
+            return infoHTML.length() > 0 && infoSettings.length() > 0;
+        } else {
+            JOptionPane.showMessageDialog(null, "Error en los archivos de juego. Revise 'resources'", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+
 }

@@ -158,7 +158,7 @@ INSERT INTO `paises` (`nombre_pais`) VALUES ('China'),
 
 CREATE TABLE `ranking` (
   `id_ranking` int(11) NOT NULL,
-  `nombre_usuario` varchar(10) NOT NULL,
+  `nombre_usuario` varchar(50) NOT NULL,
   `puntuacion` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

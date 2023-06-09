@@ -102,16 +102,17 @@ public class GregFernandezController implements GameControllers {
         try {
             //dependiendo de si la solucion es correcta o no, muestra un JDialog por 1 segundo que indica correcto o incorrecto.
             if (but.getName().equals(String.valueOf(atDAO.getIdGregorioFernandez()))) {
-                ResultDialog rd = new ResultDialog(view, true);
+                ResultDialog rd = new ResultDialog(view, true, null);
                 rd.initTimer();
                 rd.setVisible(true);
             } else {
-                ResultDialog rd = new ResultDialog(view, false);
+                ResultDialog rd = new ResultDialog(view, false, null);
                 rd.initTimer();
                 rd.setVisible(true);
                 fails++;
             }
             counter++;
+            updateRound();
             //se repite el juego hasta que pasen 5 rondas.
             if (counter < 5) {
                 initGame();
@@ -127,7 +128,7 @@ public class GregFernandezController implements GameControllers {
                 view.dispose();
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "error garrafal");
+            JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
         }
     };
 
@@ -222,6 +223,7 @@ public class GregFernandezController implements GameControllers {
      */
     private void initGame() {
         try {
+            updateRound();
             solution = gregorioArtwork.get(0);
             //elimina de la lista con todas las obras para no repetir.
             gregorioArtwork.remove(0);
@@ -237,15 +239,15 @@ public class GregFernandezController implements GameControllers {
                 view.getImages().get(i).setName(String.valueOf(artworksNames.get(i).getId_autor()));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
+            JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     /**
      * setIcon: metodo que coloca una imagen proporcional que consigue de la url
-     * pasada como parametro. Utilizo la utilidad de 
+     * pasada como parametro. Utilizo la utilidad de
      * {@link ImagesSize#getProportionalDimensionImage(javax.swing.ImageIcon, java.awt.Dimension)}
-     * 
+     *
      * @see ImagesSize
      *
      * @param url la url de la imagen.
@@ -256,11 +258,18 @@ public class GregFernandezController implements GameControllers {
         try {
             i = new ImageIcon(new URL(url));
         } catch (MalformedURLException ex) {
-            JOptionPane.showMessageDialog(null, "Error");
+            JOptionPane.showMessageDialog(view, "URL no encontrada", "Error", JOptionPane.ERROR_MESSAGE);
         }
         Image proportionalImage = ImagesSize.getProportionalDimensionImage(i,
-                new Dimension(GameConstants.SCREEN_SIZE.width / 2, view.getPanelImages().getSize().height));
+                new Dimension(GameConstants.SCREEN_SIZE.width / 2, view.getPanelImages().getSize().height), true);
         image.setIcon(new ImageIcon(proportionalImage));
+    }
+    
+    /**
+     * updateRound: actualiza en la ventana el contador de rondas.
+     */
+    private void updateRound() {
+        view.getRoundText().setText("RONDAS: " + (counter + 1) + "/5");
     }
 
     /**
@@ -273,7 +282,7 @@ public class GregFernandezController implements GameControllers {
             gregorioArtwork = awDAO.selectIdAuthor(atDAO.getIdGregorioFernandez());
             Collections.shuffle(gregorioArtwork);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
+            JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
         }
         initGame();
         closeParentView();

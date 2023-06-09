@@ -12,10 +12,11 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.JOptionPane;
 
 /**
  * Music: en esta clase se dan las herramientas necesarias para introducir
- * música al juego.
+ * musica al juego.
  *
  * @author priparno
  */
@@ -49,8 +50,8 @@ public class Music {
             //inicia la cancion
             clip.start();
             setVolume(GameData.VOLUME);
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-            System.err.println("Problemitas");
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException | IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(null, "Error de archivo de audio. Revise 'resources'", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -73,7 +74,22 @@ public class Music {
             clip.stop();
             input.close();
         } catch (IOException ex) {
-            System.err.println("Error");
+            System.err.println("Error de entrada salida.");
+        }
+    }
+
+    /**
+     * isValid: si no existe el archivo o esta corrupto no deja correr la
+     * aplicacion.
+     *
+     * @return true -> el archivo es valido, false -> el archivo no es valido
+     */
+    public static boolean isValid() {
+        if (MUSIC.exists()) {
+            return MUSIC.length() > 0;
+        } else {
+            JOptionPane.showMessageDialog(null, "Error en los archivos de sonido. Revise 'resources'", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 }

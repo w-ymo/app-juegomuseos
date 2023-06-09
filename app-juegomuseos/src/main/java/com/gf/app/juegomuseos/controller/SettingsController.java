@@ -10,9 +10,11 @@ import com.gf.app.juegomuseos.utils.Music;
 import com.gf.app.juegomuseos.views.GUISettings;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ChangeListener;
 
 /**
@@ -71,8 +73,8 @@ public class SettingsController implements GameControllers {
         }
         try {
             UIManager.setLookAndFeel(GameData.getInfoStyle()[1]);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ex) {
+            JOptionPane.showMessageDialog(view, "No se ha podido accer al Look and Feel", "Error", JOptionPane.ERROR_MESSAGE);
         }
         SwingUtilities.updateComponentTreeUI(parent.getView());
         this.view.dispose();

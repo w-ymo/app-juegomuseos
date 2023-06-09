@@ -5,42 +5,60 @@
 package com.gf.app.juegomuseos.views;
 
 import com.gf.app.juegomuseos.utils.Colors;
+import com.gf.app.juegomuseos.utils.GameConstants;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Panel;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.Timer;
 
 /**
+ * ResultDialog: es una ventana que muestra un mensaje de "CORRECTO" o
+ * "INCORRECTO" dependiendo de si acierta o falla la pregunta. Este aparece
+ * durante 3 segundos.
  *
  * @author priparno
  */
 public class ResultDialog extends javax.swing.JDialog {
 
+    /**
+     * msgText: es la etiqueta que contendra el texto dependiendo de si es
+     * correcto o no.
+     */
     private JLabel msgText;
+    
+    /**
+     * solutionText: es la etiqueta que contendra el texto con la solucion si es
+     * incorrecto.
+     */
+    private JLabel solutionText;
+    /**
+     * parent: es la vista padre, desde donde se llama.
+     */
     private JFrame parent;
+    /**
+     * windowSize: el tamanio de la ventana, relativo al tamanio de la pantalla.
+     */
     private Dimension windowSize;
 
     /**
      * Creates new form ResultDialog
+     *
+     * @param parent una vista
+     * @param correct true -> imprime correcto, false -> imprime incorrecto
      */
-    public ResultDialog(JFrame parent, boolean correct) {
+    public ResultDialog(JFrame parent, boolean correct, String solution) {
         this.setUndecorated(true);
         this.setModal(true);
         this.parent = parent;
         initComponents();
         msgText = new JLabel();
+        solutionText = new JLabel();
+        solutionText.setText(solution);
         setFrame();
         setLabelStyle();
         if (correct) {
@@ -50,39 +68,61 @@ public class ResultDialog extends javax.swing.JDialog {
         }
     }
 
+    /**
+     * setFrame: es el metodo principal que coloca en la vista la etiqueta con
+     * el texto.
+     */
     private void setFrame() {
         this.setResizable(false);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        windowSize = new Dimension((int) (screenSize.width * 0.5), (int) (screenSize.height * 0.3));
+        windowSize = new Dimension((int) (GameConstants.SCREEN_SIZE.width * 0.5), (int) (GameConstants.SCREEN_SIZE.height * 0.3));
         this.setSize(windowSize);
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(msgText, BorderLayout.CENTER);
-        msgText.setHorizontalAlignment(SwingConstants.CENTER);
         this.setLocationRelativeTo(null);
     }
 
+    /**
+     * setCorrect: da valor a la etiqueta y color al fondo. Texto: CORRECTO.
+     */
     private void setCorrect() {
         msgText.setText("Correcto");
         this.getContentPane().setBackground(Colors.GREEN);
     }
 
+    /**
+     * setIncorrect: da valor a la etiqueta y color al fondo. Texto: INCORRECTO.
+     */
     private void setIncorrect() {
-        msgText.setText("Incorrecto");
+        msgText.setText("Incorrecto (+ 5s)");
+        JPanel tempPanel = new JPanel(new FlowLayout());
+        tempPanel.add(solutionText);
+        this.getContentPane().add(tempPanel, BorderLayout.SOUTH);
+        tempPanel.setBackground(Colors.RED);
         this.getContentPane().setBackground(Colors.RED);
     }
 
+    /**
+     * setLabelStyle: da estilo a las etiquetas.
+     */
     private void setLabelStyle() {
         Font parentFont = parent.getFont();
+        solutionText.setFont(parentFont.deriveFont(Font.BOLD, 35f));
         msgText.setFont(parentFont.deriveFont(Font.BOLD, 50f));
+        solutionText.setHorizontalAlignment(SwingConstants.CENTER);
+        msgText.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
+    /**
+     * initTimer: inicia un cronometro en el que en 3 segundos despues de que se
+     * inicie se cierra el dialogo.
+     */
     public void initTimer() {
         JDialog pane = this;
         Thread t = new Thread(() -> {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.err.println("Se ha interrumpido la operacion.");
             }
             pane.dispose();
         });
@@ -113,48 +153,6 @@ public class ResultDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(ResultDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(ResultDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(ResultDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(ResultDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the dialog */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                ResultDialog dialog = new ResultDialog(new javax.swing.JFrame(), false);
-//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
-//                dialog.setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

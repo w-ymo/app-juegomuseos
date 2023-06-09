@@ -4,11 +4,13 @@
  */
 package com.gf.app.juegomuseos.views;
 
+import com.gf.app.juegomuseos.utils.Colors;
 import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.utils.GameData;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -18,7 +20,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -61,7 +65,7 @@ public class GUIPrincipal extends javax.swing.JFrame {
             initComponents();
             setFrame();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(GUIMuseumsTF.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se ha podido accceder al Look and Feel.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -82,9 +86,12 @@ public class GUIPrincipal extends javax.swing.JFrame {
      * setLogo: coloca el logo en la ventana.
      */
     private void setLogo() {
-        logoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        labelLogo = new JLabel("HEY");
-        logoPanel.add(labelLogo);
+        logoPanel = new JPanel(new BorderLayout());
+        logoPanel.setPreferredSize(new Dimension(300, 300));
+        labelLogo = new JLabel("Juego de los Museos");
+        labelLogo.setFont(this.getFont().deriveFont(Font.BOLD, 75f));
+        labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        logoPanel.add(labelLogo, BorderLayout.CENTER);
         this.getContentPane().add(logoPanel, BorderLayout.NORTH);
     }
 
@@ -94,9 +101,11 @@ public class GUIPrincipal extends javax.swing.JFrame {
     private void setButtons() {
         optionsPanel = new JPanel(new FlowLayout());
         optionsPanel.setSize((int) (this.getContentPane().getWidth() * 0.7), (int) (this.getContentPane().getHeight() * 0.3));
-        JPanel gridPanel = new JPanel(new GridLayout(GameConstants.MAIN_MENU_OPTIONS.length, 0));
+        JPanel gridPanel = new JPanel(new GridLayout(GameConstants.MAIN_MENU_OPTIONS.length, 0, 0, 25));
         for (String MAIN_MENU_OPTIONS : GameConstants.MAIN_MENU_OPTIONS) {
             JButton but = new JButton(MAIN_MENU_OPTIONS);
+            but.setFont(this.getFont().deriveFont(Font.BOLD));
+            but.setForeground(Colors.THEME_ORANGE);
             but.setPreferredSize(new Dimension(optionsPanel.getWidth(), optionsPanel.getHeight() / GameConstants.MAIN_MENU_OPTIONS.length));
             options.add(but);
             gridPanel.add(but);

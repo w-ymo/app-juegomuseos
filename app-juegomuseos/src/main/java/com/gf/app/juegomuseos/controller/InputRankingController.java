@@ -8,7 +8,10 @@ import com.gf.app.juegomuseos.dao.RankingDAO;
 import com.gf.app.juegomuseos.models.Ranking;
 import com.gf.app.juegomuseos.views.GUIInputRanking;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  * InputRankingController: es el controlador de la ventana
@@ -46,17 +49,32 @@ public class InputRankingController implements GameControllers {
         if (!view.getFieldName().getText().isEmpty()) {
             Ranking r = new Ranking();
             r.setNombre_usuario(view.getFieldName().getText());
-            //pone el tiempo en String formateado
-            r.setPuntuacion(((MainController) parent).getTimer().getFormattedTime());
-            try {
-                if (rDAO.insert(r)) {
-                    view.dispose();
-                    openMenu();
+            if (r.getNombre_usuario().length() < 50) {
+                //pone el tiempo en String formateado
+                r.setPuntuacion(((MainController) parent).getTimer().getFormattedTime());
+                try {
+                    if (rDAO.insert(r)) {
+                        view.dispose();
+                        openMenu();
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (SQLException ex) {
-                System.err.println("Error al acceder a la base de datos.");
+            } else {
+                JOptionPane.showMessageDialog(view, "El nombre no puede superar los 50 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+    };
+
+    private KeyAdapter listenerConfirmKey = new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                view.getConfirmButton().doClick();
             }
         }
+
     };
 
     //CONSTRUCTOR
@@ -89,6 +107,7 @@ public class InputRankingController implements GameControllers {
      */
     private void addListeners() {
         view.getConfirmButton().addActionListener(listenerButtons);
+        view.getFieldName().addKeyListener(listenerConfirmKey);
     }
 
     /**
@@ -98,9 +117,10 @@ public class InputRankingController implements GameControllers {
      */
     private void setData() {
         if (parent instanceof MainController parentC) {
+            parentC.getTimer().stop();
             view.getRealTime().setText(parentC.getTimer().getFormattedTime());
             view.getPenalties().setText("+" + (parentC.getFails() * 5) + "s.");
-            parentC.getTimer().setTime(parentC.getTimer().getTime() + parentC.getFails());
+            parentC.getTimer().setTime(parentC.getTimer().getTime() + (parentC.getFails() * 5));
             view.getTotalTime().setText("TOTAL: " + parentC.getTimer().getFormattedTime());
         }
     }

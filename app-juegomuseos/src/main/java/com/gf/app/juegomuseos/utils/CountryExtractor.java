@@ -26,8 +26,8 @@ public class CountryExtractor {
      * longitud de forma decimal y utilizando Nominatim de OpenStreetMap se extrae
      * el nombre del pais al que pertenecen dichas coordenadas.
      * 
-     * @param latitude 
-     * @param longitude  
+     * @param latitude un decimal
+     * @param longitude un decimal
      */
     public static String getCountryName(double latitude, double longitude) {
         if (longitude > 180) {
@@ -49,7 +49,7 @@ public class CountryExtractor {
             Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
                String response = scanner.hasNext() ? scanner.next() : "";
 
-            //analisis y formateo de respuesa y extraccion de nombre de pais
+            //analisis y formato de respuesa y extraccion de nombre de pais
             String countryName = response.contains("\"country\":\"") ? response.split("\"country\":\"")[1].split("\"")[0] : "";
 
             //cierre de conexiones y devolucion de nombre de pais
@@ -57,10 +57,8 @@ public class CountryExtractor {
             inputStream.close();
             conn.disconnect();
             return countryName;
-            
         } catch (IOException e) {
-            e.printStackTrace();
-
+            System.err.println("Error de entrada salida.");
         }
         return null;
     }

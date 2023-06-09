@@ -11,24 +11,18 @@ import com.gf.app.juegomuseos.models.Author;
 import com.gf.app.juegomuseos.utils.Crono;
 import com.gf.app.juegomuseos.utils.GameConstants;
 import com.gf.app.juegomuseos.utils.ImagesSize;
-import com.gf.app.juegomuseos.views.GUIGregorioFernandez;
 import com.gf.app.juegomuseos.views.GUIMuseumsTF;
 import com.gf.app.juegomuseos.views.GUIWhoIs;
 import com.gf.app.juegomuseos.views.ResultDialog;
-import com.gf.app.juegomuseos.views.VisualizeImage;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -116,16 +110,17 @@ public class WhoIsController implements GameControllers {
             Author at = atDAO.selectId(atId);
             //dependiendo de si la solucion es correcta o no, muestra un JDialog por 1 segundo que indica correcto o incorrecto.
             if (but.getText().equals(at.getNombre_autor())) {
-                ResultDialog rd = new ResultDialog(view, true);
+                ResultDialog rd = new ResultDialog(view, true, null);
                 rd.initTimer();
                 rd.setVisible(true);
             } else {
-                ResultDialog rd = new ResultDialog(view, false);
+                ResultDialog rd = new ResultDialog(view, false, solution.getNombre_autor());
                 rd.initTimer();
                 rd.setVisible(true);
                 fails++;
             }
             counter++;
+            updateRound();
             //se repite el juego hasta que pasen 10 rondas.
             if (counter < 10) {
                 initGame();
@@ -141,33 +136,7 @@ public class WhoIsController implements GameControllers {
                 view.dispose();
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error");
-        }
-    };
-
-    /**
-     * mouseAdapter: es el escuchador de ratón. En este caso muestra en una
-     * ventana separada la imagen que se puede ver la imagen mostrada.
-     */
-    private MouseAdapter mouseAdapter = new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() == 2) {
-                //creo la ventana.
-                VisualizeImage vi = new VisualizeImage(view, true);
-                ImageIcon i = null;
-                try {
-                    i = new ImageIcon(new URL(imageSelected.getImagen_obra()));
-                } catch (MalformedURLException ex) {
-                    Logger.getLogger(GUIGregorioFernandez.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                //le pongo la imagen escalada proporcionalmente.
-                vi.getImage().setIcon(new ImageIcon(ImagesSize.getProportionalDimensionImage(i, new Dimension((int) (GameConstants.SCREEN_SIZE.width * 0.9), (int) (GameConstants.SCREEN_SIZE.height * 0.8)))));
-                vi.getContentPane().setPreferredSize(vi.getImage().getPreferredSize());
-                vi.pack();
-                //muestro la ventana.
-                vi.setVisible(true);
-            }
+            JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
         }
     };
 
@@ -258,7 +227,6 @@ public class WhoIsController implements GameControllers {
         for (JButton option : view.getOptions()) {
             option.addActionListener(listenerButtons);
         }
-        view.getImage().addMouseListener(mouseAdapter);
     }
 
     /**
@@ -266,6 +234,7 @@ public class WhoIsController implements GameControllers {
      */
     private void initGame() {
         try {
+            updateRound();
             //ordena la lista
             Collections.sort(repeatedDB);
             //busca en la base de datos hasta que consiga uno que no haya salido.
@@ -276,7 +245,7 @@ public class WhoIsController implements GameControllers {
                         repeatedDB.add(imageSelected.getId_obra());
                     }
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } while (Collections.binarySearch(repeatedDB, imageSelected.getId_obra()) >= 0);
             //actualiza en la vista los datos de la obra.
@@ -294,7 +263,7 @@ public class WhoIsController implements GameControllers {
             }
             setIcon();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos");
+            JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
             counter = 15;
         }
     }
@@ -313,11 +282,18 @@ public class WhoIsController implements GameControllers {
             //pone url de imageSelected
             i = new ImageIcon(new URL(imageSelected.getImagen_obra()));
         } catch (MalformedURLException ex) {
-            System.out.println("Error");
+            JOptionPane.showMessageDialog(view, "URL no encontrada", "Error", JOptionPane.ERROR_MESSAGE);
         }
         //consigue una imagen que mantiene la relacion de aspecto que la original pero ocupa el mayor espacio posible
-        Image proportionalImage = ImagesSize.getProportionalDimensionImage(i, view.getPanelImages().getSize());
+        Image proportionalImage = ImagesSize.getProportionalDimensionImage(i, view.getPanelImages().getSize(), false);
         view.getImage().setIcon(new ImageIcon(proportionalImage));
+    }
+
+    /**
+     * updateRound: actualiza en la ventana el contador de rondas.
+     */
+    private void updateRound() {
+        view.getRoundText().setText("RONDAS: " + (counter + 1) + "/10");
     }
 
     /**

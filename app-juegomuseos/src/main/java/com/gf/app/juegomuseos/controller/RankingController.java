@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  * RankingController: es el controlador de la ventana {@link GUIRanking}. Desde
@@ -93,7 +94,7 @@ public class RankingController implements GameControllers {
                 view.getModel().addRow(new String[]{ranking.getNombre_usuario(), ranking.getPuntuacion()});
             }
         } catch (SQLException ex) {
-            Logger.getLogger(RankingController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

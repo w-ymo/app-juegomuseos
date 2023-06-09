@@ -45,9 +45,10 @@ import org.jxmapviewer.viewer.WaypointPainter;
 
 /**
  * MapController: es el controlador de la ventana {@link GUIMap}. Desde ella se
- * lanza el juego y se controlan los fallos y aciertos. Implementa
- * de {@link GameControllers} y {@link ActionListener}. Se muestra una ventana con un mapa politico y una
- * obra y su autor. El objetivo seleccionar el pais que expone dicha obra.
+ * lanza el juego y se controlan los fallos y aciertos. Implementa de
+ * {@link GameControllers} y {@link ActionListener}. Se muestra una ventana con
+ * un mapa politico y una obra y su autor. El objetivo seleccionar el pais que
+ * expone dicha obra.
  *
  * @see GUIMap
  * @see GameControllers
@@ -245,7 +246,7 @@ public class MapController implements ActionListener, GameControllers {
 
     /**
      * getGameData: recoge los datos del controlador padre, que son los datos de
-     * la partida
+     * la partida.
      */
     private void getGameData() {
         if (parent instanceof MainController parentC) {
@@ -256,7 +257,7 @@ public class MapController implements ActionListener, GameControllers {
 
     /**
      * setGameData: actualiza los datos del controlador padre para que los
-     * siguientes juegos puedan acceder a ellos
+     * siguientes juegos puedan acceder a ellos.
      */
     private void setGameData() {
         if (parent instanceof MainController parentC) {
@@ -281,6 +282,7 @@ public class MapController implements ActionListener, GameControllers {
      * initGame: anyade datos a la ventana y permite el juego.
      */
     private void initGame() {
+        updateRound();
         Collections.sort(repeatedDB);
         try {
             //mientras coincida la obra recogida y la lista de obras repetidas recoger obras de la base de datos
@@ -297,7 +299,7 @@ public class MapController implements ActionListener, GameControllers {
             view.getAuthorLabel().setText(authorSolution.getNombre_autor());
             setIcon();
         } catch (SQLException ex) {
-            System.err.println("Error de Base de Datos");
+            JOptionPane.showMessageDialog(view, "Error de sintaxis", "Error", JOptionPane.ERROR_MESSAGE);;
         }
         //asignacion de posicion y de pais de la obra
         artworkPosition = new GeoPosition(artworkSolution.getLatitud(), artworkSolution.getLongitud());
@@ -316,9 +318,9 @@ public class MapController implements ActionListener, GameControllers {
         try {
             imageIcon = new ImageIcon(new URL(artworkSolution.getImagen_obra()));
         } catch (MalformedURLException ex) {
-            System.err.println("Imagen mal formada.");
+            JOptionPane.showMessageDialog(view, "URL no encontrada", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        Image proportionalImage = ImagesSize.getProportionalDimensionImage(imageIcon, view.getArtworkImage().getSize());
+        Image proportionalImage = ImagesSize.getProportionalDimensionImage(imageIcon, view.getArtworkImage().getSize(), false);
         view.getArtworkImage().setIcon(new ImageIcon(proportionalImage));
     }
 
@@ -370,7 +372,7 @@ public class MapController implements ActionListener, GameControllers {
      * @see ResultDialog
      */
     private void guessedRight() {
-        ResultDialog rd = new ResultDialog(view, true);
+        ResultDialog rd = new ResultDialog(view, true, null);
         rd.initTimer();
         rd.setVisible(true);
     }
@@ -382,7 +384,7 @@ public class MapController implements ActionListener, GameControllers {
      * @see ResultDialog
      */
     private void guessedWrong() {
-        ResultDialog rd = new ResultDialog(view, false);
+        ResultDialog rd = new ResultDialog(view, false, null);
         rd.initTimer();
         rd.setVisible(true);
         fails++;
@@ -423,7 +425,7 @@ public class MapController implements ActionListener, GameControllers {
      * pais de la posicion del click son el mismo y muestra si es correcto o
      * incorrecto.
      *
-     * @param ActionEvent
+     * @param e un {@link ActionEvent}
      */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -437,7 +439,7 @@ public class MapController implements ActionListener, GameControllers {
                 guessedWrong();
             }
             counter++;
-
+            updateRound();
             artworkCountry = null;
             clickedPositionCountry = null;
             //llama a initGame si no se ha llegado a 10 intentos, si se ha llegado dependiendo del modo se llamara al siguiente juego o al menu
@@ -459,23 +461,23 @@ public class MapController implements ActionListener, GameControllers {
     /**
      * mouseAdapterOne: crea un {@link DefaultWaypoint} en la posicion del raton
      * sobre la que se ha realizado click derecho.
-     * 
+     *
      * @see DefaultWaypoint
      */
     private MouseAdapter mouseAdapterOne = new MouseAdapter() {
         /**
          * mouseClicked: al realizar click derecho limpia los conjuntos de
-         * posiciones de tipo {@link GeoPosition}, anyade la posicion del raton 
-         * a las colecciones de {@link GeoPosition} y de {@link Waypoint}, utiliza 
-         * {@link WaypointPainter} para pintarla y {@link CountryExtractor} para
-         * recuperar el pais.
-         * 
+         * posiciones de tipo {@link GeoPosition}, anyade la posicion del raton
+         * a las colecciones de {@link GeoPosition} y de {@link Waypoint},
+         * utiliza {@link WaypointPainter} para pintarla y
+         * {@link CountryExtractor} para recuperar el pais.
+         *
          * @see GeoPosition
          * @see Waypoint
          * @see WaypointPainter
          * @see CountryExtractor
          *
-         * @param MouseEvent
+         * @param e un {@link MouseEvent}
          */
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -499,15 +501,16 @@ public class MapController implements ActionListener, GameControllers {
     };
 
     /**
-     * mouseAdapterTwo: visualiza la imagen de la obra de forma ampliada en
-     * una ventana de tipo {@link VisualizeImage}.
+     * mouseAdapterTwo: visualiza la imagen de la obra de forma ampliada en una
+     * ventana de tipo {@link VisualizeImage}.
      */
     private MouseAdapter mouseAdapterTwo = new MouseAdapter() {
         /**
          * mouseClicked: al hacer doble click sobre la imagen de la obra se crea
-         * una {@link VisualizeImage} que contiene la imagen en un tamanyo ampliado.
-         * 
-         * @param MouseEvent
+         * una {@link VisualizeImage} que contiene la imagen en un tamanyo
+         * ampliado el nombre de la obra y el autor.
+         *
+         * @param e un {@link MouseEvent}
          */
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -517,15 +520,25 @@ public class MapController implements ActionListener, GameControllers {
                 try {
                     i = new ImageIcon(new URL(artworkSolution.getImagen_obra()));
                 } catch (MalformedURLException ex) {
-                    System.err.println("Imagen mal formada.");
+                    JOptionPane.showMessageDialog(view, "URL no encontrada", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                vi.getImage().setIcon(new ImageIcon(ImagesSize.getProportionalDimensionImage(i, new Dimension((int) (GameConstants.SCREEN_SIZE.width * 0.9), (int) (GameConstants.SCREEN_SIZE.height * 0.8)))));
+                vi.getImage().setIcon(new ImageIcon(ImagesSize.getProportionalDimensionImage(i,
+                        new Dimension((int) (GameConstants.SCREEN_SIZE.width * 0.9), (int) (GameConstants.SCREEN_SIZE.height * 0.8)), false)));
+                vi.getAuthor().setText(authorSolution.getNombre_autor());
+                vi.getArtwork().setText(artworkSolution.getNombre_obra());
                 vi.getContentPane().setPreferredSize(vi.getImage().getPreferredSize());
                 vi.pack();
                 vi.setVisible(true);
             }
         }
     };
+
+    /**
+     * updateRound: actualiza en la ventana el contador de rondas.
+     */
+    private void updateRound() {
+        view.getRoundText().setText("RONDAS: " + (counter + 1) + "/10");
+    }
 
     /**
      * launch: metodo que se implemente de {@link GameControllers}. En este

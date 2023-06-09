@@ -17,12 +17,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
- * GUIMuseumsTF: vista del controlador {@link MuseumsTFController}
- * donde se muestra un museo y dos botones. El objetivo es acertar que museo
- * existe y cual no existe.
+ * GUIMuseumsTF: vista del controlador {@link MuseumsTFController} donde se
+ * muestra un museo y dos botones. El objetivo es acertar que museo existe y
+ * cual no existe.
  *
  * @see MuseumsTFController
- * 
+ *
  * @author fercaslu
  */
 public class GUIMuseumsTF extends javax.swing.JFrame {
@@ -31,9 +31,10 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
      * museumPanel: panel que contiene la etiqueta con el nombre del museo.
      */
     private JPanel museumPanel;
-    
+
     /**
-     * buttonsPanel: panel que contiene los dos botones con "Existe" y "No Existe"
+     * buttonsPanel: panel que contiene los dos botones con "Existe" y "No
+     * Existe"
      */
     private JPanel buttonsPanel;
 
@@ -46,7 +47,7 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
      * existButton: es el {@link JButton} que sacara que el museo existe.
      */
     private JButton existButton;
-    
+
     /**
      * notExistButton: es el {@link JButton} que sacara que el museo no existe.
      */
@@ -56,6 +57,10 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
      * textTime: es la {@link JLabel} que contendra el cronometro.
      */
     private JLabel textTime;
+    /**
+     * roundText: es la {@link JLabel} que contendra el numero de rondas.
+     */
+    private JLabel roundText;
 
     /**
      * Creates new form GUIVFMuseos
@@ -82,14 +87,17 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
      * setTimePanel: panel que situa el cronometro.
      */
     private void setTimePanel() {
-        JPanel extra = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel extra = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 0));
         this.getContentPane().add(extra, BorderLayout.NORTH);
         textTime = new JLabel();
+        roundText = new JLabel();
+        roundText.setFont(textTime.getFont().deriveFont(Font.BOLD, 20f));
+        extra.add(roundText);
         extra.add(textTime);
     }
 
     /**
-     * setMuseumPanel: coloca la etiqueta donde estara el nombre del museo y la 
+     * setMuseumPanel: coloca la etiqueta donde estara el nombre del museo y la
      * formatea.
      */
     private void setMuseumPanel() {
@@ -126,7 +134,7 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
 
     //GETTER/SETTER
     /**
-     * getMuseumLabel: devuelve un {@link JLabel} donde se situa el nombre del 
+     * getMuseumLabel: devuelve un {@link JLabel} donde se situa el nombre del
      * museo.
      *
      * @return un {@link JLabel}
@@ -159,11 +167,20 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
      * getTextTime: devuelve el {@link JLabel} del cronometro.
      *
      * @see Crono
-     * 
+     *
      * @return un {@link JLabel}
      */
     public JLabel getTextTime() {
         return textTime;
+    }
+
+    /**
+     * getRoundText: devuelve el {@link JLabel} de las rondas.
+     *
+     * @return un {@link JLabel}
+     */
+    public JLabel getRoundText() {
+        return roundText;
     }
 
     /**
@@ -191,50 +208,6 @@ public class GUIMuseumsTF extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(GUIMuseumsTF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(GUIMuseumsTF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(GUIMuseumsTF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(GUIMuseumsTF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the dialog */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                GUIMuseumsTF frame = new GUIMuseumsTF();
-//                frame.addWindowListener(new java.awt.event.WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
-//                frame.setVisible(true);
-//            }
-//        });
-//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

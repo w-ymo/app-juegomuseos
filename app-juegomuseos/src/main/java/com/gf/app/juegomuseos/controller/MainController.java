@@ -4,8 +4,10 @@
  */
 package com.gf.app.juegomuseos.controller;
 
+import com.gf.app.juegomuseos.utils.ConnectionDB;
 import com.gf.app.juegomuseos.utils.Crono;
 import com.gf.app.juegomuseos.utils.GameConstants;
+import com.gf.app.juegomuseos.utils.GameData;
 import com.gf.app.juegomuseos.utils.Music;
 import com.gf.app.juegomuseos.views.GUIInfo;
 import com.gf.app.juegomuseos.views.GUIPrincipal;
@@ -16,6 +18,7 @@ import com.gf.app.juegomuseos.views.GUIWhoIs;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  * MainController: es el controlador que contiene el menu principal, de la
@@ -86,7 +89,7 @@ public class MainController implements GameControllers {
                 view.dispose();
             }
             default ->
-                throw new AssertionError();
+                JOptionPane.showMessageDialog(view, "Error de acceso.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     };
 
@@ -102,8 +105,10 @@ public class MainController implements GameControllers {
     public MainController(GUIPrincipal view) {
         this.view = view;
         addListeners();
-        launch();
-        Music.start();
+        if (GameData.isValid() && Music.isValid() && ConnectionDB.isValid()) {
+            launch();
+            Music.start();
+        }
     }
 
     /**
@@ -132,7 +137,7 @@ public class MainController implements GameControllers {
 
     /**
      * setTimer: actualiza {@link #timer} al pasado como parametro.
-     * 
+     *
      * @see Crono
      *
      * @param timer el cronometro {@link Crono}
@@ -143,7 +148,7 @@ public class MainController implements GameControllers {
 
     /**
      * getFails: devuelve el numero de fallos.
-     * 
+     *
      * @return un entero que representa el numero de fallos
      */
     public int getFails() {
@@ -152,7 +157,7 @@ public class MainController implements GameControllers {
 
     /**
      * setFails: actualiza el valor de los fallos.
-     * 
+     *
      * @param fails entero que representa el numero de fallos
      */
     public void setFails(int fails) {
@@ -161,9 +166,9 @@ public class MainController implements GameControllers {
 
     /**
      * getView: devuelve la vista de tipo {@link GUIPrincipal}.
-     * 
+     *
      * @return una vista de tipo {@link GUIPrincipal}
-     */    
+     */
     public GUIPrincipal getView() {
         return view;
     }
