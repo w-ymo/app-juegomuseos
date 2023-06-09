@@ -282,6 +282,7 @@ public class MapController implements ActionListener, GameControllers {
      * initGame: anyade datos a la ventana y permite el juego.
      */
     private void initGame() {
+        updateRound();
         Collections.sort(repeatedDB);
         try {
             //mientras coincida la obra recogida y la lista de obras repetidas recoger obras de la base de datos
@@ -438,7 +439,7 @@ public class MapController implements ActionListener, GameControllers {
                 guessedWrong();
             }
             counter++;
-
+            updateRound();
             artworkCountry = null;
             clickedPositionCountry = null;
             //llama a initGame si no se ha llegado a 10 intentos, si se ha llegado dependiendo del modo se llamara al siguiente juego o al menu
@@ -531,6 +532,13 @@ public class MapController implements ActionListener, GameControllers {
             }
         }
     };
+
+    /**
+     * updateRound: actualiza en la ventana el contador de rondas.
+     */
+    private void updateRound() {
+        view.getRoundText().setText("RONDAS: " + (counter + 1) + "/10");
+    }
 
     /**
      * launch: metodo que se implemente de {@link GameControllers}. En este
