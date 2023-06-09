@@ -15,7 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.jxmapviewer.JXMapKit;
-import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.VirtualEarthTileFactoryInfo;
 import org.jxmapviewer.viewer.DefaultTileFactory;
 
@@ -148,7 +147,6 @@ public class GUIMap extends javax.swing.JFrame {
     /**
      * setMapKit: anyade la informacion sobre el mapa recogido, crea las
      * baldosas y ajusta el mapa a la pantalla.
-     *
      */
     private void setMapKit() {
         info = new VirtualEarthTileFactoryInfo(VirtualEarthTileFactoryInfo.HYBRID);

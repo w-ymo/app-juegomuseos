@@ -53,7 +53,7 @@ public class RoutePainter implements Painter<JXMapViewer> {
      * @see List
      * @see GeoPosition
      * 
-     * @param track
+     * @param track una {@link List}
      */
     public RoutePainter(List<GeoPosition> track) {
         // copy the list so that changes in the 
@@ -69,33 +69,43 @@ public class RoutePainter implements Painter<JXMapViewer> {
      * @see Graphics2D
      * @see JXMapViewer
      * 
-     * @param g2D
-     * @param mapViewer
-     * @param width 
-     * @param height 
+     * @param g2D un {@link Graphics2D}
+     * @param mapViewer un {@link JXMapViewer}
+     * @param width un entero, representa la anchura
+     * @param height un entero, representa la altura
      */
     @Override
     public void paint(Graphics2D g2D, JXMapViewer mapViewer, int width, int height) {
+        //creacion de copia de Graphics2D para evitar que los cambios sobre el propio objeto no afecte a los componentes
         g2D = (Graphics2D) g2D.create();
 
-        //convierte de viewport a mapa de bits del mundo
+        /*
+        Se obtiene el area visible del JXMapViewer y se realiza una traslacion de coordenadas
+        para ajustar el sistema de coordenadas del grafico al area visible del mapa.
+        */
         Rectangle rect = mapViewer.getViewportBounds();
         g2D.translate(-rect.x, -rect.y);
-
+        
+        /*
+        Si la variable antiAlias está configurada como true, se activa el antialiasing 
+        en el objeto g2D para obtener un mejor rendimiento.
+        */
         if (antiAlias) {
             g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         }
 
-        //se realiza el dibujo
+        //se dibuja una línea de contorno con un ancho de 4 pixeles
         g2D.setColor(Colors.ONYX);
         g2D.setStroke(new BasicStroke(4));
 
+        //se dibuja la linea real
         drawRoute(g2D, mapViewer);
 
-        //se realiza el dibujo de nuevo
+        //se dibuja de nuevo la linea con un ancho de 2 pixeles
         g2D.setColor(Color.blue.brighter());
         g2D.setStroke(new BasicStroke(2));
 
+        //se vuelve a dibujar la linea real
         drawRoute(g2D, mapViewer);
 
         g2D.dispose();

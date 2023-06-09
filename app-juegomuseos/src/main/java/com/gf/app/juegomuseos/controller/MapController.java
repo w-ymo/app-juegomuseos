@@ -246,7 +246,7 @@ public class MapController implements ActionListener, GameControllers {
 
     /**
      * getGameData: recoge los datos del controlador padre, que son los datos de
-     * la partida
+     * la partida.
      */
     private void getGameData() {
         if (parent instanceof MainController parentC) {
@@ -257,7 +257,7 @@ public class MapController implements ActionListener, GameControllers {
 
     /**
      * setGameData: actualiza los datos del controlador padre para que los
-     * siguientes juegos puedan acceder a ellos
+     * siguientes juegos puedan acceder a ellos.
      */
     private void setGameData() {
         if (parent instanceof MainController parentC) {

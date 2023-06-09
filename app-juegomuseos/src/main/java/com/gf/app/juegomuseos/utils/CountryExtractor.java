@@ -49,7 +49,7 @@ public class CountryExtractor {
             Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
                String response = scanner.hasNext() ? scanner.next() : "";
 
-            //analisis y formateo de respuesa y extraccion de nombre de pais
+            //analisis y formato de respuesa y extraccion de nombre de pais
             String countryName = response.contains("\"country\":\"") ? response.split("\"country\":\"")[1].split("\"")[0] : "";
 
             //cierre de conexiones y devolucion de nombre de pais
