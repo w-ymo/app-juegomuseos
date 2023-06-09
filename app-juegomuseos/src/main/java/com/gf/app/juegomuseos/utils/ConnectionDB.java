@@ -50,9 +50,10 @@ public class ConnectionDB {
     }
 
     /**
-     * isValid:
-     * 
-     * @return 
+     * isValid: si no permite la conexion con la base de datos no permite lanzar
+     * la aplicacion.
+     *
+     * @return true -> la conexion es valida, false -> la conexion no es valida
      */
     public static boolean isValid() {
         try {
