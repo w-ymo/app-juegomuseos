@@ -45,4 +45,4 @@ por **1º de Guía, Información y Asistencia Turística** el día 18 de mayo de
 
 ## AUTORES
 - [Noel Prieto Pardo](https://github.com/w-ymo)
-- [Luis Fernandez Castelo](https://github.com/565059)
+- [Luis Fernández Castelo](https://github.com/565059)
