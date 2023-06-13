@@ -42,3 +42,7 @@ El segundo modo es el **MODO LIBRE** donde puedes seleccionar el juego en concre
 Proyecto creado en el entorno educativo del **CPrFP Gregorio Fernández** para el ciclo de **1º de Desarrollo de Aplicaciones Multiplataforma** 
 para el módulo de Programación, basándose en la actividad *"Escape Room del Día de los Museos"* realizada
 por **1º de Guía, Información y Asistencia Turística** el día 18 de mayo de 2023.
+
+## AUTORES
+- [Noel Prieto Pardo](https://github.com/w-ymo)
+- [Luis Fernandez Castelo](https://github.com/565059)
